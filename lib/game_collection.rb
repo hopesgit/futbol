@@ -9,9 +9,9 @@ class GameCollection
   end
 
   def create_games(game_path)
-    csv = CSV.read(game_path, headers: true, header_converters: :symbol)
+    csv = CSV.foreach(game_path, headers: true, converters: :numeric, header_converters: :symbol)
     csv.map do |row|
-      Game.new(row)
+      Game.new(row.to_h)
     end
   end
 

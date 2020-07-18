@@ -21,7 +21,7 @@ class GameCollectionTest < Minitest::Test
   end
 
   def test_count_of_games_by_season
-    assert_equal ({"20122013" => 20}), @game_collection.count_of_games_by_season
+    assert_equal ({20122013 => 20}), @game_collection.count_of_games_by_season
   end
 
 end
