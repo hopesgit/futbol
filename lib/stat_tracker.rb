@@ -1,3 +1,5 @@
+require './lib/team_collection'
+
 class StatTracker
   def self.from_csv(data)
     #Read Data

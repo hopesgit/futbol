@@ -1,11 +1,10 @@
-require "minitest/autorun"
-require "minitest/pride"
-require "./lib/team_collection"
+require 'minitest/autorun'
+require 'minitest/pride'
+require './lib/team_collection'
 
 class TeamCollectionTest < Minitest::Test
-
   def setup
-    @team_collection = TeamCollection.new("./data/teams_fixture.csv")
+    @team_collection = TeamCollection.new('./data/teams_fixture.csv')
   end
 
   def test_it_exists
@@ -13,11 +12,11 @@ class TeamCollectionTest < Minitest::Test
   end
 
   def test_it_can_return_array_of_all_teams
-    teams = @team_collection.all
+    @team_collection.create_teams
+    
+    assert_instance_of Array, @team_collection.teams
+    assert_equal 20, @team_collection.teams.size
 
-    assert_instance_of Array, teams
-    assert_equal 2, teams.size 20
-
-    assert_equal true, teams.all? { |team| team.class == Team }
+    assert_equal true, @team_collection.teams.all? { |team| team.class == Team }
   end
 end
