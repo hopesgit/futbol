@@ -13,7 +13,6 @@ class TeamCollection
     csv = CSV.read(@teams_csv, headers: true, converters: :numeric, header_converters: :symbol)
     csv.map do |row|
       @teams << Team.new(row.to_h)
-      # require "pry"; binding.pry
     end
   end
 end
