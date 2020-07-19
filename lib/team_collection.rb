@@ -4,15 +4,16 @@ require './lib/team'
 class TeamCollection
   attr_reader :teams
 
-  def initialize(teams_data_input)
-    @teams_csv = teams_data_input
-    @teams = []
+  def initialize(teams_path)
+    @teams_csv = teams_path
+    @team_collection = all_teams
   end
 
-  def create_teams
-    csv = CSV.read(@teams_csv, headers: true, converters: :numeric, header_converters: :symbol)
-    csv.map do |row|
-      @teams << Team.new(row.to_h)
+  def all_teams
+    all_teams = []
+    CSV.foreach(@teams_csv, headers: true, converters: :numeric, header_converters: :symbol) do |row|
+      all_teams << Team.new(row.to_h)
     end
+    all_teams
   end
 end
