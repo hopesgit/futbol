@@ -4,7 +4,8 @@ require './lib/team_collection'
 
 class TeamCollectionTest < Minitest::Test
   def setup
-    @team_collection = TeamCollection.new('./data/teams_fixture.csv')
+    @team_path = './data/teams_fixture.csv'
+    @team_collection = TeamCollection.new(@team_path)
   end
 
   def test_it_exists
