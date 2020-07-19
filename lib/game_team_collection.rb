@@ -1,16 +1,18 @@
 require 'csv'
 
 class GameTeamCollection
+
+  attr_reader :all_game_teams
+
   def initialize(game_team_path)
     @game_team_path = game_team_path
-    @game_team_collection = all_game_teams
+    @all_game_teams = []
+    create_game_teams
   end
 
-  def all_game_teams
-    game_team_array = []
+  def create_game_teams
     CSV.foreach(@game_team_path, headers: true, converters: :numeric, header_converters: :symbol) do |row|
-      game_team_array << GameTeam.new(row.to_h)
+      @all_game_teams << GameTeam.new(row.to_h)
     end
-    game_team_array
   end
 end
