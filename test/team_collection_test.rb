@@ -13,11 +13,8 @@ class TeamCollectionTest < Minitest::Test
   end
 
   def test_it_can_return_array_of_all_teams
-    @team_collection.create_teams
-    
-    assert_instance_of Array, @team_collection.teams
-    assert_equal 20, @team_collection.teams.size
-
-    assert_equal true, @team_collection.teams.all? { |team| team.class == Team }
+    assert_instance_of Array, @team_collection.all_teams
+    assert_equal 20, @team_collection.all_teams.size
+    assert_equal true, @team_collection.all_teams.all? { |team| team.class == Team }
   end
 end
