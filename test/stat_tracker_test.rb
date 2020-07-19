@@ -26,4 +26,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal './data/teams_fixture.csv', @stat_tracker.team_path
     assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams_path
   end
+
+# Game Statistics Tests - Helper Methods #
+  def test_it_can_get_total_goals_per_game 
+    assert_equal 5, @stat_tracker.total_goals[:2012030221]
+  end
+
+# Game Statistics Tests - Stat Methods #
+
 end
