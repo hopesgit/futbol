@@ -30,7 +30,7 @@ class StatTrackerTest < Minitest::Test
     # assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams_path
   end
 
-  #Game Statistics
+  # Game Statistics Tests #
   def test_average_goals_per_game
     assert_equal 3.75, @stat_tracker.average_goals_per_game
   end

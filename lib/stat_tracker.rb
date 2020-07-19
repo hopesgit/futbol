@@ -25,7 +25,7 @@ class StatTracker
     self.new(game_path, team_path, game_team_path)
   end
 
-  #Game Statistics
+  # Game Statistics #
   def average_goals_per_game
     total_goals = 0
     @games.each do |game|
