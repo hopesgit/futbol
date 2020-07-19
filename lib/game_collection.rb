@@ -9,9 +9,9 @@ class GameCollection
     @game_collection = all_games
   end
 
-  def all_games 
+  def all_games
     all_games = []
-    csv = CSV.foreach(@game_path, headers: true, converters: :numeric, header_converters: :symbol) do |row|
+    CSV.foreach(@game_path, headers: true, converters: :numeric, header_converters: :symbol) do |row|
       all_games << Game.new(row.to_h)
     end
     all_games
