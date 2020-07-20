@@ -37,4 +37,9 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_highest_total_score
     assert 5, @stat_tracker.highest_total_score 
   end
+
+  def test_it_can_get_avg_goals_by_season
+    seasons_and_avg_goals = { 20122013 => 3.75 }
+    assert seasons_and_avg_goals, @stat_tracker.average_goals_by_season
+  end
 end
