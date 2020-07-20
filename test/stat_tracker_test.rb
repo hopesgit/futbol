@@ -28,13 +28,18 @@ class StatTrackerTest < Minitest::Test
   end
 
 # Game Statistics Tests - Helper Methods #
-  def test_it_can_get_total_goals_per_game 
+  def test_it_can_get_total_goals_per_game
     assert_equal 5, @stat_tracker.total_goals_per_game[2012030221]
     assert_equal 3, @stat_tracker.total_goals_per_game[2012030231]
   end
 
 # Game Statistics Tests - Stat Methods #
   def test_it_can_get_highest_total_score
-    assert 5, @stat_tracker.highest_total_score 
+    assert 5, @stat_tracker.highest_total_score
   end
+
+  def test_it_can_get_lowest_total_score
+    assert 1, @stat_tracker.lowest_total_score
+  end
+  
 end
