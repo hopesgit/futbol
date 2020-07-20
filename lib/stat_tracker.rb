@@ -24,8 +24,8 @@ class StatTracker
 
 # Game Statistics Tests - Helper Methods #
   def total_goals_per_game
-    @games.reduce({}) do |ids_to_scores, game| 
-      ids_to_scores[game.game_id.to_s] = game.away_goals + game.home_goals
+    @games.reduce({}) do |ids_to_scores, game|
+      ids_to_scores[game.game_id] = game.away_goals + game.home_goals
       ids_to_scores
     end
   end
