@@ -26,6 +26,19 @@ class StatTracker
   end
 
   # Game Statistics #
+
+  def total_goals_per_game
+  @games.reduce({}) do |ids_to_scores, game|
+    ids_to_scores[game.game_id] = game.away_goals + game.home_goals
+    ids_to_scores
+  end
+end
+
+# Game Statistics Tests - Stat Methods #
+  def highest_total_score
+    total_goals_per_game.max_by {|game_id, total_goals| total_goals}
+  end
+
   def average_goals_per_game
     total_goals = 0
     @games.each do |game|

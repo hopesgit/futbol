@@ -26,11 +26,21 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_has_attributes
     assert_instance_of GameCollection, @stat_tracker.game_collection
-    # assert_equal './data/teams_fixture.csv', @stat_tracker.team_path
-    # assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams_path
+    assert_equal './data/teams_fixture.csv', @stat_tracker.team_path
+    assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams_path
   end
 
-  # Game Statistics Tests #
+  # Game Statistics Tests - Helper Methods #
+  def test_it_can_get_total_goals_per_game
+    assert_equal 5, @stat_tracker.total_goals_per_game[2012030221]
+    assert_equal 3, @stat_tracker.total_goals_per_game[2012030231]
+  end
+
+  # Game Statistics Tests - Stat Methods #
+  def test_it_can_get_highest_total_score
+    assert 5, @stat_tracker.highest_total_score
+  end
+
   def test_average_goals_per_game
     assert_equal 3.75, @stat_tracker.average_goals_per_game
   end
