@@ -8,7 +8,7 @@ class StatTrackerTest < Minitest::Test
 
   def setup
     game_fixture_path = './data/games_fixture.csv'
-    team_fixture_path = './data/teams_fixture.csv'
+    team_fixture_path = './data/teams.csv'
     game_teams_fixture_path = './data/game_teams_fixture.csv'
 
     @fixture_locations = {
@@ -26,7 +26,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_has_attributes
     assert_instance_of GameCollection, @stat_tracker.game_collection
-    assert_equal './data/teams_fixture.csv', @stat_tracker.team_path
+    assert_equal './data/teams.csv', @stat_tracker.team_path
     assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams_path
   end
 
@@ -41,12 +41,13 @@ class StatTrackerTest < Minitest::Test
     assert 5, @stat_tracker.highest_total_score
   end
 
+  def test_count_of_games_by_season
+    assert_equal ({20122013 => 20}), @stat_tracker.count_of_games_by_season
+  end
+
   def test_average_goals_per_game
     assert_equal 3.75, @stat_tracker.average_goals_per_game
   end
 
-  def test_count_of_games_by_season
-    assert_equal ({20122013 => 20}), @stat_tracker.count_of_games_by_season
-  end
 
 end
