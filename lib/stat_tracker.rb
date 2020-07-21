@@ -37,25 +37,7 @@ class StatTracker
 
 # Game Statistics Tests - Stat Methods #
   def highest_total_score
-    total_goals_per_game.max_by {|game_id, total_goals| total_goals}
-  end
-
-  def count_of_games_by_season
-    season_games = Hash.new(0)
-    @games.each do |game|
-      season_games[game.season] += 1
-    end
-    season_games
-  end
-
-  def average_goals_per_game
-    count = total_goals_per_game.keys.length
-
-    # @games.each do |game|
-    #   total_goals += game.away_goals
-    #   total_goals += game.home_goals
-    # end
-    # (total_goals / @games.count.to_f).round(2)
+    total_goals_per_game.max_by {|game_id, total_goals| total_goals}[1]
   end
 
 end

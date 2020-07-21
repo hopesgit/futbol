@@ -17,7 +17,7 @@ class GameCollectionTest < Minitest::Test
     @@game_collection.all_games
     assert_instance_of Array, @@game_collection.all_games
 
-    assert_equal 20, @@game_collection.all_games.count
+    assert_equal 30, @@game_collection.all_games.count
 
     assert_equal true, @@game_collection.all_games.all? { |game| game.class == Game }
   end

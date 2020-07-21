@@ -14,7 +14,7 @@ class GameTeamCollectionTest < Minitest::Test
   def test_it_can_return_an_array_all_game_teams
 
     assert_instance_of Array, @@game_team_collection.all_game_teams
-    assert_equal 20, @@game_team_collection.all_game_teams.size
+    assert_equal 60, @@game_team_collection.all_game_teams.size
     assert @@game_team_collection.all_game_teams.all? { |game_team| game_team.class == GameTeam}
   end
 end
