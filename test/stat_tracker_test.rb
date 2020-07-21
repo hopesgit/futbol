@@ -36,7 +36,8 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_total_goals_per_game_per_season 
     seasons_and_goals_per_game = { 
       20122013 => [5, 5, 3, 5, 4, 3, 5, 3, 1, 3],
-      20142015 => [3, 5, 5,	3, 3,	2, 3, 5, 3, 3]
+      20142015 => [3, 5, 5,	3, 3,	2, 3, 5, 3, 3],
+      20172018 => [5, 5, 5, 2, 6, 3, 3, 5, 7, 3]
     }
 
     assert_equal seasons_and_goals_per_game, @stat_tracker.total_goals_per_game_per_season 

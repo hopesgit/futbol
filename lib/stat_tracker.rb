@@ -30,6 +30,13 @@ class StatTracker
     end
   end
 
+  def total_goals_per_game_per_season 
+    @games.reduce(Hash.new { |h, k| h[k] = [] }) do |seasons_to_scores, game|
+      seasons_to_scores[game.season] << game.away_goals + game.home_goals
+      seasons_to_scores
+    end 
+  end
+
 # Game Statistics Tests - Stat Methods #
   def highest_total_score
     total_goals_per_game.max_by {|game_id, total_goals| total_goals}[1]
