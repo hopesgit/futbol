@@ -37,35 +37,25 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3, @stat_tracker.total_goals_per_game[2012030231]
   end
 
-  # def test_it_can_list_total_goals_per_game
-  #   assert_equal [5], @stat_tracker.list_total_goals_per_game_or_season(:game_id)[2012030221]
-  #   assert_equal [3], @stat_tracker.list_total_goals_per_game_or_season(:game_id)[2012030231]
-  # end
+  def test_it_can_list_array_of_goals_per_season 
+    seasons_and_goals_per_game = { 
+      20122013 => [5, 5, 3, 5, 4, 3, 5, 3, 1, 3],
+      20142015 => [3, 5, 5,	3, 3,	2, 3, 5, 3, 3],
+      20172018 => [5, 5, 5, 2, 6, 3, 3, 5, 7, 3]
+    }
 
-  # def test_it_can_list_total_goals_per_season 
-  #   seasons_and_goals_per_game = { 
-  #     20122013 => [5, 5, 3, 5, 4, 3, 5, 3, 1, 3],
-  #     20142015 => [3, 5, 5,	3, 3,	2, 3, 5, 3, 3],
-  #     20172018 => [5, 5, 5, 2, 6, 3, 3, 5, 7, 3]
-  #   }
+    assert_equal seasons_and_goals_per_game, @stat_tracker.array_of_total_goals_per_season
+  end
 
-  #   assert_equal seasons_and_goals_per_game, @stat_tracker.list_total_goals_per_game_or_season(:season)
-  # end
+  def test_it_can_return_total_goals_per_season 
+    seasons_and_total_goals = { 
+      20122013 => 37,
+      20142015 => 35,
+      20172018 => 44
+    }
 
-  # def test_it_can_list_total_goals_per_game
-  #   assert_equal 5, @stat_tracker.total_goals_per_game_or_season(:game_id)[2012030221]
-  #   assert_equal 3, @stat_tracker.total_goals_per_game_or_season(:game_id)[2012030231]
-  # end
-
-  # def test_it_can_list_total_goals_per_season 
-  #   seasons_and_goals_per_game = { 
-  #     20122013 => [5, 5, 3, 5, 4, 3, 5, 3, 1, 3],
-  #     20142015 => [3, 5, 5,	3, 3,	2, 3, 5, 3, 3],
-  #     20172018 => [5, 5, 5, 2, 6, 3, 3, 5, 7, 3]
-  #   }
-
-  #   assert_equal seasons_and_goals_per_game, @stat_tracker.list_total_goals_per_game_or_season(:season)
-  # end
+    assert_equal seasons_and_total_goals, @stat_tracker.total_goals_per_season
+  end
 
 # Game Statistics Tests - Stat Methods #
   def test_it_can_get_highest_total_score

@@ -36,26 +36,20 @@ class StatTracker
       ids_to_scores
     end
   end
-
-  # def total_goals_per_game_per_season 
-  #   @games.reduce(Hash.new { |h, k| h[k] = [] }) do |seasons_to_scores, game|
-  #     seasons_to_scores[game.season] << game.away_goals + game.home_goals
-  #     require 'pry'; binding.pry
-  #     seasons_to_scores
-  #   end 
-  # end
-
-  def list_total_goals_per_game_or_season(game_or_season)
+  
+  def array_of_total_goals_per_season
     @games.reduce(Hash.new { |h, k| h[k] = [] }) do |result, game|
-      result[game.send(game_or_season)] << game.away_goals + game.home_goals
+      result[game.season] << game.away_goals + game.home_goals
       result
     end 
   end
-
-  def total_goals_per_game_or_season(game_or_season) 
-    list_total_goals_per_game_or_season(game_or_season).each do |goal|
-      goal[1].sum  
-    end
+  
+  def total_goals_per_season
+    result = {}
+    array_of_total_goals_per_season.each do |season, goals|
+      result[season] = goals.sum
+    end 
+  result
   end
 
 # Game Statistics Tests - Stat Methods #
