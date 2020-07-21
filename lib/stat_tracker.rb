@@ -4,9 +4,7 @@ require_relative './game_collection'
 class StatTracker
   attr_reader :game_collection,
               :team_collection,
-              :games,
-              :teams,
-              :game_teams
+              :teams
 
   def self.from_csv(locations)
     game_path = locations[:games]
