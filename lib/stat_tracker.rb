@@ -1,7 +1,6 @@
 require_relative './game'
 require_relative './game_collection'
 
-
 class StatTracker
   attr_reader :game_collection,
               :team_collection,
@@ -38,6 +37,21 @@ class StatTracker
 # Game Statistics Tests - Stat Methods #
   def highest_total_score
     total_goals_per_game.max_by {|game_id, total_goals| total_goals}[1]
+  end
+
+  def count_of_games_by_season
+    season_games = Hash.new(0)
+    @games.each do |game|
+      season_games[game.season] += 1
+    end
+    season_games
+  end
+
+  def average_goals_per_game
+    result = total_goals_per_game.values.sum do |value|
+      value
+    end
+    (result / total_goals_per_game.keys.count.to_f).round(2)
   end
 
 end
