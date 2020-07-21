@@ -32,6 +32,6 @@ class StatTracker
 
 # Game Statistics Tests - Stat Methods #
   def highest_total_score
-    total_goals_per_game.max_by {|game_id, total_goals| total_goals}    
+    total_goals_per_game.max_by {|game_id, total_goals| total_goals}[1]
   end
 end

@@ -35,7 +35,7 @@ class StatTrackerTest < Minitest::Test
 
 # Game Statistics Tests - Stat Methods #
   def test_it_can_get_highest_total_score
-    assert 5, @stat_tracker.highest_total_score 
+    assert_equal 7, @stat_tracker.highest_total_score 
   end
 
   def test_it_can_get_avg_goals_by_season
