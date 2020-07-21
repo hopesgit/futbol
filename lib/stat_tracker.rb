@@ -2,15 +2,16 @@ require_relative './game'
 require_relative './game_collection'
 
 class StatTracker
-  attr_reader :game_path,
-              :team_path,
-              :game_teams_path
+  attr_reader :game_collection,
+              :team_collection,
+              :teams
 
-  def self.from_csv(data)
-    game_path = data[:games]
-    team_path = data[:teams]
-    game_teams_path = data[:game_teams]
-    StatTracker.new(game_path, team_path, game_teams_path)
+  def self.from_csv(locations)
+    game_path = locations[:games]
+    team_path = locations[:teams]
+    game_teams_path = locations[:game_teams]
+
+    self.new(game_path, team_path, game_teams_path)
   end
 
   def initialize(game_path, team_path, game_teams_path)
@@ -56,4 +57,18 @@ class StatTracker
   def highest_total_score
     total_goals_per_game.max_by {|game_id, total_goals| total_goals}[1]
   end
+
+  def count_of_games_by_season
+    season_games = Hash.new(0)
+    @games.each do |game|
+      season_games[game.season] += 1
+    end
+    season_games
+  end
+
+  def average_goals_per_game
+    result = total_goals_per_game.values.sum 
+    (result / total_goals_per_game.keys.count.to_f).round(2)
+  end
+
 end
