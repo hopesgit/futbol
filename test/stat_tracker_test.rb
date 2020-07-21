@@ -35,7 +35,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_away_wins
-    assert_equal 5, @stat_tracker.total_away_wins
+    assert_equal 13, @stat_tracker.total_away_wins
   end
 
 # Game Statistics Tests - Stat Methods #
