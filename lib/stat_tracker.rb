@@ -17,16 +17,17 @@ class StatTracker
   end
 
   def initialize(game_path, team_path, game_teams_path)
+    @game_path = game_path
+    @team_path = team_path
+    @game_teams_path = game_teams_path
+    # @team_collection = TeamCollection.new(team_path)
     @game_collection = GameCollection.new(game_path)
-    #@teams_collection = #TeamCollection.new(team_path, game_team_path)
     @games = @game_collection.all_games
-    #@teams = @teams_collection.total_teams
-    #@game_teams = @teams_collection.total_games
   end
 
 
   # Game Statistics #
-
+  # Helper Methods #
   def total_goals_per_game
     @games.reduce({}) do |ids_to_scores, game|
       ids_to_scores[game.game_id] = game.away_goals + game.home_goals
