@@ -28,23 +28,34 @@ class StatTrackerTest < Minitest::Test
   end
 
 # Game Statistics Tests - Helper Methods #
-  def test_it_can_get_total_goals_per_game 
-    assert_equal 5, @stat_tracker.total_goals_per_game[2012030221]
-    assert_equal 3, @stat_tracker.total_goals_per_game[2012030231]
-  end
+  # def test_it_can_get_total_goals_per_game 
+  #   assert_equal 5, @stat_tracker.total_goals_per_game[2012030221]
+  #   assert_equal 3, @stat_tracker.total_goals_per_game[2012030231]
+  # end
 
-  def test_it_can_get_total_goals_per_game_per_season 
+  # def test_it_can_get_total_goals_per_game_per_season 
+  #   seasons_and_goals_per_game = { 
+  #     20122013 => [5, 5, 3, 5, 4, 3, 5, 3, 1, 3],
+  #     20142015 => [3, 5, 5,	3, 3,	2, 3, 5, 3, 3],
+  #     20172018 => [5, 5, 5, 2, 6, 3, 3, 5, 7, 3]
+  #   }
+
+  #   assert_equal seasons_and_goals_per_game, @stat_tracker.total_goals_per_game_per_season 
+  # end
+
+  def test_it_can_get_total_goals_per_season 
     seasons_and_goals_per_game = { 
       20122013 => [5, 5, 3, 5, 4, 3, 5, 3, 1, 3],
       20142015 => [3, 5, 5,	3, 3,	2, 3, 5, 3, 3],
       20172018 => [5, 5, 5, 2, 6, 3, 3, 5, 7, 3]
     }
 
-    assert_equal seasons_and_goals_per_game, @stat_tracker.total_goals_per_game_per_season 
+    assert_equal seasons_and_goals_per_game, @stat_tracker.total_goals_per_game_or_season(:season)
   end
 
 # Game Statistics Tests - Stat Methods #
   def test_it_can_get_highest_total_score
+    skip
     assert_equal 7, @stat_tracker.highest_total_score 
   end
 

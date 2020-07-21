@@ -23,17 +23,25 @@ class StatTracker
   end
 
 # Game Statistics Tests - Helper Methods #
-  def total_goals_per_game
-    @games.reduce({}) do |ids_to_scores, game|
-      ids_to_scores[game.game_id] = game.away_goals + game.home_goals
-      ids_to_scores
-    end
-  end
+  # def total_goals_per_game
+  #   @games.reduce({}) do |ids_to_scores, game|
+  #     ids_to_scores[game.game_id] = game.away_goals + game.home_goals
+  #     ids_to_scores
+  #   end
+  # end
 
-  def total_goals_per_game_per_season 
-    @games.reduce(Hash.new { |h, k| h[k] = [] }) do |seasons_to_scores, game|
-      seasons_to_scores[game.season] << game.away_goals + game.home_goals
-      seasons_to_scores
+  # def total_goals_per_game_per_season 
+  #   @games.reduce(Hash.new { |h, k| h[k] = [] }) do |seasons_to_scores, game|
+  #     seasons_to_scores[game.season] << game.away_goals + game.home_goals
+  #     require 'pry'; binding.pry
+  #     seasons_to_scores
+  #   end 
+  # end
+
+  def total_goals_per_game_or_season(game_or_season)
+    @games.reduce(Hash.new { |h, k| h[k] = [] }) do |result, game|
+      result[game.send(game_or_season)] << game.away_goals + game.home_goals
+      result
     end 
   end
 
