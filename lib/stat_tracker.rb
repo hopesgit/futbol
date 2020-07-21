@@ -16,9 +16,6 @@ class StatTracker
   end
 
   def initialize(game_path, team_path, game_teams_path)
-    @game_path = game_path
-    @team_path = team_path
-    @game_teams_path = game_teams_path
     @team_collection = TeamCollection.new(team_path)
     @game_collection = GameCollection.new(game_path)
     @games = @game_collection.all_games
