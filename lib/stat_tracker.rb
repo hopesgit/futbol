@@ -24,6 +24,10 @@ class StatTracker
   end
 
 # Game Statistics Tests - Helper Methods #
+  def seasons 
+    @games.map {|game| game.season}.uniq 
+  end
+
   def total_goals
     @games.reduce(0) do |total, game|
       total += game.away_goals + game.home_goals
@@ -72,11 +76,10 @@ class StatTracker
   end
 
   def average_goals_by_season 
-    seasons = [20122013, 20142015, 20172018]
-    
+    seasons = [20122013, 20142015, 20172018]    
     result = {}
     seasons.each do |season|
-      result[season] = (total_goals_per_season[season] / count_of_games_by_season[season]).round(2)
+      result[season] = (total_goals_per_season[season] / count_of_games_by_season[season].to_f).round(2)
     end
     result
   end

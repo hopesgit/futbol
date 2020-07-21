@@ -29,6 +29,10 @@ class StatTrackerTest < Minitest::Test
   # end
 
 # Game Statistics Tests - Helper Methods
+  def test_it_can_get_seasons 
+    assert_equal [20122013, 20142015, 20172018],@stat_tracker.seasons
+  end
+
   def test_it_can_get_total_goals
     assert_equal 116, @stat_tracker.total_goals
   end
