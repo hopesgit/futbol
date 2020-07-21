@@ -28,13 +28,6 @@ class StatTracker
     @games.map {|game| game.season}.uniq 
   end
 
-  def total_goals
-    @games.reduce(0) do |total, game|
-      total += game.away_goals + game.home_goals
-      total
-    end
-  end 
-
   def total_goals_per_game
     @games.reduce({}) do |ids_to_scores, game|
       ids_to_scores[game.game_id] = game.away_goals + game.home_goals
@@ -76,13 +69,6 @@ class StatTracker
   end
 
   def average_goals_by_season 
-    # result = {}
-    # seasons.each do |season|
-    #   result[season] = (total_goals_per_season[season] / count_of_games_by_season[season].to_f).round(2)
-    # end
-    # result
-
-    # result = {}
     seasons.reduce({}) do |result, season|
       result[season] = (total_goals_per_season[season] / count_of_games_by_season[season].to_f).round(2)
       result
