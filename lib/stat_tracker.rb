@@ -1,4 +1,6 @@
 require_relative './game_collection'
+require_relative './team_collection'
+require_relative './game_team_collection'
 
 class StatTracker
   attr_reader :game_collection,
@@ -17,7 +19,7 @@ class StatTracker
     @game_path = game_path
     @team_path = team_path
     @game_teams_path = game_teams_path
-    # @team_collection = TeamCollection.new(team_path)
+    @team_collection = TeamCollection.new(team_path)
     @game_collection = GameCollection.new(game_path)
     @games = @game_collection.all_games
   end
