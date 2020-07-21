@@ -47,7 +47,7 @@ class StatTracker
     array_of_total_goals_per_season.each do |season, goals|
       result[season] = goals.sum
     end
-  result
+    result
   end
 
 # Game Statistics Tests - Stat Methods #
