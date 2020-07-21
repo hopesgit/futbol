@@ -76,11 +76,16 @@ class StatTracker
   end
 
   def average_goals_by_season 
-    seasons = [20122013, 20142015, 20172018]    
-    result = {}
-    seasons.each do |season|
+    # result = {}
+    # seasons.each do |season|
+    #   result[season] = (total_goals_per_season[season] / count_of_games_by_season[season].to_f).round(2)
+    # end
+    # result
+
+    # result = {}
+    seasons.reduce({}) do |result, season|
       result[season] = (total_goals_per_season[season] / count_of_games_by_season[season].to_f).round(2)
+      result
     end
-    result
   end
 end
