@@ -33,6 +33,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3, @stat_tracker.total_goals_per_game[2012030231]
   end
 
+  def test_it_can_get_away_wins
+    assert_equal 5, @stat_tracker.total_away_wins
+  end
+
 # Game Statistics Tests - Stat Methods #
   def test_it_can_get_highest_total_score
     assert 5, @stat_tracker.highest_total_score
@@ -41,5 +45,9 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_lowest_total_score
     assert 1, @stat_tracker.lowest_total_score
   end
-  
+
+  def test_it_can_get_visitor_win_percentage
+    assert 25.00, @stat_tracker.percentage_visitor_wins
+  end
+
 end

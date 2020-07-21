@@ -30,8 +30,26 @@ class StatTracker
     end
   end
 
+  def total_away_wins
+    away_wins = 0
+    @games.each do |game|
+      if game.away_goals > game.home_goals
+        away_wins += 1
+      end
+    end
+    away_wins
+  end
+
 # Game Statistics Tests - Stat Methods #
   def highest_total_score
-    total_goals_per_game.max_by {|game_id, total_goals| total_goals}    
+    total_goals_per_game.max_by {|game_id, total_goals| total_goals}
+  end
+
+  def lowest_total_score
+    total_goals_per_game.min_by {|game_id, total_goals| total_goals}
+  end
+
+  def percentage_visitor_wins
+    (total_away_wins.to_f / @games.count).round(2)
   end
 end
