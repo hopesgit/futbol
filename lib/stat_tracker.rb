@@ -1,6 +1,6 @@
 require_relative './game'
 require_relative './game_collection'
-require 'csv'
+
 
 class StatTracker
   attr_reader :game_collection,
@@ -12,9 +12,9 @@ class StatTracker
   def self.from_csv(locations)
     game_path = locations[:games]
     team_path = locations[:teams]
-    game_team_path = locations[:game_teams]
+    game_teams_path = locations[:game_teams]
 
-    self.new(game_path, team_path, game_team_path)
+    self.new(game_path, team_path, game_teams_path)
   end
 
   def initialize(game_path, team_path, game_teams_path)
@@ -29,11 +29,11 @@ class StatTracker
   # Game Statistics #
 
   def total_goals_per_game
-  @games.reduce({}) do |ids_to_scores, game|
-    ids_to_scores[game.game_id] = game.away_goals + game.home_goals
-    ids_to_scores
+    @games.reduce({}) do |ids_to_scores, game|
+      ids_to_scores[game.game_id] = game.away_goals + game.home_goals
+      ids_to_scores
+    end
   end
-end
 
 # Game Statistics Tests - Stat Methods #
   def highest_total_score
@@ -49,12 +49,13 @@ end
   end
 
   def average_goals_per_game
-    total_goals = 0
-    @games.each do |game|
-      total_goals += game.away_goals
-      total_goals += game.home_goals
-    end
-    (total_goals / @games.count.to_f).round(2)
+    count = total_goals_per_game.keys.length
+
+    # @games.each do |game|
+    #   total_goals += game.away_goals
+    #   total_goals += game.home_goals
+    # end
+    # (total_goals / @games.count.to_f).round(2)
   end
 
 end

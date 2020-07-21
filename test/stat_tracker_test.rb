@@ -26,8 +26,8 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_has_attributes
     assert_instance_of GameCollection, @stat_tracker.game_collection
-    assert_equal './data/teams.csv', @stat_tracker.team_path
-    assert_equal './data/game_teams_fixture.csv', @stat_tracker.game_teams_path
+    assert_equal TeamCollection, @stat_tracker.team_path
+    assert_equal GameTeamCollection @stat_tracker.game_teams_path
   end
 
   # Game Statistics Tests - Helper Methods #
