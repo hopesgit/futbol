@@ -77,4 +77,8 @@ class StatTracker
 
 # ==================       League Stats Methods      ==================
 
+  def best_offense
+    average_goals_per_game_per_team.max_by { |team, avg| avg }[0].name
+  end
+
 end
