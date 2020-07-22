@@ -25,13 +25,19 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of Array, @@stat_tracker.game_teams
   end
 
-  # Game Statistics Tests - Helper Methods #
+# ==================        Helper Methods Tests       ==================
+
   def test_it_can_get_total_goals_per_game
     assert_equal 5, @@stat_tracker.total_goals_per_game[2012030221]
     assert_equal 3, @@stat_tracker.total_goals_per_game[2012030231]
   end
 
-  # Game Statistics Tests - Stat Methods #
+  def test_it_can_get_total_number_of_games
+    assert_equal 30, @@stat_tracker.total_games
+  end
+
+# ==================       Game Stat Methods Tests     ==================
+
   def test_it_can_get_highest_total_score
     assert_equal 7, @@stat_tracker.highest_total_score
   end
