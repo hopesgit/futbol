@@ -63,6 +63,11 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_away_wins
     assert_equal 13, @@stat_tracker.total_away_wins
   end
+
+  def test_away_goals
+    assert_equal ({3=>17, 6=>24, 5=>7, 17=>1, 16=>15, 14=>8, 28=>24, 54=>16, 24=>4}), @@stat_tracker.total_away_goals
+  end
+
   def test_it_can_get_highest_total_score
     assert_equal 7, @@stat_tracker.highest_total_score
   end

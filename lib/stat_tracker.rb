@@ -49,6 +49,14 @@ class StatTracker
     away_wins
   end
 
+  def total_away_goals
+    result = Hash.new(0)
+    @game_teams.each do |game_team|
+      result[game_team.team_id] += game_team.goals
+    end
+    result
+  end 
+
   def total_games
     @games.size
   end
