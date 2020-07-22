@@ -128,4 +128,8 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_find_the_best_offesive_team
     assert_equal "FC Dallas", @stat_tracker.best_offense
   end
+
+  def test_it_can_get_lowest_scoring_visitor
+    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_visitor
+  end
 end
