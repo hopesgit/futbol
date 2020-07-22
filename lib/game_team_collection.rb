@@ -1,3 +1,4 @@
+require_relative './game_team'
 require 'csv'
 
 class GameTeamCollection
