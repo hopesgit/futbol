@@ -52,4 +52,14 @@ class StatTrackerTest < Minitest::Test
     expected = { 3=>9, 6=>9, 5=>8, 17=>1, 16=>7, 14=>6, 28=>10, 54=>6, 24=>4 }
     assert_equal expected, @stat_tracker.total_games_per_team
   end
+
+  def test_it_can_exclude_hoa_games_from_total_games_per_team
+    total_home_games_per_team = {6=>5, 3=>4, 5=>4, 16=>4, 14=>3, 54=>3, 28=>5, 24=>2}
+    exclude = "away"
+    assert_equal total_home_games_per_team, @stat_tracker.total_games_per_team(exclude)
+
+    total_away_games_per_team = {3=>5, 6=>4, 5=>4, 17=>1, 16=>3, 14=>3, 28=>5, 54=>3, 24=>2}
+    exclude = "home"
+    assert_equal total_away_games_per_team, @stat_tracker.total_games_per_team(exclude)
+  end
 end
