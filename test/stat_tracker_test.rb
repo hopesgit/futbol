@@ -46,6 +46,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal 7, @@stat_tracker.highest_total_score
   end
 
+  def test_it_can_calculate_percentage_home_wins
+   assert_equal 53.33, @@stat_tracker.percentage_home_wins
+  end
+
   def test_count_of_games_by_season
     assert_equal ({20122013=>10, 20142015=>10, 20172018=>10}), @@stat_tracker.count_of_games_by_season
   end
