@@ -119,6 +119,6 @@ class StatTracker
 # ==================       League Stats Methods      ==================
 
   def count_of_teams
-    @teams.length
+    @teams.size
   end
 end
