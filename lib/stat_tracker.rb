@@ -43,6 +43,12 @@ class StatTracker
    end.size
   end
 
+  def total_tied_games
+   (@game_teams.find_all do |game_team|
+      game_team.result == "TIE"
+   end.size) / 2
+  end
+
 # ==================       Game Stats Methods      ==================
 
   def highest_total_score
