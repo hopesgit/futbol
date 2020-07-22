@@ -1,12 +1,11 @@
-require_relative './game'
 require_relative './game_collection'
 require_relative './team_collection'
 require_relative './game_team_collection'
 
 class StatTracker
-  attr_reader :game_collection,
-              :team_collection,
-              :teams
+  attr_reader :games,
+              :teams,
+              :game_teams
 
   def self.from_csv(locations)
     game_path = locations[:games]
@@ -25,9 +24,38 @@ class StatTracker
     @game_teams = game_team_collection.all_game_teams
   end
 
+# ==================          Helper Methods       ==================
 
-  # Game Statistics #
-  # Helper Methods #
+  def seasons
+    @games.map {|game| game.season}.uniq
+  end
+
+  def total_away_wins
+    away_wins = 0
+    @games.each do |game|
+      if game.away_goals > game.home_goals
+        away_wins += 1
+      end
+    end
+    away_wins
+  end
+
+  def total_games
+    @games.size
+  end
+
+  def total_home_wins
+   @game_teams.find_all do |game_team|
+     game_team.hoa == "home" && game_team.result == "WIN"
+   end.size
+  end
+
+  def total_tied_games
+   (@game_teams.find_all do |game_team|
+      game_team.result == "TIE"
+   end.size) / 2
+  end
+
   def total_goals_per_game
     @games.reduce({}) do |ids_to_scores, game|
       ids_to_scores[game.game_id] = game.away_goals + game.home_goals
@@ -53,13 +81,37 @@ class StatTracker
     @teams.reduce(Hash.new(0)) do |result, team|
       average = (total_goals_per_team(exclude_hoa)[team.id] / total_games_per_team(exclude_hoa)[team.id].to_f).round(2)
       result[team] = average unless average.nan?
+    end
+  end
+
+# ==================       Game Stats Methods      ==================
+
+  def total_goals_per_season
+    @games.reduce(Hash.new(0)) do |result, game|
+      result[game.season] += game.away_goals + game.home_goals
       result
     end
   end
 
-# Game Statistics Tests - Stat Methods #
   def highest_total_score
     total_goals_per_game.max_by {|game_id, total_goals| total_goals}[1]
+  end
+
+  def lowest_total_score
+    total_goals_per_game.min_by {|game_id, total_goals| total_goals}[1]
+  end
+
+  def percentage_visitor_wins
+    ((total_away_wins / total_games.to_f) * 100).round(2)
+  end
+
+  def percentage_home_wins
+    ((total_home_wins / total_games.to_f) * 100).round(2)
+  end
+
+  def percentage_ties
+    ((total_tied_games / total_games.to_f) * 100).round(2)
+
   end
 
   def count_of_games_by_season
@@ -75,6 +127,13 @@ class StatTracker
     (result / total_goals_per_game.keys.count.to_f).round(2)
   end
 
+  def average_goals_by_season
+    seasons.reduce({}) do |result, season|
+      result[season] = (total_goals_per_season[season] / count_of_games_by_season[season].to_f).round(2)
+      result
+    end
+  end
+
 # ==================       League Stats Methods      ==================
 
   def best_offense
@@ -85,5 +144,4 @@ class StatTracker
     exclude = "home"
     average_goals_per_game_per_team(exclude).min_by { |team, avg| avg }[0].name
   end
-
 end
