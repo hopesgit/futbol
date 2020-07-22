@@ -84,18 +84,38 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_average_goals_per_game_per_team
-    expected = {3=>1.89, 6=>2.67, 5=>0.88, 17=>1.0, 16=>2.14, 14=>1.33, 28=>2.4, 54=>2.67, 24=>1.0}
+    team3 = @stat_tracker.teams.find { |team| team.id == 3 }
+    team5 = @stat_tracker.teams.find { |team| team.id == 5 }
+    team6 = @stat_tracker.teams.find { |team| team.id == 6 }
+    team14 = @stat_tracker.teams.find { |team| team.id == 14 }
+    team16 = @stat_tracker.teams.find { |team| team.id == 16 }
+    team17 = @stat_tracker.teams.find { |team| team.id == 17 }
+    team28 = @stat_tracker.teams.find { |team| team.id == 28 }
+    team24 = @stat_tracker.teams.find { |team| team.id == 24 }
+    team54 = @stat_tracker.teams.find { |team| team.id == 54 }
+
+    expected = {team3=>1.89, team6=>2.67, team5=>0.88, team17=>1.0, team16=>2.14, team14=>1.33, team28=>2.4, team54=>2.67, team24=>1.0}
 
     assert_equal expected, @stat_tracker.average_goals_per_game_per_team
   end
 
   def test_it_can_get_average_goals_per_game_per_team_hoa
-    expected_avg_home_goals_p_game_p_team = {3=>2.0, 6=>2.4, 5=>0.75, 16=>2.0, 14=>1.33, 28=>2.6, 54=>3.67, 24=>1.0}
+    team3 = @stat_tracker.teams.find { |team| team.id == 3 }
+    team5 = @stat_tracker.teams.find { |team| team.id == 5 }
+    team6 = @stat_tracker.teams.find { |team| team.id == 6 }
+    team14 = @stat_tracker.teams.find { |team| team.id == 14 }
+    team16 = @stat_tracker.teams.find { |team| team.id == 16 }
+    team17 = @stat_tracker.teams.find { |team| team.id == 17 }
+    team28 = @stat_tracker.teams.find { |team| team.id == 28 }
+    team24 = @stat_tracker.teams.find { |team| team.id == 24 }
+    team54 = @stat_tracker.teams.find { |team| team.id == 54 }
+
+    expected_avg_home_goals_p_game_p_team = {team3=>2.0, team6=>2.4, team5=>0.75, team16=>2.0, team14=>1.33, team28=>2.6, team54=>3.67, team24=>1.0}
     exclude = "away"
 
     assert_equal expected_avg_home_goals_p_game_p_team, @stat_tracker.average_goals_per_game_per_team(exclude)
 
-    expected_avg_away_goals_p_game_p_team = {14=>1.33, 6=>3.0, 3=>1.8, 5=>1.0, 17=>1.0, 28=>2.2, 16=>2.33, 24=>1.0, 54=>1.67}
+    expected_avg_away_goals_p_game_p_team = {team14=>1.33, team6=>3.0, team3=>1.8, team5=>1.0, team17=>1.0, team28=>2.2, team16=>2.33, team24=>1.0, team54=>1.67}
     exclude = "home"
 
     assert_equal expected_avg_away_goals_p_game_p_team, @stat_tracker.average_goals_per_game_per_team(exclude)
