@@ -47,5 +47,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3.87, @stat_tracker.average_goals_per_game
   end
 
-
+# ==================       League Stats Tests      ==================
+  def test_it_can_get_total_games_per_team
+    expected = { 3=>9, 6=>9, 5=>8, 17=>1, 16=>7, 14=>6, 28=>10, 54=>6, 24=>4 }
+    assert_equal expected, @stat_tracker.total_games_per_team
+  end
 end
