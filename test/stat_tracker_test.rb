@@ -28,9 +28,9 @@ class StatTrackerTest < Minitest::Test
 # ==================        Helper Methods Tests       ==================
 
   def test_it_can_get_seasons
-    assert_equal [20122013, 20142015, 20172018],@stat_tracker.seasons
+    assert_equal [20122013, 20142015, 20172018], @@stat_tracker.seasons
   end
-  
+
   def test_it_can_get_total_goals_per_game
     assert_equal 5, @@stat_tracker.total_goals_per_game[2012030221]
     assert_equal 3, @@stat_tracker.total_goals_per_game[2012030231]
@@ -56,8 +56,8 @@ class StatTrackerTest < Minitest::Test
       20142015 => 35,
       20172018 => 44
     }
-    
-    assert_equal seasons_and_total_goals, @stat_tracker.total_goals_per_season
+
+    assert_equal seasons_and_total_goals, @@stat_tracker.total_goals_per_season
   end
 
   def test_it_can_get_highest_total_score
@@ -71,7 +71,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_percentage_ties
     assert_equal 3.33, @@stat_tracker.percentage_ties
   end
-  
+
   def test_count_of_games_by_season
     assert_equal ({20122013=>10, 20142015=>10, 20172018=>10}), @@stat_tracker.count_of_games_by_season
   end
@@ -86,6 +86,6 @@ class StatTrackerTest < Minitest::Test
       20142015 => 3.50,
       20172018 => 4.40
     }
-    assert_equal seasons_and_avg_goals, @stat_tracker.average_goals_by_season
+    assert_equal seasons_and_avg_goals, @@stat_tracker.average_goals_by_season
   end
 end
