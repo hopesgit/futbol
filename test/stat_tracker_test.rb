@@ -36,6 +36,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal 30, @@stat_tracker.total_games
   end
 
+  def test_it_can_get_total_wome_wins
+    assert_equal 16, @@stat_tracker.total_home_wins
+  end
+
 # ==================       Game Stat Methods Tests     ==================
 
   def test_it_can_get_highest_total_score
