@@ -40,13 +40,17 @@ class StatTracker
   def total_home_wins
    @game_teams.find_all do |game_team|
      game_team.hoa == "home" && game_team.result == "WIN"
-   end
+   end.size
   end
 
 # ==================       Game Stats Methods      ==================
 
   def highest_total_score
     total_goals_per_game.max_by {|game_id, total_goals| total_goals}[1]
+  end
+
+  def percentage_home_wins
+   ((total_home_wins / total_games.to_f) * 100).round(2)
   end
 
   def count_of_games_by_season
