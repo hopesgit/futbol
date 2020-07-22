@@ -27,6 +27,10 @@ class StatTrackerTest < Minitest::Test
 
 # ==================        Helper Methods Tests       ==================
 
+  def test_it_can_get_seasons
+    assert_equal [20122013, 20142015, 20172018],@stat_tracker.seasons
+  end
+  
   def test_it_can_get_total_goals_per_game
     assert_equal 5, @@stat_tracker.total_goals_per_game[2012030221]
     assert_equal 3, @@stat_tracker.total_goals_per_game[2012030231]
@@ -45,6 +49,16 @@ class StatTrackerTest < Minitest::Test
   end
 
 # ==================       Game Stat Methods Tests     ==================
+
+  def test_it_can_return_total_goals_per_season
+    seasons_and_total_goals = {
+      20122013 => 37,
+      20142015 => 35,
+      20172018 => 44
+    }
+    
+    assert_equal seasons_and_total_goals, @stat_tracker.total_goals_per_season
+  end
 
   def test_it_can_get_highest_total_score
     assert_equal 7, @@stat_tracker.highest_total_score
@@ -66,5 +80,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3.87, @@stat_tracker.average_goals_per_game
   end
 
-
+  def test_it_can_get_avg_goals_by_season
+    seasons_and_avg_goals = {
+      20122013 => 3.70,
+      20142015 => 3.50,
+      20172018 => 4.40
+    }
+    assert_equal seasons_and_avg_goals, @stat_tracker.average_goals_by_season
+  end
 end
