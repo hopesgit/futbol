@@ -36,8 +36,7 @@ class StatTracker
   end
 
   def total_goals_per_season
-    @games.reduce({}) do |result, game|
-      result[game.season] = 0 if !result[game.season]
+    @games.reduce(Hash.new(0)) do |result, game|
       result[game.season] += game.away_goals + game.home_goals
       result
     end
