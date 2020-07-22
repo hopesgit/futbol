@@ -39,6 +39,16 @@ class StatTracker
     end
   end
 
+  def total_away_wins
+    away_wins = 0
+    @games.each do |game|
+      if game.away_goals > game.home_goals
+        away_wins += 1
+      end
+    end
+    away_wins
+  end
+
   def total_games
     @games.size
   end
@@ -69,12 +79,22 @@ class StatTracker
     total_goals_per_game.max_by {|game_id, total_goals| total_goals}[1]
   end
 
+
+  def lowest_total_score
+    total_goals_per_game.min_by {|game_id, total_goals| total_goals}[1]
+  end
+
+  def percentage_visitor_wins
+    ((total_away_wins / total_games.to_f) * 100).round(2)
+  end
+
   def percentage_home_wins
-   ((total_home_wins / total_games.to_f) * 100).round(2)
+    ((total_home_wins / total_games.to_f) * 100).round(2)
   end
 
   def percentage_ties
     ((total_tied_games / total_games.to_f) * 100).round(2)
+
   end
 
   def count_of_games_by_season
