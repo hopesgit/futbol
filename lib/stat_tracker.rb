@@ -42,6 +42,13 @@ class StatTracker
     end
   end
 
+  def total_goals_per_team(exclude_hoa = nil)
+    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[game_team.team_id] += game_team.goals unless game_team.hoa == exclude_hoa
+      result
+    end
+  end
+
 # Game Statistics Tests - Stat Methods #
   def highest_total_score
     total_goals_per_game.max_by {|game_id, total_goals| total_goals}[1]
