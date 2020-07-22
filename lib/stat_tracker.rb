@@ -23,13 +23,22 @@ class StatTracker
     @games = @game_collection.all_games
   end
 
+# Game Statistics Tests - Helper Methods #
+  def seasons
+    @games.map {|game| game.season}.uniq
+  end
 
-  # Game Statistics #
-  # Helper Methods #
   def total_goals_per_game
     @games.reduce({}) do |ids_to_scores, game|
       ids_to_scores[game.game_id] = game.away_goals + game.home_goals
       ids_to_scores
+    end
+  end
+
+  def total_goals_per_season
+    @games.reduce(Hash.new(0)) do |result, game|
+      result[game.season] += game.away_goals + game.home_goals
+      result
     end
   end
 
@@ -47,8 +56,14 @@ class StatTracker
   end
 
   def average_goals_per_game
-    result = total_goals_per_game.values.sum 
+    result = total_goals_per_game.values.sum
     (result / total_goals_per_game.keys.count.to_f).round(2)
   end
 
+  def average_goals_by_season
+    seasons.reduce({}) do |result, season|
+      result[season] = (total_goals_per_season[season] / count_of_games_by_season[season].to_f).round(2)
+      result
+    end
+  end
 end
