@@ -45,15 +45,15 @@ class StatTracker
 
 # Game Statistics Tests - Stat Methods #
   def highest_total_score
-    total_goals_per_game.max_by {|game_id, total_goals| total_goals}
+    total_goals_per_game.max_by {|game_id, total_goals| total_goals}[1]
   end
 
   def lowest_total_score
-    total_goals_per_game.min_by {|game_id, total_goals| total_goals}
+    total_goals_per_game.min_by {|game_id, total_goals| total_goals}[1]
   end
 
   def percentage_visitor_wins
-    (total_away_wins.to_f / @games.count).round(2)
+    ((total_away_wins.to_f / @games.count) * 100).round(2)
   end
 
   def count_of_games_by_season

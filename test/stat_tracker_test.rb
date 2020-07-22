@@ -40,15 +40,15 @@ class StatTrackerTest < Minitest::Test
 
 # Game Statistics Tests - Stat Methods #
   def test_it_can_get_highest_total_score
-    assert 5, @stat_tracker.highest_total_score
+    assert_equal 7, @stat_tracker.highest_total_score
   end
 
   def test_it_can_get_lowest_total_score
-    assert 1, @stat_tracker.lowest_total_score
+    assert_equal 1, @stat_tracker.lowest_total_score
   end
 
   def test_it_can_get_visitor_win_percentage
-    assert 25.00, @stat_tracker.percentage_visitor_wins
+    assert_equal 43.33, @stat_tracker.percentage_visitor_wins
   end
 
   def test_count_of_games_by_season
