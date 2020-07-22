@@ -59,6 +59,10 @@ class StatTracker
    ((total_home_wins / total_games.to_f) * 100).round(2)
   end
 
+  def percentage_ties
+    ((total_tied_games / total_games.to_f) * 100).round(2)
+  end
+
   def count_of_games_by_season
     season_games = Hash.new(0)
     @games.each do |game|
