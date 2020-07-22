@@ -47,7 +47,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3.87, @stat_tracker.average_goals_per_game
   end
 
-# ==================       League Stats Tests      ==================
   def test_it_can_get_total_games_per_team
     expected = { 3=>9, 6=>9, 5=>8, 17=>1, 16=>7, 14=>6, 28=>10, 54=>6, 24=>4 }
     assert_equal expected, @stat_tracker.total_games_per_team
@@ -62,4 +61,23 @@ class StatTrackerTest < Minitest::Test
     exclude = "home"
     assert_equal total_away_games_per_team, @stat_tracker.total_games_per_team(exclude)
   end
+
+  def test_it_can_get_total_goals_per_team
+    expected = {3=>17, 6=>24, 5=>7, 17=>1, 16=>15, 14=>8, 28=>24, 54=>16, 24=>4}
+    assert_equal expected, @stat_tracker.total_goals_per_team
+  end
+
+  def test_it_can_exclude_hoa_goals_from_total_goals_per_team
+    expected_home_goals_per_team = {6=>12, 3=>8, 5=>3, 16=>8, 14=>4, 54=>11, 28=>13, 24=>2}
+    exclude = "away"
+    assert_equal expected_home_goals_per_team, @stat_tracker.total_goals_per_team(exclude)
+
+    expected_away_goals_per_team = {3=>9, 6=>12, 5=>4, 17=>1, 16=>7, 14=>4, 28=>11, 54=>5, 24=>2}
+    exclude = "home"
+    assert_equal expected_away_goals_per_team, @stat_tracker.total_goals_per_team(exclude)
+  end
+
+
+
+  # ==================       League Stats Tests      ==================
 end
