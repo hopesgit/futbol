@@ -16,4 +16,14 @@ class GameTeamCollection
       @all_game_teams << GameTeam.new(row.to_h)
     end
   end
+
+  def add_season_id(games)
+    @all_game_teams.each do |game_team|
+      games.each do |game|
+        if game_team.game_id == game.game_id
+          game_team.season = game.season
+        end
+      end
+    end
+  end
 end
