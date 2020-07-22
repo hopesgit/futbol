@@ -37,6 +37,12 @@ class StatTracker
     @games.size
   end
 
+  def total_home_wins
+   @game_teams.find_all do |game_team|
+     game_team.hoa == "home" && game_team.result == "WIN"
+   end
+  end
+
 # ==================       Game Stats Methods      ==================
 
   def highest_total_score
