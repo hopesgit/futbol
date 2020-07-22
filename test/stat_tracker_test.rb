@@ -124,4 +124,8 @@ class StatTrackerTest < Minitest::Test
 
 
   # ==================       League Stats Tests      ==================
+
+  def test_it_can_find_the_best_offesive_team
+    assert_equal "FC Dallas", @stat_tracker.best_offense
+  end
 end
