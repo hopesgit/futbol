@@ -3,10 +3,7 @@ require_relative './team_collection'
 require_relative './game_team_collection'
 
 class StatTracker
-  attr_reader :game_collection,
-              :team_collection,
-              :game_team_collection,
-              :games,
+  attr_reader :games,
               :teams,
               :game_teams
 
@@ -19,12 +16,12 @@ class StatTracker
   end
 
   def initialize(game_path, team_path, game_teams_path)
-    @game_collection = GameCollection.new(game_path)
-    @team_collection = TeamCollection.new(team_path)
-    @game_team_collection = GameTeamCollection.new(game_teams_path)
-    @games = @game_collection.all_games
-    @teams = @team_collection.all_teams
-    @game_teams = @game_team_collection.all_game_teams
+    game_collection = GameCollection.new(game_path)
+    team_collection = TeamCollection.new(team_path)
+    game_team_collection = GameTeamCollection.new(game_teams_path)
+    @games = game_collection.all_games
+    @teams = team_collection.all_teams
+    @game_teams = game_team_collection.all_game_teams
   end
 
 
