@@ -129,12 +129,13 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_get_tackles_per_team_for_a_season
     season_20122013_tackles_by_team = {
-      3 => 179,
-      6	=> 271,
-      5	=> 150,
-      17 => 43,
-      16 => 24
+      "Houston Dynamo" => 179,
+      "FC Dallas"	=> 271,
+      "Sporting Kansas City"	=> 150,
+      "LA Galaxy" => 43,
+      "New England Revolution" => 24
     }
+    
     assert_equal season_20122013_tackles_by_team, @@stat_tracker.tackles_per_team_for(20122013)
   end
 
