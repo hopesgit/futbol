@@ -17,9 +17,9 @@ class StatTracker
 
   def initialize(game_path, team_path, game_teams_path)
     game_collection = GameCollection.new(game_path)
+    all_gameids_per_season = game_collection.all_gameids_per_season
     team_collection = TeamCollection.new(team_path)
-    game_team_collection = GameTeamCollection.new(game_teams_path)
-    game_team_collection.add_season_id(game_collection.all_games)
+    game_team_collection = GameTeamCollection.new(game_teams_path, all_gameids_per_season)
     @games = game_collection.all_games
     @teams = team_collection.all_teams
     @game_teams = game_team_collection.all_game_teams
@@ -86,6 +86,15 @@ class StatTracker
     end
   end
 
+  def find_team(team_id)
+    teams.find { |team| team.id == team_id }
+  end
+
+  def goals_per_game_per_team
+    @game_teams.reduce(Hash.new { |h,k| h[k] = [] }) do |result, game_team|
+      result[game_team.team_id] << game_team.goals
+      result
+    end
   def total_shots_per_team
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += game_team.shots
@@ -115,15 +124,15 @@ class StatTracker
   end
 
   def percentage_visitor_wins
-    ((total_away_wins / total_games.to_f) * 100).round(2)
+    (total_away_wins / total_games.to_f).round(2)
   end
 
   def percentage_home_wins
-    ((total_home_wins / total_games.to_f) * 100).round(2)
+    (total_home_wins / total_games.to_f).round(2)
   end
 
   def percentage_ties
-    ((total_tied_games / total_games.to_f) * 100).round(2)
+    (total_tied_games / total_games.to_f).round(2)
   end
 
   def count_of_games_by_season
@@ -179,5 +188,22 @@ class StatTracker
   def lowest_scoring_home_team
     exclude = "away"
     average_goals_per_game_per_team(exclude).min_by { |team, avg| avg }[0].name
+  end
+
+# ==================       Team Stats Methods      ==================
+
+  def team_info(team_id)
+    team = find_team(team_id)
+    {
+      id: team.id,
+      franchise_id: team.franchise_id,
+      name: team.name,
+      abbreviation: team.abbreviation,
+      link: team.link
+    }
+  end
+
+  def most_goals_scored(team_id)
+     goals_per_game_per_team[team_id].max
   end
 end
