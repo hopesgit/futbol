@@ -86,6 +86,10 @@ class StatTracker
     end
   end
 
+  def find_team(team_id)
+    teams.find { |team| team.id == team_id }
+  end
+
 # ==================       Game Stats Methods      ==================
 
   def total_goals_per_season

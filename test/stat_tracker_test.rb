@@ -127,6 +127,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected_avg_away_goals_p_game_p_team, @@stat_tracker.average_goals_per_game_per_team(exclude)
   end
 
+  def test_it_can_find_a_team
+    team3 = @@stat_tracker.teams.find { |team| team.id == 3 }
+
+    assert_equal team3, @@stat_tracker.find_team(3)
+  end
+
 # ==================       Game Stat Methods Tests     ==================
 
   def test_it_can_return_total_goals_per_season
@@ -152,7 +158,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_percentage_ties
-    assert_equal 0.33, @@stat_tracker.percentage_ties
+    assert_equal 0.03, @@stat_tracker.percentage_ties
   end
 
   def test_it_can_get_lowest_total_score
