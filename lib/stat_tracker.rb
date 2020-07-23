@@ -157,10 +157,6 @@ class StatTracker
     average_goals_per_game_per_team(exclude).max_by { |team, avg| avg }[0].name
   end
 
-  def winningest_coach
-    
-  end
-
   def count_of_teams
     @teams.size
   end
