@@ -86,13 +86,16 @@ class StatTracker
     end
   end
 
-  def tackles_per_team_for(season_id)
-    # USE find_team HELPER METHOD TO TURN ID INTO STRING
-    @game_teams.reduce(Hash.new(0)) do |result, game_team|
-      result[game_team.team_id] += game_team.tackles if game_team.season == season_id 
   def find_team(team_id)
     teams.find { |team| team.id == team_id }
   end
+
+  def tackles_per_team_for(season_id)
+    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[find_team(game_team.team_id).name] += game_team.tackles if game_team.season == season_id 
+      result
+    end 
+  end 
 
   def goals_per_game_per_team
     @game_teams.reduce(Hash.new { |h,k| h[k] = [] }) do |result, game_team|
@@ -150,7 +153,6 @@ class StatTracker
     end
   end
 
-
 # ==================       League Stats Methods      ==================
 
   def best_offense
@@ -191,6 +193,7 @@ class StatTracker
     tackles_per_team_for(season_id).min_by do |team_id, tackles|
       tackles 
     end[0]
+  end
     
 # ==================       Team Stats Methods      ==================
 
