@@ -48,6 +48,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal 1, @@stat_tracker.total_tied_games
   end
 
+  def test_it_can_read_season_for_game_teams
+    assert_equal 20122013, @@stat_tracker.game_teams[1].season
+    assert_equal 20172018, @@stat_tracker.game_teams[59].season
+  end
+
 # ==================       Game Stat Methods Tests     ==================
 
   def test_it_can_return_total_goals_per_season
