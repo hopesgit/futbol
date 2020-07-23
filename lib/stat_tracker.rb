@@ -19,6 +19,7 @@ class StatTracker
     game_collection = GameCollection.new(game_path)
     team_collection = TeamCollection.new(team_path)
     game_team_collection = GameTeamCollection.new(game_teams_path)
+    game_team_collection.add_season_id(game_collection.all_games)
     @games = game_collection.all_games
     @teams = team_collection.all_teams
     @game_teams = game_team_collection.all_game_teams
@@ -144,6 +145,11 @@ class StatTracker
   def lowest_scoring_visitor
     exclude = "home"
     average_goals_per_game_per_team(exclude).min_by { |team, avg| avg }[0].name
+  end
+
+  def highest_scoring_home_team 
+    exclude = "away"
+    average_goals_per_game_per_team(exclude).max_by { |team, avg| avg }[0].name
   end
 
   def count_of_teams

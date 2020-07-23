@@ -48,6 +48,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal 1, @@stat_tracker.total_tied_games
   end
 
+  def test_it_can_read_season_for_game_teams
+    assert_equal 20122013, @@stat_tracker.game_teams[1].season
+    assert_equal 20172018, @@stat_tracker.game_teams[59].season
+  end
+  
   def test_it_can_get_total_games_per_team
     expected = { 3=>9, 6=>9, 5=>8, 17=>1, 16=>7, 14=>6, 28=>10, 54=>6, 24=>4 }
 
@@ -182,6 +187,10 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_get_lowest_scoring_visitor
     assert_equal "Sporting Kansas City", @@stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_it_can_get_highest_scoring_home_team
+    assert_equal "Reign FC", @@stat_tracker.highest_scoring_home_team
   end
 
   def test_it_can_get_count_of_teams
