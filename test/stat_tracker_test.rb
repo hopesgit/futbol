@@ -64,10 +64,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 13, @@stat_tracker.total_away_wins
   end
 
-  # def test_away
-  #   assert_equal ({}), @@stat_tracker.total_away_goals
-  # end
-
   def test_away_goals
     assert_equal ({3=>17, 6=>24, 5=>7, 17=>1, 16=>15, 14=>8, 28=>24, 54=>16, 24=>4}), @@stat_tracker.total_away_goals
   end
@@ -107,5 +103,11 @@ class StatTrackerTest < Minitest::Test
       20172018 => 4.40
     }
     assert_equal seasons_and_avg_goals, @@stat_tracker.average_goals_by_season
+  end
+
+  # ==================       League Stat Methods Tests     ==================
+
+  def test_it_can_get_count_of_teams
+    assert_equal 32, @@stat_tracker.count_of_teams
   end
 end

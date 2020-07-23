@@ -49,18 +49,6 @@ class StatTracker
     away_wins
   end
 
-  # def total_away_goals
-  #   @game_teams.select do |game_team|
-  #     game_team.hoa == "away"
-  #   end
-  #
-  #   result = Hash.new(0)
-  #   aways.each do |game_team|
-  #     result[game_team.team_id] += game_team.goals
-  #   end
-  #   result
-  # end
-
   def total_games
     @games.size
   end
@@ -78,7 +66,6 @@ class StatTracker
   end
 
 # ==================       Game Stats Methods      ==================
-
 
   def total_goals_per_season
     @games.reduce(Hash.new(0)) do |result, game|
@@ -129,6 +116,7 @@ class StatTracker
     end
   end
 
+
   def total_goals_per_team(exclude_hoa = nil)
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += game_team.goals unless game_team.hoa == exclude_hoa
@@ -141,5 +129,12 @@ class StatTracker
       average = (total_goals_per_team(exclude_hoa)[team.id] / total_games_per_team(exclude_hoa)[team.id].to_f).round(2)
       result[team] = average unless average.nan?
     end
+  end
+
+=======
+# ==================       League Stats Methods      ==================
+
+  def count_of_teams
+    @teams.size
   end
 end
