@@ -148,11 +148,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_calculate_percentage_home_wins
-   assert_equal 53.33, @@stat_tracker.percentage_home_wins
+   assert_equal 0.53, @@stat_tracker.percentage_home_wins
   end
 
   def test_it_can_get_percentage_ties
-    assert_equal 3.33, @@stat_tracker.percentage_ties
+    assert_equal 0.33, @@stat_tracker.percentage_ties
   end
 
   def test_it_can_get_lowest_total_score
@@ -160,7 +160,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_visitor_win_percentage
-    assert_equal 43.33, @@stat_tracker.percentage_visitor_wins
+    assert_equal 0.43, @@stat_tracker.percentage_visitor_wins
   end
 
   def test_count_of_games_by_season
