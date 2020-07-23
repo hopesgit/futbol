@@ -142,6 +142,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_away_wins
     assert_equal 13, @@stat_tracker.total_away_wins
   end
+
   def test_it_can_get_highest_total_score
     assert_equal 7, @@stat_tracker.highest_total_score
   end
@@ -183,6 +184,10 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_find_the_best_offensive_team
     assert_equal "FC Dallas", @@stat_tracker.best_offense
+  end
+
+  def test_it_can_get_highest_scoring_visitor
+    assert_equal "FC Dallas", @@stat_tracker.highest_scoring_visitor
   end
 
   def test_it_can_get_lowest_scoring_visitor

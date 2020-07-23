@@ -113,7 +113,6 @@ class StatTracker
 
   def percentage_ties
     ((total_tied_games / total_games.to_f) * 100).round(2)
-
   end
 
   def count_of_games_by_season
@@ -136,10 +135,16 @@ class StatTracker
     end
   end
 
+
 # ==================       League Stats Methods      ==================
 
   def best_offense
     average_goals_per_game_per_team.max_by { |team, avg| avg }[0].name
+  end
+
+  def highest_scoring_visitor
+    exclude = "home"
+    average_goals_per_game_per_team(exclude).max_by { |team, avg| avg }[0].name
   end
 
   def lowest_scoring_visitor
