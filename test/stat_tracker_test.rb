@@ -127,6 +127,17 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected_avg_away_goals_p_game_p_team, @@stat_tracker.average_goals_per_game_per_team(exclude)
   end
 
+  def test_it_can_get_tackles_per_team_for_a_season
+    tackles_by_team_season_20122013 = {
+      3 => 179,
+      6	=> 271,
+      5	=> 150,
+      17 => 43,
+      16 => 24
+    }
+    assert_equal tackles_by_team_season_20122013, @@stat_tracker.tackles_per_team_for(20122013)
+  end
+
 # ==================       Game Stat Methods Tests     ==================
 
   def test_it_can_return_total_goals_per_season
