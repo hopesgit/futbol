@@ -147,7 +147,7 @@ class StatTracker
     average_goals_per_game_per_team(exclude).min_by { |team, avg| avg }[0].name
   end
 
-  def highest_scoring_home_team 
+  def highest_scoring_home_team
     exclude = "away"
     average_goals_per_game_per_team(exclude).max_by { |team, avg| avg }[0].name
   end
@@ -157,23 +157,11 @@ class StatTracker
   end
 
   def worst_offense
-    @teams.min_by do |team|
-      total_games(team)
-    end
-    # need total number of games that the teams played by a team
-    # need total number of goals scored
-    # Looking for: String
-    # String describing name of team
-    # Looking for name of team with the lowest average number of goals scored per game across all seasons
+    average_goals_per_game_per_team.min_by { |team, avg| avg}[0].name
   end
 
   def lowest_scoring_home_team
-    woat = @teams.min_by do |team|
-      average_goals_per_game_per_team("away")[team]
-    end
-    return woat.name
-
-    # Looking for: String (team name)
-    # Name of the team with the lowest average score per game across all seasons when they are at home
+    exclude = "away"
+    average_goals_per_game_per_team(exclude).min_by { |team, avg| avg }[0].name
   end
 end
