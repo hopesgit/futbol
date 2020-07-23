@@ -18,5 +18,4 @@ class GameCollection
       all_gameids_per_season[row[:season]] << row[:game_id]
     end
   end
-
 end
