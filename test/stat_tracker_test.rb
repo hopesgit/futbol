@@ -135,7 +135,7 @@ class StatTrackerTest < Minitest::Test
       "LA Galaxy" => 43,
       "New England Revolution" => 24
     }
-    
+
     assert_equal season_20122013_tackles_by_team, @@stat_tracker.tackles_per_team_for(20122013)
   end
 
@@ -224,5 +224,9 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_return_team_with_fewest_tackles_in_season 
     assert_equal "New England Revolution", @@stat_tracker.fewest_tackles(20122013)
+
+    assert_equal "Sporting Kansas City", @@stat_tracker.fewest_tackles(20142015)
+
+    assert_equal "Real Salt Lake", @@stat_tracker.fewest_tackles(20172018)
   end
 end
