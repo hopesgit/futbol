@@ -220,4 +220,8 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_lowest_scoring_home_team
     assert_equal "Sporting Kansas City", @@stat_tracker.lowest_scoring_home_team
   end
+
+  def test_it_can_return_team_with_fewest_tackles_in_season 
+    assert_equal "New England Revolution", @@stat_tracker.fewest_tackles(20122013)
+  end
 end
