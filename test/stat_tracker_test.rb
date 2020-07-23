@@ -184,7 +184,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Sporting Kansas City", @@stat_tracker.lowest_scoring_visitor
   end
 
-  def test_it_can_get_lowest_scoring_visitor
+  def test_it_can_get_highest_scoring_home_team
     assert_equal "Reign FC", @@stat_tracker.highest_scoring_home_team
   end
 
