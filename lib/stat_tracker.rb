@@ -68,7 +68,6 @@ class StatTracker
 
 # ==================       Game Stats Methods      ==================
 
-
   def total_goals_per_season
     @games.reduce(Hash.new(0)) do |result, game|
       result[game.season] += game.away_goals + game.home_goals
@@ -116,5 +115,11 @@ class StatTracker
       result[season] = (total_goals_per_season[season] / count_of_games_by_season[season].to_f).round(2)
       result
     end
+  end
+
+# ==================       League Stats Methods      ==================
+
+  def count_of_teams
+    @teams.size
   end
 end

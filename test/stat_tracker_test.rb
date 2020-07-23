@@ -104,4 +104,10 @@ class StatTrackerTest < Minitest::Test
     }
     assert_equal seasons_and_avg_goals, @@stat_tracker.average_goals_by_season
   end
+
+  # ==================       League Stat Methods Tests     ==================
+
+  def test_it_can_get_count_of_teams 
+    assert_equal 32, @@stat_tracker.count_of_teams
+  end
 end
