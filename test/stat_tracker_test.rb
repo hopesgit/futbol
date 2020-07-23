@@ -174,6 +174,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal seasons_and_avg_goals, @@stat_tracker.average_goals_by_season
   end
 
+<<<<<<< HEAD
   # ==================       League Stats Tests      ==================
 
   def test_it_can_find_the_best_offensive_team
@@ -184,3 +185,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Sporting Kansas City", @@stat_tracker.lowest_scoring_visitor
   end
 end
+=======
+  # ==================       League Stat Methods Tests     ==================
+
+  def test_it_can_get_count_of_teams 
+    assert_equal 32, @@stat_tracker.count_of_teams
+  end
+end
+>>>>>>> b1516e08267aca467a1fefdc97f7c70d02bea683
