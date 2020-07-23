@@ -20,7 +20,7 @@ class GameTeamCollectionTest < Minitest::Test
   end
 
   def test_it_can_add_season_id
-    game_path = './data/game_teams_fixture.csv'
+    game_path = './data/games_fixture.csv'
     game_collection = GameCollection.new(game_path)
     @@game_team_collection.add_season_id(game_collection.all_games)
 
