@@ -87,6 +87,7 @@ class StatTracker
   end
 
   def tackles_per_team_for(season_id)
+    # USE find_team HELPER METHOD TO TURN ID INTO STRING
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += game_team.tackles if game_team.season == season_id 
       result
@@ -175,5 +176,13 @@ class StatTracker
   def lowest_scoring_home_team
     exclude = "away"
     average_goals_per_game_per_team(exclude).min_by { |team, avg| avg }[0].name
+  end
+
+# ==================       Season Stats Methods      ==================
+
+  def fewest_tackles(season_id)
+    tackles_per_team_for(season_id).min_by do |team_id, tackles|
+      tackles 
+    end[0]
   end
 end
