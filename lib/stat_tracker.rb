@@ -93,7 +93,6 @@ class StatTracker
 
   def percentage_ties
     ((total_tied_games / total_games.to_f) * 100).round(2)
-
   end
 
   def count_of_games_by_season
@@ -117,10 +116,16 @@ class StatTracker
   end
 
 
+# ==================       League Stats Methods      ==================
+
+  def count_of_teams
+    @teams.size
+  end
+
   def total_goals_per_team(exclude_hoa = nil)
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += game_team.goals unless game_team.hoa == exclude_hoa
-    result
+      result
     end
   end
 
@@ -129,12 +134,5 @@ class StatTracker
       average = (total_goals_per_team(exclude_hoa)[team.id] / total_games_per_team(exclude_hoa)[team.id].to_f).round(2)
       result[team] = average unless average.nan?
     end
-  end
-
-=======
-# ==================       League Stats Methods      ==================
-
-  def count_of_teams
-    @teams.size
   end
 end
