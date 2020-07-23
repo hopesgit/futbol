@@ -90,6 +90,13 @@ class StatTracker
     teams.find { |team| team.id == team_id }
   end
 
+  def goals_per_game_per_team
+    @game_teams.reduce(Hash.new { |h,k| h[k] = [] }) do |result, game_team|
+      result[game_team.team_id] << game_team.goals
+      result
+    end
+  end
+
 # ==================       Game Stats Methods      ==================
 
   def total_goals_per_season
