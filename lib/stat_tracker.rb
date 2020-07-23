@@ -141,6 +141,11 @@ class StatTracker
     average_goals_per_game_per_team.max_by { |team, avg| avg }[0].name
   end
 
+  def highest_scoring_visitor
+    exclude = "home"
+    average_goals_per_game_per_team(exclude).max_by { |team, avg| avg }[0].name
+  end
+
   def lowest_scoring_visitor
     exclude = "home"
     average_goals_per_game_per_team(exclude).min_by { |team, avg| avg }[0].name
@@ -148,19 +153,5 @@ class StatTracker
 
   def count_of_teams
     @teams.size
-  end
-
-  def total_goals_per_team(exclude_hoa = nil)
-    @game_teams.reduce(Hash.new(0)) do |result, game_team|
-      result[game_team.team_id] += game_team.goals unless game_team.hoa == exclude_hoa
-      result
-    end
-  end
-
-  def average_goals_per_game_per_team(exclude_hoa = nil)
-    @teams.reduce({}) do |result, team|
-      average = (total_goals_per_team(exclude_hoa)[team.id] / total_games_per_team(exclude_hoa)[team.id].to_f).round(2)
-      result[team] = average unless average.nan?
-    end
   end
 end
