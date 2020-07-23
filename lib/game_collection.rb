@@ -5,7 +5,7 @@ class GameCollection
   attr_reader :all_games
 
   def initialize(game_path)
-    @game_path = './data/games_fixture.csv'
+    @game_path = game_path
     @all_games = []
     create_games
   end
