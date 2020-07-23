@@ -16,6 +16,8 @@ attr_reader :game_id,
             :giveaways,
             :takeaways
 
+attr_accessor :season
+
   def initialize(data)
     @game_id = data[:game_id]
     @team_id = data[:team_id]
@@ -32,5 +34,6 @@ attr_reader :game_id,
     @faceoff_win_percentage = data[:faceoffwinpercentage]
     @giveaways = data[:giveaways]
     @takeaways = data[:takeaways]
+    @season = nil
   end
 end
