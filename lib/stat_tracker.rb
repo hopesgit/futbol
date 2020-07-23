@@ -164,4 +164,13 @@ class StatTracker
   def count_of_teams
     @teams.size
   end
+
+  def worst_offense
+    average_goals_per_game_per_team.min_by { |team, avg| avg}[0].name
+  end
+
+  def lowest_scoring_home_team
+    exclude = "away"
+    average_goals_per_game_per_team(exclude).min_by { |team, avg| avg }[0].name
+  end
 end
