@@ -78,9 +78,10 @@ class StatTracker
   end
 
   def average_goals_per_game_per_team(exclude_hoa = nil)
-    @teams.reduce(Hash.new(0)) do |result, team|
+    @teams.reduce({}) do |result, team|
       average = (total_goals_per_team(exclude_hoa)[team.id] / total_games_per_team(exclude_hoa)[team.id].to_f).round(2)
       result[team] = average unless average.nan?
+      result
     end
   end
 
