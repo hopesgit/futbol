@@ -127,6 +127,28 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected_avg_away_goals_p_game_p_team, @@stat_tracker.average_goals_per_game_per_team(exclude)
   end
 
+
+  def test_it_can_find_a_team
+    assert_equal 10, @@stat_tracker.find_team(3).franchise_id
+  end
+
+  def test_it_can_get_goals_per_game_per_team
+
+    expected = {
+                3=>[2, 2, 1, 2, 1, 2, 3, 2, 2],
+                6=>[3, 3, 2, 3, 3, 3, 4, 2, 1],
+                5=>[0, 1, 1, 0, 1, 2, 1, 1],
+                17=>[1],
+                16=>[2, 2, 3, 2, 2, 2, 2],
+                14=>[1, 2, 3, 1, 1, 0],
+                28=>[0, 2, 3, 2, 3, 0, 3, 3, 6, 2],
+                54=>[5, 3, 2, 0, 3, 3],
+                24=>[0, 2, 1, 1]
+              }
+
+    assert_equal expected, @@stat_tracker.goals_per_game_per_team
+  end
+
   def test_it_can_return_games_won_per_team_for_a_season
     assert_equal ({6=>9, 16=>1}), @@stat_tracker.games_won_per_team_for(20122013)
   end
@@ -134,7 +156,6 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_return_total_games_per_team_for_a_season
     assert_equal ({3=>5, 6=>9, 5=>4, 17=>1, 16=>1}), @@stat_tracker.total_games_per_team_for(20122013)
   end
-
 # ==================       Game Stat Methods Tests     ==================
 
   def test_it_can_return_total_goals_per_season
@@ -156,11 +177,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_calculate_percentage_home_wins
-   assert_equal 53.33, @@stat_tracker.percentage_home_wins
+   assert_equal 0.53, @@stat_tracker.percentage_home_wins
   end
 
   def test_it_can_get_percentage_ties
-    assert_equal 3.33, @@stat_tracker.percentage_ties
+    assert_equal 0.03, @@stat_tracker.percentage_ties
   end
 
   def test_it_can_get_lowest_total_score
@@ -168,7 +189,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_visitor_win_percentage
-    assert_equal 43.33, @@stat_tracker.percentage_visitor_wins
+    assert_equal 0.43, @@stat_tracker.percentage_visitor_wins
   end
 
   def test_count_of_games_by_season
@@ -218,4 +239,22 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Sporting Kansas City", @@stat_tracker.lowest_scoring_home_team
   end
 
+  # ==================       Team Stat Methods Tests     ==================
+
+  def test_it_gets_team_info
+    expected = {
+                id: 3,
+                franchise_id: 10,
+                name: "Houston Dynamo",
+                abbreviation: "HOU",
+                link: "/api/v1/teams/3"
+                }
+
+    assert_equal expected, @@stat_tracker.team_info(3)
+  end
+
+  def test_it_can_get_most_goals_scored
+    assert_equal 3, @@stat_tracker.most_goals_scored(14)
+    assert_equal 6, @@stat_tracker.most_goals_scored(28)
+  end
 end
