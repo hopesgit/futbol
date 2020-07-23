@@ -173,4 +173,17 @@ class StatTracker
     exclude = "away"
     average_goals_per_game_per_team(exclude).min_by { |team, avg| avg }[0].name
   end
+
+# ==================       Team Stats Methods      ==================
+
+  def team_info(team_id)
+    team = find_team(team_id)
+    {
+      id: team.id,
+      franchise_id: team.franchise_id,
+      name: team.name,
+      abbreviation: team.abbreviation,
+      link: team.link
+    }
+  end
 end
