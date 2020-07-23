@@ -128,14 +128,14 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_tackles_per_team_for_a_season
-    tackles_by_team_season_20122013 = {
+    season_20122013_tackles_by_team = {
       3 => 179,
       6	=> 271,
       5	=> 150,
       17 => 43,
       16 => 24
     }
-    assert_equal tackles_by_team_season_20122013, @@stat_tracker.tackles_per_team_for(20122013)
+    assert_equal season_20122013_tackles_by_team, @@stat_tracker.tackles_per_team_for(20122013)
   end
 
 # ==================       Game Stat Methods Tests     ==================
