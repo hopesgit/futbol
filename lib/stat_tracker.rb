@@ -193,4 +193,9 @@ class StatTracker
       link: team.link
     }
   end
+
+  def most_goals_scored(team_id)
+     goals_p_game_p_team_hash = goals_per_game_per_team
+     goals_p_game_p_team_hash[team_id].max
+  end
 end

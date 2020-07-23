@@ -247,4 +247,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @@stat_tracker.team_info(3)
   end
 
+  def test_it_can_get_most_goals_scored
+    assert_equal 3, @@stat_tracker.most_goals_scored(14)
+    assert_equal 6, @@stat_tracker.most_goals_scored(28)
+  end
 end
