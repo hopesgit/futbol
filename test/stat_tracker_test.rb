@@ -48,6 +48,80 @@ class StatTrackerTest < Minitest::Test
     assert_equal 1, @@stat_tracker.total_tied_games
   end
 
+  def test_it_can_get_total_games_per_team
+    expected = { 3=>9, 6=>9, 5=>8, 17=>1, 16=>7, 14=>6, 28=>10, 54=>6, 24=>4 }
+
+    assert_equal expected, @@stat_tracker.total_games_per_team
+  end
+
+  def test_it_can_exclude_hoa_games_from_total_games_per_team
+    total_home_games_per_team = {6=>5, 3=>4, 5=>4, 16=>4, 14=>3, 54=>3, 28=>5, 24=>2}
+    exclude = "away"
+
+    assert_equal total_home_games_per_team, @@stat_tracker.total_games_per_team(exclude)
+
+    total_away_games_per_team = {3=>5, 6=>4, 5=>4, 17=>1, 16=>3, 14=>3, 28=>5, 54=>3, 24=>2}
+    exclude = "home"
+
+    assert_equal total_away_games_per_team, @@stat_tracker.total_games_per_team(exclude)
+  end
+
+  def test_it_can_get_total_goals_per_team
+    expected = {3=>17, 6=>24, 5=>7, 17=>1, 16=>15, 14=>8, 28=>24, 54=>16, 24=>4}
+
+    assert_equal expected, @@stat_tracker.total_goals_per_team
+  end
+
+  def test_it_can_exclude_hoa_goals_from_total_goals_per_team
+    expected_home_goals_per_team = {6=>12, 3=>8, 5=>3, 16=>8, 14=>4, 54=>11, 28=>13, 24=>2}
+    exclude = "away"
+
+    assert_equal expected_home_goals_per_team, @@stat_tracker.total_goals_per_team(exclude)
+
+    expected_away_goals_per_team = {3=>9, 6=>12, 5=>4, 17=>1, 16=>7, 14=>4, 28=>11, 54=>5, 24=>2}
+    exclude = "home"
+
+    assert_equal expected_away_goals_per_team, @@stat_tracker.total_goals_per_team(exclude)
+  end
+
+  def test_it_can_get_average_goals_per_game_per_team
+    team3 = @@stat_tracker.teams.find { |team| team.id == 3 }
+    team5 = @@stat_tracker.teams.find { |team| team.id == 5 }
+    team6 = @@stat_tracker.teams.find { |team| team.id == 6 }
+    team14 = @@stat_tracker.teams.find { |team| team.id == 14 }
+    team16 = @@stat_tracker.teams.find { |team| team.id == 16 }
+    team17 = @@stat_tracker.teams.find { |team| team.id == 17 }
+    team28 = @@stat_tracker.teams.find { |team| team.id == 28 }
+    team24 = @@stat_tracker.teams.find { |team| team.id == 24 }
+    team54 = @@stat_tracker.teams.find { |team| team.id == 54 }
+
+    expected = {team3=>1.89, team6=>2.67, team5=>0.88, team17=>1.0, team16=>2.14, team14=>1.33, team28=>2.4, team54=>2.67, team24=>1.0}
+
+    assert_equal expected, @@stat_tracker.average_goals_per_game_per_team
+  end
+
+  def test_it_can_get_average_goals_per_game_per_team_hoa
+    team3 = @@stat_tracker.teams.find { |team| team.id == 3 }
+    team5 = @@stat_tracker.teams.find { |team| team.id == 5 }
+    team6 = @@stat_tracker.teams.find { |team| team.id == 6 }
+    team14 = @@stat_tracker.teams.find { |team| team.id == 14 }
+    team16 = @@stat_tracker.teams.find { |team| team.id == 16 }
+    team17 = @@stat_tracker.teams.find { |team| team.id == 17 }
+    team28 = @@stat_tracker.teams.find { |team| team.id == 28 }
+    team24 = @@stat_tracker.teams.find { |team| team.id == 24 }
+    team54 = @@stat_tracker.teams.find { |team| team.id == 54 }
+
+    expected_avg_home_goals_p_game_p_team = {team3=>2.0, team6=>2.4, team5=>0.75, team16=>2.0, team14=>1.33, team28=>2.6, team54=>3.67, team24=>1.0}
+    exclude = "away"
+
+    assert_equal expected_avg_home_goals_p_game_p_team, @@stat_tracker.average_goals_per_game_per_team(exclude)
+
+    expected_avg_away_goals_p_game_p_team = {team14=>1.33, team6=>3.0, team3=>1.8, team5=>1.0, team17=>1.0, team28=>2.2, team16=>2.33, team24=>1.0, team54=>1.67}
+    exclude = "home"
+
+    assert_equal expected_avg_away_goals_p_game_p_team, @@stat_tracker.average_goals_per_game_per_team(exclude)
+  end
+
 # ==================       Game Stat Methods Tests     ==================
 
   def test_it_can_return_total_goals_per_season
@@ -98,5 +172,19 @@ class StatTrackerTest < Minitest::Test
       20172018 => 4.40
     }
     assert_equal seasons_and_avg_goals, @@stat_tracker.average_goals_by_season
+  end
+
+  # ==================       League Stat Methods Tests     ==================
+
+  def test_it_can_find_the_best_offensive_team
+    assert_equal "FC Dallas", @@stat_tracker.best_offense
+  end
+
+  def test_it_can_get_lowest_scoring_visitor
+    assert_equal "Sporting Kansas City", @@stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_it_can_get_count_of_teams
+    assert_equal 32, @@stat_tracker.count_of_teams
   end
 end
