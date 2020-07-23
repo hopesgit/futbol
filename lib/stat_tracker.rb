@@ -90,6 +90,13 @@ class StatTracker
     # USE find_team HELPER METHOD TO TURN ID INTO STRING
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += game_team.tackles if game_team.season == season_id 
+  def find_team(team_id)
+    teams.find { |team| team.id == team_id }
+  end
+
+  def goals_per_game_per_team
+    @game_teams.reduce(Hash.new { |h,k| h[k] = [] }) do |result, game_team|
+      result[game_team.team_id] << game_team.goals
       result
     end
   end
@@ -112,15 +119,15 @@ class StatTracker
   end
 
   def percentage_visitor_wins
-    ((total_away_wins / total_games.to_f) * 100).round(2)
+    (total_away_wins / total_games.to_f).round(2)
   end
 
   def percentage_home_wins
-    ((total_home_wins / total_games.to_f) * 100).round(2)
+    (total_home_wins / total_games.to_f).round(2)
   end
 
   def percentage_ties
-    ((total_tied_games / total_games.to_f) * 100).round(2)
+    (total_tied_games / total_games.to_f).round(2)
   end
 
   def count_of_games_by_season
@@ -184,5 +191,21 @@ class StatTracker
     tackles_per_team_for(season_id).min_by do |team_id, tackles|
       tackles 
     end[0]
+    
+# ==================       Team Stats Methods      ==================
+
+  def team_info(team_id)
+    team = find_team(team_id)
+    {
+      id: team.id,
+      franchise_id: team.franchise_id,
+      name: team.name,
+      abbreviation: team.abbreviation,
+      link: team.link
+    }
+  end
+
+  def most_goals_scored(team_id)
+     goals_per_game_per_team[team_id].max
   end
 end
