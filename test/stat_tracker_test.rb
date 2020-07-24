@@ -162,30 +162,30 @@ class StatTrackerTest < Minitest::Test
   
   def test_it_can_get_shots_per_team
     shots_fired = {
-      3 => 65,
-      6 => 76,
-      5 => 54,
-      17 => 5,
-      16 => 50,
-      14 => 39,
-      28 => 82,
-      54 => 48,
-      24 => 31
+      "3" => 65,
+      "6" => 76,
+      "5" => 54,
+      "17" => 5,
+      "16" => 50,
+      "14" => 39,
+      "28" => 82,
+      "54" => 48,
+      "24" => 31
     }
     assert_equal shots_fired, @@stat_tracker.total_shots_per_team
   end
 
   def test_shots_to_goals_ratio_per_team
     ratio = {
-      3 => 3.82,
-      6 => 3.17,
-      5 => 7.71,
-      17 => 5.00,
-      16 => 3.33,
-      14 => 4.88,
-      28 => 3.42,
-      54 => 3.00,
-      24 => 7.75
+      "3" => 3.82,
+      "6" => 3.17,
+      "5" => 7.71,
+      "17" => 5.00,
+      "16" => 3.33,
+      "14" => 4.88,
+      "28" => 3.42,
+      "54" => 3.00,
+      "24" => 7.75
     }
     assert_equal ratio, @@stat_tracker.shots_to_goals_ratio_per_team
   end
