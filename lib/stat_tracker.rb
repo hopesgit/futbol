@@ -111,16 +111,15 @@ class StatTracker
     end
   end
 
+  def shots_to_goals_ratio_per_team
+    total_shots_per_team.merge(total_goals_per_team){|team_id, shots, goals| (shots.to_f / goals).round(2)}
+  end
 
   def games_won_per_team_for(season_id)
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += 1 if game_team.season == season_id &&  game_team.result == "WIN"
       result
     end
-  end
-
-  def shots_to_goals_ratio_per_team
-    total_shots_per_team.merge(total_goals_per_team){|team_id, shots, goals| (shots.to_f / goals).round(2)}
   end
 
   def total_games_per_team_for(season_id)
@@ -130,12 +129,16 @@ class StatTracker
     end
   end
 
+  def all_coaches
+   @game_teams.map {|game_team| game_team.head_coach}.uniq
+  end
+
   def create_hash_with_team_games_by_coach(season_id)
-   all_coaches.reduce({}) do |coaches_with_games, coach|
-     coaches_with_games[coach] = game_teams_that_season_by_coach(coach, season_id)
-     coaches_with_games
-   end
- end
+     all_coaches.reduce({}) do |coaches_with_games, coach|
+       coaches_with_games[coach] = game_teams_that_season_by_coach(coach, season_id)
+       coaches_with_games
+    end
+  end
 
   def game_teams_that_season_by_coach(coach, season_id)
     @game_teams.find_all do |game_team|
@@ -247,10 +250,6 @@ class StatTracker
   end
 
 # ==================       Season Stats Methods      ==================
-
-  def all_coaches
-   @game_teams.map {|game_team| game_team.head_coach}.uniq
-  end
 
   def winningest_coach(season_id)
     find_all_wins_by_coach(season_id).max_by do |coach, percent_wins|
