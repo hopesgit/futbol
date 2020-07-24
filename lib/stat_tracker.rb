@@ -86,6 +86,7 @@ class StatTracker
     end
   end
 
+
   def find_team(team_id)
     teams.find { |team| team.id == team_id }
   end
@@ -97,6 +98,19 @@ class StatTracker
     end
   end
 
+  def games_won_per_team_for(season_id)
+    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[game_team.team_id] += 1 if game_team.season == season_id &&  game_team.result == "WIN"
+      result
+    end
+  end
+
+  def total_games_per_team_for(season_id)
+    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[game_team.team_id] += 1 if game_team.season == season_id
+      result
+    end
+  end
 # ==================       Game Stats Methods      ==================
 
   def total_goals_per_season
