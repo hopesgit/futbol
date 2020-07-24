@@ -86,7 +86,6 @@ class StatTracker
     end
   end
 
-
   def find_team(team_id)
     teams.find { |team| team.id == team_id }
   end
@@ -118,6 +117,40 @@ class StatTracker
       result
     end
   end
+
+  def create_hash_with_team_games_by_coach(season_id)
+   all_coaches.reduce({}) do |coaches_with_games, coach|
+     coaches_with_games[coach] = game_teams_that_season_by_coach(coach, season_id)
+     coaches_with_games
+   end
+ end
+
+  def game_teams_that_season_by_coach(coach, season_id)
+    @game_teams.find_all do |game_team|
+      game_team.game_id.to_s[0..3] == season_id.to_s[0..3] && game_team.head_coach == coach
+    end
+  end
+
+  def number_of_games_by_coach(season_id)
+    create_hash_with_team_games_by_coach(season_id).transform_values do |game_teams|
+      game_teams.length
+    end
+  end
+
+  def find_all_wins_by_coach(season_id)
+    create_hash_with_team_games_by_coach(season_id).transform_values do |game_teams|
+      (game_teams.find_all {|game| game.result == "WIN"}).length
+    end
+  end
+
+  def percent_wins_by_coach(season_id)
+    percent_wins = {}
+    find_all_wins_by_coach(season_id).map do |coach, num_wins|
+      percent_wins[coach] = (num_wins.to_f / number_of_games_by_coach(season_id)[coach]).round(2)
+    end
+     percent_wins
+  end
+
 # ==================       Game Stats Methods      ==================
 
   def total_goals_per_season
@@ -203,8 +236,24 @@ class StatTracker
 
 # ==================       Season Stats Methods      ==================
 
+  def all_coaches
+   @game_teams.map {|game_team| game_team.head_coach}.uniq
+  end
+
+  def winningest_coach(season_id)
+    find_all_wins_by_coach(season_id).max_by do |coach, percent_wins|
+      percent_wins
+    end[0]
+  end
+
   def fewest_tackles(season_id)
     tackles_per_team_for(season_id).min_by do |team_id, tackles|
+      tackles
+    end[0]
+  end
+
+  def most_tackles(season_id)
+    tackles_per_team_for(season_id).max_by do |team_id, tackles|
       tackles
     end[0]
   end

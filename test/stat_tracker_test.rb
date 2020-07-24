@@ -167,6 +167,36 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_return_total_games_per_team_for_a_season
     assert_equal ({3=>5, 6=>9, 5=>4, 17=>1, 16=>1}), @@stat_tracker.total_games_per_team_for(20122013)
   end
+
+  def test_it_can_return_all_coaches
+    expected = ["John Tortorella", "Claude Julien", "Dan Bylsma", "Mike Babcock", "Joel Quenneville", "Jon Cooper", "Mike Johnston", "Alain Vigneault", "Peter DeBoer", "Gerard Gallant", "Randy Carlyle"]
+   assert_equal expected, @@stat_tracker.all_coaches
+  end
+
+  def test_it_can_get_team_games_by_coach
+    assert_instance_of Hash, @@stat_tracker.create_hash_with_team_games_by_coach(20122013)
+    assert_equal 11, @@stat_tracker.create_hash_with_team_games_by_coach(20122013).length
+  end
+
+  def test_find_all_wins_by_coach
+    expected = {"John Tortorella"=>0, "Claude Julien"=>9, "Dan Bylsma"=>0, "Mike Babcock"=>0, "Joel Quenneville"=>1, "Jon Cooper"=>0, "Mike Johnston"=>0, "Alain Vigneault"=>0, "Peter DeBoer"=>0, "Gerard Gallant"=>0, "Randy Carlyle"=>0}
+    assert_equal expected, @@stat_tracker.find_all_wins_by_coach(20122013)
+  end
+
+  def test_number_of_games_by_coach
+    expected = {"John Tortorella"=>5, "Claude Julien"=>9, "Dan Bylsma"=>4, "Mike Babcock"=>1, "Joel Quenneville"=>1, "Jon Cooper"=>0, "Mike Johnston"=>0, "Alain Vigneault"=>0, "Peter DeBoer"=>0, "Gerard Gallant"=>0, "Randy Carlyle"=>0}
+    assert_equal expected, @@stat_tracker.number_of_games_by_coach(20122013)
+  end
+
+  def test_percent_wins_by_coach
+    assert_equal ({"John Tortorella"=>0.0, "Claude Julien"=>1.0, "Dan Bylsma"=>0.0, "Mike Babcock"=>0.0, "Joel Quenneville"=>1.0}),  @@stat_tracker.percent_wins_by_coach(20122013)
+  end
+
+  def test_it_can_get_games_by_coach_and_season
+    assert_instance_of Array, @@stat_tracker.game_teams_that_season_by_coach("Mike Babcock", 20122013)
+    assert_equal 9, @@stat_tracker.game_teams_that_season_by_coach("Claude Julien", 20122013).length
+  end
+
 # ==================       Game Stat Methods Tests     ==================
 
   def test_it_can_return_total_goals_per_season
@@ -250,12 +280,24 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Sporting Kansas City", @@stat_tracker.lowest_scoring_home_team
   end
 
+  def test_it_can_get_winningest_coach
+    assert_equal "Claude Julien", @@stat_tracker.winningest_coach(20122013)
+  end
+
   def test_it_can_return_team_with_fewest_tackles_in_season
     assert_equal "New England Revolution", @@stat_tracker.fewest_tackles(20122013)
 
     assert_equal "Sporting Kansas City", @@stat_tracker.fewest_tackles(20142015)
 
     assert_equal "Real Salt Lake", @@stat_tracker.fewest_tackles(20172018)
+  end
+
+  def test_it_can_return_team_with_most_tackles_in_season
+    assert_equal "FC Dallas", @@stat_tracker.most_tackles(20122013)
+
+    assert_equal "DC United", @@stat_tracker.most_tackles(20142015)
+
+    assert_equal "Los Angeles FC", @@stat_tracker.most_tackles(20172018)
   end
 
   # ==================       Team Stat Methods Tests     ==================
