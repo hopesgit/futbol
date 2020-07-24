@@ -222,6 +222,14 @@ class StatTracker
     end[0]
   end
 
+  def least_accurate_team(season_id)
+    shots_to_goals_ratio_per_team.min_by do |team_id, ratio|
+    ratio.first
+    #this is currently pseudocode
+    #Looking for: String
+    # Looking for: name of team with the worst ratio of shots to goals for the season
+  end
+
 # ==================       Team Stats Methods      ==================
 
   def team_info(team_id)

@@ -159,7 +159,7 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal expected, @@stat_tracker.goals_per_game_per_team
   end
-  
+
   def test_it_can_get_shots_per_team
     shots_fired = {
       3 => 65,
@@ -286,6 +286,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Sporting Kansas City", @@stat_tracker.fewest_tackles(20142015)
 
     assert_equal "Real Salt Lake", @@stat_tracker.fewest_tackles(20172018)
+  end
+
+  def test_it_can_find_the_least_accurate_team_per_season
+    assert_equal "Reign FC", @@stat_tracker.least_accurate_team(20122013)
+
   end
 
   # ==================       Team Stat Methods Tests     ==================
