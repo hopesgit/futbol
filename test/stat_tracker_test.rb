@@ -136,7 +136,7 @@ class StatTrackerTest < Minitest::Test
       "New England Revolution" => 24
     }
 
-    assert_equal season_20122013_tackles_by_team, @@stat_tracker.tackles_per_team_for(20122013)
+    assert_equal season_20122013_tackles_by_team, @@stat_tracker.tackles_per_team_for("20122013")
   end
 
   def test_it_can_find_a_team
@@ -191,11 +191,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_games_won_per_team_for_a_season
-    assert_equal ({6=>9, 16=>1}), @@stat_tracker.games_won_per_team_for(20122013)
+    assert_equal ({"6"=>9, "16"=>1}), @@stat_tracker.games_won_per_team_for("20122013")
   end
 
   def test_it_can_return_total_games_per_team_for_a_season
-    assert_equal ({3=>5, 6=>9, 5=>4, 17=>1, 16=>1}), @@stat_tracker.total_games_per_team_for(20122013)
+    assert_equal ({"3"=>5, "6"=>9, "5"=>4, "17"=>1, "16"=>1}), @@stat_tracker.total_games_per_team_for("20122013")
   end
 # ==================       Game Stat Methods Tests     ==================
 
@@ -281,11 +281,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_team_with_fewest_tackles_in_season
-    assert_equal "New England Revolution", @@stat_tracker.fewest_tackles(20122013)
+    assert_equal "New England Revolution", @@stat_tracker.fewest_tackles("20122013")
 
-    assert_equal "Sporting Kansas City", @@stat_tracker.fewest_tackles(20142015)
+    assert_equal "Sporting Kansas City", @@stat_tracker.fewest_tackles("20142015")
 
-    assert_equal "Real Salt Lake", @@stat_tracker.fewest_tackles(20172018)
+    assert_equal "Real Salt Lake", @@stat_tracker.fewest_tackles("20172018")
   end
 
   # ==================       Team Stat Methods Tests     ==================
