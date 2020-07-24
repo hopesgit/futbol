@@ -228,6 +228,21 @@ class StatTrackerTest < Minitest::Test
     assert_equal teams_to_games, @@stat_tracker.games_per_team
   end
 
+  def test_it_can_return_win_percentage_per_team
+    teams_to_games = {
+      "3" => 0.44,
+      "5" => 0.00,
+      "6" => 1.00,
+      '16' =>	0.86,
+      "17" =>	0.00,
+      "14" =>	0.17,
+      "28" =>	0.60,
+      "54" =>	0.50,
+      "24" =>	0.00
+    }
+    assert_equal teams_to_games, @@stat_tracker.win_percentage_per_team
+  end
+
 # ==================       Game Stat Methods Tests     ==================
 
   def test_it_can_return_total_goals_per_season
