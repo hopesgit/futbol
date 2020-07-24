@@ -234,7 +234,6 @@ class StatTrackerTest < Minitest::Test
   # ==================       Team Stat Methods Tests     ==================
 
   def test_it_gets_team_info
-    skip
     expected = {
                 id: "3",
                 franchise_id: "10",
