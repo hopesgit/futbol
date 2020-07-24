@@ -13,13 +13,8 @@ class GameTeamTest < Minitest::Test
                                 :head_coach=>"John Tortorella",
                                 :goals=>2,
                                 :shots=>8,
-                                :tackles=>44,
-                                :pim=>8,
-                                :powerplayopportunities=>3,
-                                :powerplaygoals=>0,
-                                :faceoffwinpercentage=>44.8,
-                                :giveaways=>17,
-                                :takeaways=>7})
+                                :tackles=>44
+                                })
   end
 
   def test_it_exists
@@ -36,11 +31,5 @@ class GameTeamTest < Minitest::Test
     assert_equal 2, @game_team.goals
     assert_equal 8, @game_team.shots
     assert_equal 44, @game_team.tackles
-    assert_equal 8, @game_team.pim
-    assert_equal 3, @game_team.powerplay_opportunities
-    assert_equal 0, @game_team.powerplay_goals
-    assert_equal 44.8, @game_team.faceoff_win_percentage
-    assert_equal 17, @game_team.giveaways
-    assert_equal 7, @game_team.takeaways
   end
 end
