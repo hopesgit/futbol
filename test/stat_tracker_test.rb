@@ -127,6 +127,17 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected_avg_away_goals_p_game_p_team, @@stat_tracker.average_goals_per_game_per_team(exclude)
   end
 
+  def test_it_can_get_tackles_per_team_for_a_season
+    season_20122013_tackles_by_team = {
+      "Houston Dynamo" => 179,
+      "FC Dallas"	=> 271,
+      "Sporting Kansas City"	=> 150,
+      "LA Galaxy" => 43,
+      "New England Revolution" => 24
+    }
+
+    assert_equal season_20122013_tackles_by_team, @@stat_tracker.tackles_per_team_for(20122013)
+  end
 
   def test_it_can_find_a_team
     assert_equal 10, @@stat_tracker.find_team(3).franchise_id
@@ -237,6 +248,14 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_get_lowest_scoring_home_team
     assert_equal "Sporting Kansas City", @@stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_it_can_return_team_with_fewest_tackles_in_season
+    assert_equal "New England Revolution", @@stat_tracker.fewest_tackles(20122013)
+
+    assert_equal "Sporting Kansas City", @@stat_tracker.fewest_tackles(20142015)
+
+    assert_equal "Real Salt Lake", @@stat_tracker.fewest_tackles(20172018)
   end
 
   # ==================       Team Stat Methods Tests     ==================

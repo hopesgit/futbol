@@ -91,6 +91,13 @@ class StatTracker
     teams.find { |team| team.id == team_id }
   end
 
+  def tackles_per_team_for(season_id)
+    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[find_team(game_team.team_id).name] += game_team.tackles if game_team.season == season_id 
+      result
+    end 
+  end 
+
   def goals_per_game_per_team
     @game_teams.reduce(Hash.new { |h,k| h[k] = [] }) do |result, game_team|
       result[game_team.team_id] << game_team.goals
@@ -160,7 +167,6 @@ class StatTracker
     end
   end
 
-
 # ==================       League Stats Methods      ==================
 
   def best_offense
@@ -195,6 +201,14 @@ class StatTracker
     average_goals_per_game_per_team(exclude).min_by { |team, avg| avg }[0].name
   end
 
+# ==================       Season Stats Methods      ==================
+
+  def fewest_tackles(season_id)
+    tackles_per_team_for(season_id).min_by do |team_id, tackles|
+      tackles 
+    end[0]
+  end
+    
 # ==================       Team Stats Methods      ==================
 
   def team_info(team_id)
