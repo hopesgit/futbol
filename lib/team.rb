@@ -3,7 +3,6 @@ class Team
               :franchise_id,
               :name,
               :abbreviation,
-              :stadium,
               :link
 
   def initialize(team_collection_data)
@@ -11,7 +10,6 @@ class Team
     @franchise_id = team_collection_data[:franchiseid]
     @name = team_collection_data[:teamname]
     @abbreviation = team_collection_data[:abbreviation]
-    @stadium = team_collection_data[:stadium]
     @link = team_collection_data[:link]
   end
 end
