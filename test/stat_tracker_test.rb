@@ -136,7 +136,7 @@ class StatTrackerTest < Minitest::Test
       "New England Revolution" => 24
     }
 
-    assert_equal season_20122013_tackles_by_team, @@stat_tracker.tackles_per_team_for(20122013)
+    assert_equal season_20122013_tackles_by_team, @@stat_tracker.tackles_per_team_for("20122013")
   end
 
   def test_it_can_find_a_team
@@ -297,7 +297,6 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_find_the_least_accurate_team_per_season
     assert_equal "Reign FC", @@stat_tracker.least_accurate_team("20122013")
-
   end
 
   # ==================       Team Stat Methods Tests     ==================
