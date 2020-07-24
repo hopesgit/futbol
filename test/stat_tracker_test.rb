@@ -213,7 +213,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal teams_to_wins, @@stat_tracker.games_won_per_team
   end
   
-  def test_it_can_return_games_won_per_team 
+  def test_it_can_return_games_per_team 
     teams_to_games = {
       "3" => 9,
       "5" => 8,
