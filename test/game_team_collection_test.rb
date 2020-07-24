@@ -5,8 +5,11 @@ require './lib/game_team'
 require './lib/game_collection'
 
 class GameTeamCollectionTest < Minitest::Test
-  @@game_team_path = './data/game_teams_fixture.csv'
-  @@game_team_collection = GameTeamCollection.new(@@game_team_path)
+  game_path = './data/games_fixture.csv'
+  game_collection = GameCollection.new(game_path)
+  all_gameids_per_season = game_collection.all_gameids_per_season
+  game_team_path = './data/game_teams_fixture.csv'
+  @@game_team_collection = GameTeamCollection.new(game_team_path, all_gameids_per_season)
 
   def test_it_exists
     assert_instance_of GameTeamCollection, @@game_team_collection
@@ -20,10 +23,6 @@ class GameTeamCollectionTest < Minitest::Test
   end
 
   def test_it_can_add_season_id
-    game_path = './data/games_fixture.csv'
-    game_collection = GameCollection.new(game_path)
-    @@game_team_collection.add_season_id(game_collection.all_games)
-
     assert_equal 20122013, @@game_team_collection.all_game_teams[1].season
     assert_equal 20172018,  @@game_team_collection.all_game_teams[59].season
   end
