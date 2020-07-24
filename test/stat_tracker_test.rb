@@ -128,7 +128,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_a_team
-    assert_equal 10, @@stat_tracker.find_team("3").franchise_id
+    assert_equal "10", @@stat_tracker.find_team("3").franchise_id
   end
 
   def test_it_can_get_goals_per_game_per_team
