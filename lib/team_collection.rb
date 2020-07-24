@@ -11,7 +11,7 @@ class TeamCollection
   end
 
   def create_teams
-    CSV.foreach(@teams_csv, headers: true, converters: :numeric, header_converters: :symbol) do |row|
+    CSV.foreach(@teams_csv, headers: true, header_converters: :symbol) do |row|
       all_teams << Team.new(row.to_h)
     end
   end

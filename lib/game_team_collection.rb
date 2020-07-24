@@ -13,7 +13,7 @@ class GameTeamCollection
   end
 
   def create_game_teams
-    CSV.foreach(@game_team_path, headers: true, converters: :numeric, header_converters: :symbol) do |row|
+    CSV.foreach(@game_team_path, headers: true, header_converters: :symbol) do |row|
       game_team = GameTeam.new(row.to_h)
       @all_game_teams << game_team
       @all_gameids_per_season.each do |season, game_ids|
