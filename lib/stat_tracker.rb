@@ -195,6 +195,12 @@ class StatTracker
     average_goals_per_game_per_team(exclude).min_by { |team, avg| avg }[0].name
   end
 
+  def winningest_coach(season_id)
+    coach_wins = games_won_per_team_for(season_id)
+    coach_totals = total_games_per_team_for(season_id)
+    
+  end
+
 # ==================       Team Stats Methods      ==================
 
   def team_info(team_id)

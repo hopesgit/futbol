@@ -239,6 +239,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Sporting Kansas City", @@stat_tracker.lowest_scoring_home_team
   end
 
+  def test_it_can_return_winningest_coach
+    assert_equal "Claude Julien", @@stat_tracker.winningest_coach(20122013)
+  end
+
   # ==================       Team Stat Methods Tests     ==================
 
   def test_it_gets_team_info
