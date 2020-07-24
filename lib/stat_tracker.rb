@@ -71,6 +71,11 @@ class StatTracker
     end
   end
 
+  def total_games_per_season(season_id)
+    season_to_check = seasons.index(season_id)
+    seasons[season_to_check]
+  end
+
   def total_goals_per_team(exclude_hoa = nil)
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += game_team.goals unless game_team.hoa == exclude_hoa
@@ -223,8 +228,12 @@ class StatTracker
   end
 
   def least_accurate_team(season_id)
-    shots_to_goals_ratio_per_team.min_by do |team_id, ratio|
-    ratio.first
+    total_games_per_season(season_id)
+    # require "pry"; binding.pry
+    # shots_to_goals_ratio_per_team.min_by do |team_id, ratio|
+    #
+    # end
+    # ratio.first
     #this is currently pseudocode
     #Looking for: String
     # Looking for: name of team with the worst ratio of shots to goals for the season

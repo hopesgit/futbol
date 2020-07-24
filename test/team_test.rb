@@ -16,7 +16,6 @@ class TeamTest < MiniTest::Test
     assert_equal "23", @team.franchise_id
     assert_equal "Atlanta United", @team.name
     assert_equal "ATL", @team.abbreviation
-    assert_equal "Mercedes-Benz Stadium", @team.stadium
     assert_equal "/api/v1/teams/1", @team.link
   end
 end
