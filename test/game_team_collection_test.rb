@@ -16,14 +16,13 @@ class GameTeamCollectionTest < Minitest::Test
   end
 
   def test_it_can_return_an_array_all_game_teams
-
     assert_instance_of Array, @@game_team_collection.all_game_teams
     assert_equal 60, @@game_team_collection.all_game_teams.size
     assert @@game_team_collection.all_game_teams.all? { |game_team| game_team.class == GameTeam}
   end
 
   def test_it_can_add_season_id
-    assert_equal 20122013, @@game_team_collection.all_game_teams[1].season
-    assert_equal 20172018,  @@game_team_collection.all_game_teams[59].season
+    assert_equal "20122013", @@game_team_collection.all_game_teams[1].season
+    assert_equal "20172018",  @@game_team_collection.all_game_teams[59].season
   end
 end
