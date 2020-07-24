@@ -93,10 +93,10 @@ class StatTracker
 
   def tackles_per_team_for(season_id)
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
-      result[find_team(game_team.team_id).name] += game_team.tackles if game_team.season == season_id 
+      result[find_team(game_team.team_id).name] += game_team.tackles if game_team.season == season_id
       result
-    end 
-  end 
+    end
+  end
 
   def goals_per_game_per_team
     @game_teams.reduce(Hash.new { |h,k| h[k] = [] }) do |result, game_team|
@@ -105,11 +105,23 @@ class StatTracker
     end
   end
 
+  def total_shots_per_team
+    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[game_team.team_id] += game_team.shots
+      result
+    end
+  end
+
+
   def games_won_per_team_for(season_id)
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += 1 if game_team.season == season_id &&  game_team.result == "WIN"
       result
     end
+  end
+
+  def shots_to_goals_ratio_per_team
+    total_shots_per_team.merge(total_goals_per_team){|team_id, shots, goals| (shots.to_f / goals).round(2)}
   end
 
   def total_games_per_team_for(season_id)
@@ -118,6 +130,7 @@ class StatTracker
       result
     end
   end
+
 # ==================       Game Stats Methods      ==================
 
   def total_goals_per_season
@@ -205,10 +218,10 @@ class StatTracker
 
   def fewest_tackles(season_id)
     tackles_per_team_for(season_id).min_by do |team_id, tackles|
-      tackles 
+      tackles
     end[0]
   end
-    
+
 # ==================       Team Stats Methods      ==================
 
   def team_info(team_id)
