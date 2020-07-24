@@ -142,6 +142,13 @@ class StatTracker
     end
   end
 
+  def games_per_team 
+    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[game_team.team_id] += 1 
+      result
+    end
+  end
+
 # ==================       Game Stats Methods      ==================
 
   def total_goals_per_season
