@@ -197,6 +197,25 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_return_total_games_per_team_for_a_season
     assert_equal ({"3"=>5, "6"=>9, "5"=>4, "17"=>1, "16"=>1}), @@stat_tracker.total_games_per_team_for("20122013")
   end
+
+  def test_it_can_return_games_won_per_team 
+    teams_to_wins = {
+      "3" => 4,
+      "5" => 0,
+      "6" => 9,
+      "16" => 6,
+      "17" => 0,
+      "14" => 1,
+      "28" => 6,
+      "54" => 3,
+      "24" => 0
+    }
+    assert_equal teams_to_wins, @@stat_tracker.games_won_per_team
+  end
+  
+  # def test_it_can_return_games_won_per_team 
+  # end
+
 # ==================       Game Stat Methods Tests     ==================
 
   def test_it_can_return_total_goals_per_season
