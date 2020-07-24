@@ -95,6 +95,8 @@ class StatTracker
       result[game_team.team_id] << game_team.goals
       result
     end
+  end
+
   def total_shots_per_team
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += game_team.shots
@@ -103,7 +105,7 @@ class StatTracker
   end
 
   def shots_to_goals_ratio_per_team
-    total_shots_per_team.merge(total_goals_per_team){|key, oldval, newval| (oldval.to_f / newval.to_f).round(2)}
+    total_shots_per_team.merge(total_goals_per_team){|team_id, shots, goals| (shots.to_f / goals).round(2)}
   end
 
 # ==================       Game Stats Methods      ==================
