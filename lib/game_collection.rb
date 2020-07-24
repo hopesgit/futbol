@@ -13,9 +13,9 @@ class GameCollection
   end
 
   def create_games
-    CSV.foreach(@game_path, headers: true) do |row|
+    CSV.foreach(@game_path, headers: true, header_converters: :symbol) do |row|
       all_games << Game.new(row.to_h)
-      all_gameids_per_season[row["season"]] << row["game_id"]
+      all_gameids_per_season[row[:season]] << row[:game_id]
     end
   end
 end
