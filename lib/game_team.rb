@@ -8,13 +8,7 @@ attr_reader :game_id,
             :head_coach,
             :goals,
             :shots,
-            :tackles,
-            :pim,
-            :powerplay_opportunities,
-            :powerplay_goals,
-            :faceoff_win_percentage,
-            :giveaways,
-            :takeaways
+            :tackles
 
 attr_accessor :season
 
@@ -28,12 +22,6 @@ attr_accessor :season
     @goals = data[:goals]
     @shots = data[:shots]
     @tackles = data[:tackles]
-    @pim = data[:pim]
-    @powerplay_opportunities = data[:powerplayopportunities]
-    @powerplay_goals = data[:powerplaygoals]
-    @faceoff_win_percentage = data[:faceoffwinpercentage]
-    @giveaways = data[:giveaways]
-    @takeaways = data[:takeaways]
     @season = nil
   end
 end
