@@ -127,6 +127,18 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected_avg_away_goals_p_game_p_team, @@stat_tracker.average_goals_per_game_per_team(exclude)
   end
 
+  def test_it_can_get_tackles_per_team_for_a_season
+    season_20122013_tackles_by_team = {
+      "Houston Dynamo" => 179,
+      "FC Dallas"	=> 271,
+      "Sporting Kansas City"	=> 150,
+      "LA Galaxy" => 43,
+      "New England Revolution" => 24
+    }
+
+    assert_equal season_20122013_tackles_by_team, @@stat_tracker.tackles_per_team_for(20122013)
+  end
+
   def test_it_can_find_a_team
     assert_equal "10", @@stat_tracker.find_team("3").franchise_id
   end
@@ -147,7 +159,44 @@ class StatTrackerTest < Minitest::Test
 
     assert_equal expected, @@stat_tracker.goals_per_game_per_team
   end
+  
+  def test_it_can_get_shots_per_team
+    shots_fired = {
+      3 => 65,
+      6 => 76,
+      5 => 54,
+      17 => 5,
+      16 => 50,
+      14 => 39,
+      28 => 82,
+      54 => 48,
+      24 => 31
+    }
+    assert_equal shots_fired, @@stat_tracker.total_shots_per_team
+  end
 
+  def test_shots_to_goals_ratio_per_team
+    ratio = {
+      3 => 3.82,
+      6 => 3.17,
+      5 => 7.71,
+      17 => 5.00,
+      16 => 3.33,
+      14 => 4.88,
+      28 => 3.42,
+      54 => 3.00,
+      24 => 7.75
+    }
+    assert_equal ratio, @@stat_tracker.shots_to_goals_ratio_per_team
+  end
+
+  def test_it_can_return_games_won_per_team_for_a_season
+    assert_equal ({6=>9, 16=>1}), @@stat_tracker.games_won_per_team_for(20122013)
+  end
+
+  def test_it_can_return_total_games_per_team_for_a_season
+    assert_equal ({3=>5, 6=>9, 5=>4, 17=>1, 16=>1}), @@stat_tracker.total_games_per_team_for(20122013)
+  end
 # ==================       Game Stat Methods Tests     ==================
 
   def test_it_can_return_total_goals_per_season
@@ -229,6 +278,14 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_get_lowest_scoring_home_team
     assert_equal "Sporting Kansas City", @@stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_it_can_return_team_with_fewest_tackles_in_season
+    assert_equal "New England Revolution", @@stat_tracker.fewest_tackles(20122013)
+
+    assert_equal "Sporting Kansas City", @@stat_tracker.fewest_tackles(20142015)
+
+    assert_equal "Real Salt Lake", @@stat_tracker.fewest_tackles(20172018)
   end
 
   # ==================       Team Stat Methods Tests     ==================
