@@ -202,6 +202,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal ["2012030221", "2012030222", "2012030223", "2012030224", "2012030225", '2014030131', "2014030132", '2014030133', "2014030134"], @@stat_tracker.game_ids_for_team("3")
   end
 
+  def test_it_can_return_opponents_for_a_team 
+    assert_equal ["5", "6"], @@stat_tracker.opponents_for_team("3")
+  end
+
 # ==================       Game Stat Methods Tests     ==================
 
   def test_it_can_return_total_goals_per_season
