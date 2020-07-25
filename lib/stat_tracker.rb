@@ -149,12 +149,12 @@ class StatTracker
 
   def opponents_and_num_losses_for_team(team_id)
     result = Hash.new(0)
-    opponent_by_game_id_for_team(team_id).map do |k,v|      
-      @game_teams.map do |game_team|
+    opponent_by_game_id_for_team(team_id).each do |k,v|      
+      @game_teams.each do |game_team|
         if game_team.game_id == k && game_team.team_id == v && game_team.result == "WIN"
           result[v] += 1
-        else 
-          result[v] = 0
+        else game_team.game_id == k && game_team.team_id == v && game_team.result != "WIN"
+          result[v] += 0 
         end
       end
     end
@@ -267,5 +267,9 @@ class StatTracker
 
   def most_goals_scored(team_id)
      goals_per_game_per_team[team_id].max
+  end
+
+  def rival(team_id)
+    find_team(opponents_and_num_losses_for_team(team_id).max_by {|opponent, num_losses| num_losses}[0]).name
   end
 end
