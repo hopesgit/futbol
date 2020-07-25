@@ -13,7 +13,8 @@ class GameTeamTest < Minitest::Test
                                 :head_coach=>"John Tortorella",
                                 :goals=>2,
                                 :shots=>8,
-                                :tackles=>44
+                                :tackles=>44,
+                                :season => "20122013"
                                 })
   end
 
@@ -31,5 +32,6 @@ class GameTeamTest < Minitest::Test
     assert_equal 2, @game_team.goals
     assert_equal 8, @game_team.shots
     assert_equal 44, @game_team.tackles
+    assert_equal "20122013", @game_team.season
   end
 end
