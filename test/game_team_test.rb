@@ -13,7 +13,7 @@ class GameTeamTest < Minitest::Test
                                 :head_coach=>"John Tortorella",
                                 :goals=>2,
                                 :shots=>8,
-                                :tackles=>44,
+                                :tackles=>44
                                 })
 
     @game_team.season = "20122013"
