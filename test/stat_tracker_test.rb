@@ -350,8 +350,4 @@ class StatTrackerTest < Minitest::Test
     assert_equal 6, @@stat_tracker.most_goals_scored("28")
   end
 
-  def test_it_can_get_worst_season
-    assert_equal "20122013", @@stat_tracker.worst_season(3)
-  end
-
 end
