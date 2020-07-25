@@ -71,11 +71,6 @@ class StatTracker
     end
   end
 
-  def total_games_per_season(season_id)
-    season_to_check = seasons.index(season_id)
-    seasons[season_to_check]
-  end
-
   def total_goals_per_team(exclude_hoa = nil)
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += game_team.goals unless game_team.hoa == exclude_hoa
@@ -90,7 +85,6 @@ class StatTracker
       result
     end
   end
-
 
   def find_team(team_id)
     teams.find { |team| team.id == team_id }
@@ -125,13 +119,18 @@ class StatTracker
     end
   end
 
-  def shots_to_goals_ratio_per_team
-    total_shots_per_team.merge(total_goals_per_team){|team_id, shots, goals| (shots.to_f / goals).round(2)}
+  def shots_to_goals_ratio_per_team(season_id)
+    total_shots_per_team_per_season(season_id).merge(total_goals_per_team_for_season(season_id)){|team_id, shots, goals| (shots.to_f / goals).round(2)}
   end
-
-  def total_games_per_team_for(season_id)
+  def total_goals_per_team_for_season(season_id)
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
-      result[game_team.team_id] += 1 if game_team.season == season_id
+      result[game_team.team_id] += game_team.goals if game_team.season == season_id
+      result
+    end
+  end
+  def total_shots_per_team_per_season(season_id)
+    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[game_team.team_id] += game_team.shots if game_team.season == season_id
       result
     end
   end
@@ -228,15 +227,7 @@ class StatTracker
   end
 
   def least_accurate_team(season_id)
-    total_games_per_season(season_id)
-    # require "pry"; binding.pry
-    # shots_to_goals_ratio_per_team.min_by do |team_id, ratio|
-    #
-    # end
-    # ratio.first
-    #this is currently pseudocode
-    #Looking for: String
-    # Looking for: name of team with the worst ratio of shots to goals for the season
+    shots_to_goals_ratio_per_team(season_id).min_by { |season, avg| avg}[0].name
   end
 
 # ==================       Team Stats Methods      ==================

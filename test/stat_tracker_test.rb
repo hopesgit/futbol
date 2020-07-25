@@ -162,45 +162,33 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_get_shots_per_team
     shots_fired = {
-      "3" => 65,
+      "3" => 38,
       "6" => 76,
-      "5" => 54,
+      "5" => 32,
       "17" => 5,
-      "16" => 50,
-      "14" => 39,
-      "28" => 82,
-      "54" => 48,
-      "24" => 31
+      "16" => 10,
     }
-    assert_equal shots_fired, @@stat_tracker.total_shots_per_team
+    assert_equal shots_fired, @@stat_tracker.total_shots_per_team_per_season("20122013")
   end
 
   def test_shots_to_goals_ratio_per_team
     ratio = {
-      "3" => 3.82,
+      "3" => 4.75,
       "6" => 3.17,
-      "5" => 7.71,
+      "5" => 16.0,
       "17" => 5.00,
-      "16" => 3.33,
-      "14" => 4.88,
-      "28" => 3.42,
-      "54" => 3.00,
-      "24" => 7.75
+      "16" => 5.00,
     }
-    assert_equal ratio, @@stat_tracker.shots_to_goals_ratio_per_team
+    assert_equal ratio, @@stat_tracker.shots_to_goals_ratio_per_team("20122013")
   end
 
   def test_it_can_return_games_won_per_team_for_a_season
     assert_equal ({"6"=>9, "16"=>1}), @@stat_tracker.games_won_per_team_for("20122013")
   end
 
-  def test_it_can_return_total_games_per_team_for_a_season
-    assert_equal ({"3"=>5, "6"=>9, "5"=>4, "17"=>1, "16"=>1}), @@stat_tracker.total_games_per_team_for("20122013")
-  end
-
-  def test_it_can_get_total_games_per_season
-    assert_equal 12, @@stat_tracker.total_games_per_season("20122013").count
-  end
+  # def test_it_can_return_total_games_per_team_for_a_season
+  #   assert_equal ({"3"=>5, "6"=>9, "5"=>4, "17"=>1, "16"=>1}), @@stat_tracker.total_games_per_team_for_season("20122013")
+  # end
 
 # ==================       Game Stat Methods Tests     ==================
 
@@ -296,6 +284,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_the_least_accurate_team_per_season
+    skip
     assert_equal "Reign FC", @@stat_tracker.least_accurate_team("20122013")
   end
 
