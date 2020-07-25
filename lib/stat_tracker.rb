@@ -152,6 +152,11 @@ class StatTracker
     end
   end
 
+  def game_result?(result, team_id, game_id)
+    game_team = @game_teams.find { |game_team| game_team.game_id == game_id }
+    game_team.team_id == team_id && game_team.result == result
+  end
+
   def opponents_and_num_losses_for_team(team_id)
     result = Hash.new(0)
     opponent_by_game_id_for_team(team_id).each do |k,v|      
