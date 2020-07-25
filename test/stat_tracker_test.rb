@@ -322,4 +322,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3, @@stat_tracker.most_goals_scored("14")
     assert_equal 6, @@stat_tracker.most_goals_scored("28")
   end
+
+  def test_it_can_get_rival_for_a_team 
+    assert_equal "FC Dallas", @@stat_tracker.rival("3")
+  end
 end
