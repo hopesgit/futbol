@@ -136,13 +136,8 @@ class StatTracker
 
   def opponent_by_game_id_for_team(team_id)
     games_for_team(team_id).reduce({}) do |result, game|
-      result[game.game_id] =
-        if game.away_team_id == team_id 
-          game.home_team_id 
-        else 
-          game.away_team_id
-        end 
-        result
+      result[game.game_id] = [game.away_team_id, game.home_team_id].select {|id| id != team_id}.join
+      result
       end
     end
     
