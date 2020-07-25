@@ -135,16 +135,31 @@ class StatTracker
     @games.select {|game| game.away_team_id == team_id || game.home_team_id == team_id}
   end
 
-  def opponents_for_team(team_id)
-    games_for_team(team_id).map do |game|
-      if game.away_team_id == team_id 
-        game.home_team_id 
-      else 
-        game.away_team_id
-      end
-    end.uniq
+  def opponent_by_game_id_for_team(team_id)
+    games_for_team(team_id).reduce({}) do |result, game|
+      result[game.game_id] =
+        if game.away_team_id == team_id 
+          game.home_team_id 
+        else 
+          game.away_team_id
+        end 
+      result
+    end
   end
 
+
+    # games_for_team(team_id).map do |game|
+    #   if game.away_team_id == team_id 
+    #     game.home_team_id 
+    #   else 
+    #     game.away_team_id
+    #   end
+    # end.uniq
+  # end
+
+  # def opponents_and_num_losses_for_team(team_id)
+  #   opponents_for_team(team_id)
+  # end
 
 # ==================       Game Stats Methods      ==================
 
