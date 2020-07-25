@@ -16,11 +16,11 @@ class GameTeamCollection
     CSV.foreach(@game_team_path, headers: true, header_converters: :symbol) do |row|
       game_team = GameTeam.new(row.to_h)
       @all_game_teams << game_team
-      @all_gameids_per_season.each do |season, game_ids|
-        if game_ids.include?(game_team.game_id)
-          game_team.season = season
-        end
-      end
+      game_team.season = generate_season(game_team.game_id)
     end
+  end
+
+  def generate_season(game_id)
+    "#{game_id.slice(0, 4)}#{(game_id.slice(0, 4)).to_i + 1}"
   end
 end
