@@ -224,7 +224,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_percent_wins_by_coach
-    assert_equal ({"John Tortorella"=>0.0, "Claude Julien"=>1.0, "Dan Bylsma"=>0.0, "Mike Babcock"=>0.0, "Joel Quenneville"=>1.0, "Jon Cooper"=>NaN, "Mike Johnston"=>NaN, "Alain Vigneault"=>NaN, "Peter DeBoer"=>NaN, "Gerard Gallant"=>NaN, "Randy Carlyle"=>NaN}),  @@stat_tracker.percent_wins_by_coach("20122013")
+    assert_equal ({"Claude Julien"=>1.0, "Joel Quenneville"=>1.0}),  @@stat_tracker.percent_wins_by_coach("20122013")
   end
 
 
@@ -349,4 +349,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3, @@stat_tracker.most_goals_scored("14")
     assert_equal 6, @@stat_tracker.most_goals_scored("28")
   end
+
+  def test_it_can_get_worst_season
+    assert_equal "20122013", @@stat_tracker.worst_season(3)
+  end
+
 end

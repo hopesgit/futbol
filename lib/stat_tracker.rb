@@ -161,7 +161,11 @@ class StatTracker
   def percent_wins_by_coach(season_id)
     percent_wins = {}
     find_all_wins_by_coach(season_id).map do |coach, num_wins|
-      percent_wins[coach] = (num_wins.to_f / number_of_games_by_coach(season_id)[coach]).round(2)
+      if num_wins == 0
+        next
+      else
+     percent_wins[coach] = (num_wins.to_f / number_of_games_by_coach(season_id)[coach]).round(2)
+      end
     end
      percent_wins
   end
@@ -285,4 +289,5 @@ class StatTracker
   def most_goals_scored(team_id)
      goals_per_game_per_team[team_id].max
   end
+
 end
