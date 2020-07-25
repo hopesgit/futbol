@@ -17,9 +17,8 @@ class StatTracker
 
   def initialize(game_path, team_path, game_teams_path)
     game_collection = GameCollection.new(game_path)
-    all_gameids_per_season = game_collection.all_gameids_per_season
     team_collection = TeamCollection.new(team_path)
-    game_team_collection = GameTeamCollection.new(game_teams_path, all_gameids_per_season)
+    game_team_collection = GameTeamCollection.new(game_teams_path)
     @games = game_collection.all_games
     @teams = team_collection.all_teams
     @game_teams = game_team_collection.all_game_teams
@@ -143,6 +142,17 @@ class StatTracker
         else 
           game.away_team_id
         end 
+        result
+      end
+    end
+    
+  def games_won_per_team 
+    @game_teams.reduce(Hash.new(0)) do |result, game_team| 
+      if game_team.result == "WIN" 
+        result[game_team.team_id] += 1 
+      else 
+        result[game_team.team_id] += 0
+      end
       result
     end
   end
@@ -159,6 +169,10 @@ class StatTracker
       end
     end
     result
+  end
+
+  def win_percentage_per_team 
+    games_won_per_team.merge(total_games_per_team){|team_id, wins, games| (wins.to_f / games).round(2)}
   end
 
 # ==================       Game Stats Methods      ==================
@@ -271,5 +285,9 @@ class StatTracker
 
   def rival(team_id)
     find_team(opponents_and_num_losses_for_team(team_id).max_by {|opponent, num_losses| num_losses}[0]).name
+  end
+
+  def average_win_percentage(team_id)
+    win_percentage_per_team[team_id]
   end
 end
