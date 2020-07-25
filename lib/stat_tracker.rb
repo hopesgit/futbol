@@ -131,6 +131,11 @@ class StatTracker
     end
   end
 
+  def game_ids_for_team(team_id)
+    @games.select {|game| game.away_team_id == team_id || game.home_team_id == team_id}.map {|game| game.game_id}
+  end
+
+
 # ==================       Game Stats Methods      ==================
 
   def total_goals_per_season
