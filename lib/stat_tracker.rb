@@ -133,10 +133,10 @@ class StatTracker
    @game_teams.map {|game_team| game_team.head_coach}.uniq
   end
 
-  def create_hash_with_team_games_by_coach(season_id)
-     all_coaches.reduce({}) do |coaches_with_games, coach|
-       coaches_with_games[coach] = game_teams_that_season_by_coach(coach, season_id)
-       coaches_with_games
+  def game_teams_by_coach_for_season(season_id)
+    @game_teams.reduce(Hash.new { |h,k| h[k] = [] }) do |result, game_team|
+      result[game_team.head_coach] << game_team if game_team.season == season_id
+      result
     end
   end
 
@@ -147,27 +147,21 @@ class StatTracker
   end
 
   def number_of_games_by_coach(season_id)
-    create_hash_with_team_games_by_coach(season_id).transform_values do |game_teams|
+    game_teams_by_coach_for_season(season_id).transform_values do |game_teams|
       game_teams.length
     end
   end
 
   def find_all_wins_by_coach(season_id)
-    create_hash_with_team_games_by_coach(season_id).transform_values do |game_teams|
+    game_teams_by_coach_for_season(season_id).transform_values do |game_teams|
       (game_teams.find_all {|game| game.result == "WIN"}).length
     end
   end
 
   def percent_wins_by_coach(season_id)
-    percent_wins = {}
-    find_all_wins_by_coach(season_id).map do |coach, num_wins|
-      if num_wins == 0
-        next
-      else
-     percent_wins[coach] = (num_wins.to_f / number_of_games_by_coach(season_id)[coach]).round(2)
-      end
+    find_all_wins_by_coach(season_id).merge(number_of_games_by_coach(season_id)) do |head_coach, wins, games|
+      (wins.to_f / games).round(2)
     end
-     percent_wins
   end
 
 # ==================       Game Stats Methods      ==================
