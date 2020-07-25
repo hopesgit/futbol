@@ -198,12 +198,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal ({"3"=>5, "6"=>9, "5"=>4, "17"=>1, "16"=>1}), @@stat_tracker.total_games_per_team_for("20122013")
   end
 
-  def test_it_can_return_game_ids_for_a_team 
-    assert_equal ["2012030221", "2012030222", "2012030223", "2012030224", "2012030225", '2014030131', "2014030132", '2014030133', "2014030134"], @@stat_tracker.game_ids_for_team("3")
+  def test_it_can_return_games_for_a_team 
+    assert_equal ["2012030221", "2012030222", "2012030223", "2012030224", "2012030225", '2014030131', "2014030132", '2014030133', "2014030134"], @@stat_tracker.games_for_team("3").map {|game| game.game_id}
   end
 
   def test_it_can_return_opponents_for_a_team 
-    assert_equal ["5", "6"], @@stat_tracker.opponents_for_team("3")
+    assert_equal ["6", "5"], @@stat_tracker.opponents_for_team("3")
   end
 
 # ==================       Game Stat Methods Tests     ==================

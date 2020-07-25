@@ -131,8 +131,18 @@ class StatTracker
     end
   end
 
-  def game_ids_for_team(team_id)
-    @games.select {|game| game.away_team_id == team_id || game.home_team_id == team_id}.map {|game| game.game_id}
+  def games_for_team(team_id)
+    @games.select {|game| game.away_team_id == team_id || game.home_team_id == team_id}
+  end
+
+  def opponents_for_team(team_id)
+    games_for_team(team_id).map do |game|
+      if game.away_team_id == team_id 
+        game.home_team_id 
+      else 
+        game.away_team_id
+      end
+    end.uniq
   end
 
 
