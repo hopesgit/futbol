@@ -198,19 +198,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal ({"3"=>5, "6"=>9, "5"=>4, "17"=>1, "16"=>1}), @@stat_tracker.total_games_per_team_for_season("20122013")
   end
 
-  def test_it_can_return_all_coaches
-    expected = ["John Tortorella", "Claude Julien", "Dan Bylsma", "Mike Babcock", "Joel Quenneville", "Jon Cooper", "Mike Johnston", "Alain Vigneault", "Peter DeBoer", "Gerard Gallant", "Randy Carlyle"]
-   assert_equal expected, @@stat_tracker.all_coaches
-  end
-
   def test_it_can_get_game_teams_by_coach_for_season
     assert_instance_of Hash, @@stat_tracker.game_teams_by_coach_for_season("20122013")
     assert_equal 5, @@stat_tracker.game_teams_by_coach_for_season("20122013").length
-  end
-
-  def test_it_can_get_games_by_season_and_coach
-    assert_instance_of Array, @@stat_tracker.game_teams_that_season_by_coach("Mike Babcock", "20122013")
-    assert_equal 9, @@stat_tracker.game_teams_that_season_by_coach("Claude Julien", "20122013").length
   end
 
   def test_it_can_get_number_of_games_by_coach

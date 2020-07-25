@@ -129,20 +129,10 @@ class StatTracker
     end
   end
 
-  def all_coaches
-   @game_teams.map {|game_team| game_team.head_coach}.uniq
-  end
-
   def game_teams_by_coach_for_season(season_id)
     @game_teams.reduce(Hash.new { |h,k| h[k] = [] }) do |result, game_team|
       result[game_team.head_coach] << game_team if game_team.season == season_id
       result
-    end
-  end
-
-  def game_teams_that_season_by_coach(coach, season_id)
-    @game_teams.find_all do |game_team|
-      game_team.game_id.to_s[0..3] == season_id.to_s[0..3] && game_team.head_coach == coach
     end
   end
 
