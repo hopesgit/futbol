@@ -214,7 +214,8 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_percent_wins_by_coach
-    assert_equal ({"John Tortorella"=>0.0, "Claude Julien"=>1.0, "Dan Bylsma"=>0.0, "Mike Babcock"=>0.0, "Joel Quenneville"=>1.0, "Jon Cooper"=>NaN, "Mike Johnston"=>NaN, "Alain Vigneault"=>NaN, "Peter DeBoer"=>NaN, "Gerard Gallant"=>NaN, "Randy Carlyle"=>NaN}),  @@stat_tracker.percent_wins_by_coach("20122013")
+    assert_equal ({"John Tortorella"=>0.0, "Claude Julien"=>1.0, "Dan Bylsma"=>0.0, "Mike Babcock"=>0.0, "Joel Quenneville"=>1.0}),
+    @@stat_tracker.percent_wins_by_coach("20122013")
   end
 
 

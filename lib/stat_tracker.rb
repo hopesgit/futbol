@@ -149,9 +149,10 @@ class StatTracker
   end
 
   def percent_wins_by_coach(season_id)
-    find_all_wins_by_coach(season_id).merge(number_of_games_by_coach(season_id)) do |head_coach, wins, games|
+    result = find_all_wins_by_coach(season_id).merge(number_of_games_by_coach(season_id)) do |head_coach, wins, games|
       (wins.to_f / games).round(2)
     end
+    result
   end
 
 # ==================       Game Stats Methods      ==================
