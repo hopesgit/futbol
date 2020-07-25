@@ -197,6 +197,11 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_return_total_games_per_team_for_a_season
     assert_equal ({"3"=>5, "6"=>9, "5"=>4, "17"=>1, "16"=>1}), @@stat_tracker.total_games_per_team_for("20122013")
   end
+
+  def test_it_can_return_game_ids_for_a_team 
+    assert_equal ["2012030221", "2012030222", "2012030223", "2012030224", "2012030225", '2014030131', "2014030132", '2014030133', "2014030134"], @@stat_tracker.game_ids_for_team("3")
+  end
+
 # ==================       Game Stat Methods Tests     ==================
 
   def test_it_can_return_total_goals_per_season
