@@ -5,10 +5,9 @@ class GameTeamCollection
 
   attr_reader :all_game_teams
 
-  def initialize(game_team_path, all_gameids_per_season)
+  def initialize(game_team_path)
     @game_team_path = game_team_path
     @all_game_teams = []
-    @all_gameids_per_season = all_gameids_per_season
     create_game_teams
   end
 
