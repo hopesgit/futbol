@@ -227,11 +227,11 @@ class StatTracker
   def team_info(team_id)
     team = find_team(team_id)
     {
-      id: team.id,
-      franchise_id: team.franchise_id,
-      name: team.name,
-      abbreviation: team.abbreviation,
-      link: team.link
+      "id" => team.id,
+      "franchise_id" => team.franchise_id,
+      "name" => team.name,
+      "abbreviation" => team.abbreviation,
+      "link" => team.link
     }
   end
 
