@@ -22,5 +22,6 @@ attr_accessor :season
     @goals = data[:goals].to_i
     @shots = data[:shots].to_i
     @tackles = data[:tackles].to_i
+    @season = nil 
   end
 end
