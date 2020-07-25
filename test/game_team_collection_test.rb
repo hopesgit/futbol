@@ -25,4 +25,9 @@ class GameTeamCollectionTest < Minitest::Test
     assert_equal "20122013", @@game_team_collection.all_game_teams[1].season
     assert_equal "20172018",  @@game_team_collection.all_game_teams[59].season
   end
+
+  def test_it_can_generate_a_season_id
+    assert_equal "20122013", @@game_team_collection.generate_season("2012030225")
+    assert_equal "20142015", @@game_team_collection.generate_season("2014030413")
+  end
 end
