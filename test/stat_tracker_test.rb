@@ -191,11 +191,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_games_won_per_team_for_a_season
-    assert_equal ({"6"=>9, "16"=>1}), @@stat_tracker.games_won_per_team_for("20122013")
+    assert_equal ({"6"=>9, "16"=>1}), @@stat_tracker.games_won_per_team_for_season("20122013")
   end
 
   def test_it_can_return_total_games_per_team_for_a_season
-    assert_equal ({"3"=>5, "6"=>9, "5"=>4, "17"=>1, "16"=>1}), @@stat_tracker.total_games_per_team_for("20122013")
+    assert_equal ({"3"=>5, "6"=>9, "5"=>4, "17"=>1, "16"=>1}), @@stat_tracker.total_games_per_team_for_season("20122013")
   end
 
   def test_it_can_return_all_coaches
@@ -209,8 +209,8 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_games_by_coach_and_season
-    assert_instance_of Array, @@stat_tracker.game_teams_that_season_by_coach("Mike Babcock", 20122013)
-    assert_equal 9, @@stat_tracker.game_teams_that_season_by_coach("Claude Julien", 20122013).length
+    assert_instance_of Array, @@stat_tracker.game_teams_that_season_by_coach("Mike Babcock", "20122013")
+    assert_equal 9, @@stat_tracker.game_teams_that_season_by_coach("Claude Julien", "20122013").length
   end
 
   def test_number_of_games_by_coach
