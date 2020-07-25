@@ -134,18 +134,25 @@ class StatTracker
     end
   end
 
-  def games_won_per_team 
-    @game_teams.reduce(Hash.new(0)) do |result, game_team| 
-      if game_team.result == "WIN" 
-        result[game_team.team_id] += 1 
-      else 
+  def games_won_per_team
+    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+      if game_team.result == "WIN"
+        result[game_team.team_id] += 1
+      else
         result[game_team.team_id] += 0
       end
       result
     end
   end
 
-  def win_percentage_per_team 
+  def total_games_per_team_for(season_id)
+    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[game_team.team_id] += 1 if game_team.season == season_id
+      result
+    end
+  end
+
+  def win_percentage_per_team
     games_won_per_team.merge(total_games_per_team){|team_id, wins, games| (wins.to_f / games).round(2)}
   end
 
@@ -241,7 +248,8 @@ class StatTracker
   end
 
   def least_accurate_team(season_id)
-    shots_to_goals_ratio_per_team(season_id).min_by { |season, avg| avg}[0].name
+    worst = shots_to_goals_ratio_per_team(season_id).min_by { |season, avg| avg}[0]
+    find_team(worst).name
   end
 
 # ==================       Team Stats Methods      ==================
