@@ -209,9 +209,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal game_ids_and_opponent, @@stat_tracker.opponent_by_game_id_for_team("3")
   end
 
-  # def test_it_can_return_opponents_and_num_losses_for_team 
-  #   assert_equal ({ "6" => 5, "5" => 0 }), @@stat_tracker.opponents_and_num_losses_for_team("3")
-  # end
+  def test_it_can_return_opponents_and_num_losses_for_team
+    assert_equal ({"6"=>0, "5"=>0}), @@stat_tracker.opponents_and_num_losses_for_team("3")
+  end
 
 # ==================       Game Stat Methods Tests     ==================
 
