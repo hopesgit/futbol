@@ -14,8 +14,9 @@ class GameTeamTest < Minitest::Test
                                 :goals=>2,
                                 :shots=>8,
                                 :tackles=>44,
-                                :season => "20122013"
                                 })
+
+    @game_team.season = "20122013"
   end
 
   def test_it_exists
