@@ -260,4 +260,8 @@ class StatTracker
   def most_goals_scored(team_id)
      goals_per_game_per_team[team_id].max
   end
+
+  def average_win_percentage(team_id)
+    win_percentage_per_team[team_id]
+  end
 end
