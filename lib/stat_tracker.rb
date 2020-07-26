@@ -248,7 +248,7 @@ class StatTracker
   end
 
   def least_accurate_team(season_id)
-    worst = shots_to_goals_ratio_per_team_per_season(season_id).min_by { |season, avg| avg}[0]
+    worst = shots_to_goals_ratio_per_team_per_season(season_id).max_by { |team_id, avg| avg}[0]
     find_team(worst).name
   end
 
