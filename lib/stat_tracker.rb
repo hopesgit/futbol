@@ -370,6 +370,4 @@ class StatTracker
     find_team(opponents_and_num_result_for_team(team_id, "LOSS").max_by {|opponent, num_result| num_result}[0]).name
   end
 
-
-
 end
