@@ -220,6 +220,25 @@ class StatTrackerTest < Minitest::Test
     assert_equal teams_to_games, @@stat_tracker.win_percentage_per_team
   end
 
+  def test_it_can_return_games_for_team
+    assert_equal ["2012030221", "2012030222", "2012030223", "2012030224", "2012030225", '2014030131', "2014030132", '2014030133', "2014030134"], @@stat_tracker.games_for_team("3").map {|game| game.game_id}
+  end
+
+  def test_it_can_return_opponent_by_game_id_for_team
+    game_ids_and_opponent = {
+      "2012030221"=>"6", "2012030222"=>"6", "2012030223"=>"6", "2012030224"=>"6", "2012030225"=>"6", "2014030131"=>"5", "2014030132"=>"5", "2014030133"=>"5", "2014030134"=>"5"
+    }
+    assert_equal game_ids_and_opponent, @@stat_tracker.opponent_by_game_id_for_team("3")
+  end
+
+  def test_it_can_return_result_of_game_for_a_team
+    assert_equal true, @@stat_tracker.game_result?("LOSS", "3", "2012030221")
+  end
+
+  def test_it_can_return_opponents_and_num_result_for_team
+    assert_equal ({"6"=>5}), @@stat_tracker.opponents_and_num_result_for_team("3", "LOSS")
+  end
+
 # ==================       Game Stat Methods Tests     ==================
 
   def test_it_can_return_total_goals_per_season
@@ -337,10 +356,14 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3, @@stat_tracker.most_goals_scored("14")
     assert_equal 6, @@stat_tracker.most_goals_scored("28")
   end
-  
-  def test_it_can_get_fewest_goals_scored 
+
+  def test_it_can_get_fewest_goals_scored
     assert_equal 0, @@stat_tracker.fewest_goals_scored("14")
     assert_equal 2, @@stat_tracker.fewest_goals_scored("16")
+  end
+
+  def test_it_can_get_rival_for_a_team
+    assert_equal "FC Dallas", @@stat_tracker.rival("3")
   end
 
   def test_it_can_get_win_percentage_for_a_team

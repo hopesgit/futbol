@@ -134,6 +134,17 @@ class StatTracker
     end
   end
 
+  def games_for_team(team_id)
+    @games.select {|game| game.away_team_id == team_id || game.home_team_id == team_id}
+  end
+
+  def opponent_by_game_id_for_team(team_id)
+    games_for_team(team_id).reduce({}) do |result, game|
+      result[game.game_id] = [game.away_team_id, game.home_team_id].select {|id| id != team_id}.join
+      result
+      end
+    end
+
   def games_won_per_team
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
       if game_team.result == "WIN"
@@ -141,6 +152,18 @@ class StatTracker
       else
         result[game_team.team_id] += 0
       end
+      result
+    end
+  end
+
+  def game_result?(result, team_id, game_id)
+    game = @game_teams.find { |game_team| game_team.game_id == game_id && game_team.team_id == team_id }
+    game.result == result
+  end
+
+  def opponents_and_num_result_for_team(team_id, game_result)
+    opponent_by_game_id_for_team(team_id).reduce(Hash.new(0)) do |result, game_id_oppo_ary|
+      result[game_id_oppo_ary[1]] += 1 if game_result?(game_result, team_id, game_id_oppo_ary[0])
       result
     end
   end
@@ -267,6 +290,10 @@ class StatTracker
 
   def most_goals_scored(team_id)
      goals_per_game_per_team[team_id].max
+  end
+
+  def rival(team_id)
+    find_team(opponents_and_num_result_for_team(team_id, "LOSS").max_by {|opponent, num_result| num_result}[0]).name
   end
 
   def fewest_goals_scored(team_id)
