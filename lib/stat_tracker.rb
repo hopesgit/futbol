@@ -157,18 +157,12 @@ class StatTracker
     game_team.team_id == team_id && game_team.result == result
   end
 
-  def opponents_and_num_losses_for_team(team_id)
-    result = Hash.new(0)
-    opponent_by_game_id_for_team(team_id).each do |k,v|      
-      @game_teams.each do |game_team|
-        if game_team.game_id == k && game_team.team_id == v && game_team.result == "WIN"
-          result[v] += 1
-        else game_team.game_id == k && game_team.team_id == v && game_team.result != "WIN"
-          result[v] += 0 
-        end
-      end
+  def opponents_and_num_result_for_team(team_id, game_result)
+    opponent_by_game_id_for_team(team_id).reduce(Hash.new(0)) do |result, game_id_oppo_ary|
+      result[game_id_oppo_ary[1]] += 1 if game_result?(game_result, team_id, game_id_oppo_ary[0])
+      result[game_id_oppo_ary[1]] += 0 if !game_result?(game_result, team_id, game_id_oppo_ary[0]) 
+      result
     end
-    result
   end
 
   def win_percentage_per_team 
@@ -283,9 +277,9 @@ class StatTracker
      goals_per_game_per_team[team_id].max
   end
 
-  def rival(team_id)
-    find_team(opponents_and_num_losses_for_team(team_id).max_by {|opponent, num_losses| num_losses}[0]).name
-  end
+  # def rival(team_id)
+  #   find_team(opponents_and_num_losses_for_team(team_id).max_by {|opponent, num_losses| num_losses}[0]).name
+  # end
 
   def average_win_percentage(team_id)
     win_percentage_per_team[team_id]

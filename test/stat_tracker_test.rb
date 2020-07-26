@@ -240,11 +240,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_result_of_game_for_a_team 
-    assert_equal false, @@stat_tracker.game_result?("WIN", "3", "2012030221")
+    assert_equal true, @@stat_tracker.game_result?("LOSS", "3", "2012030221")
   end
 
-  def test_it_can_return_opponents_and_num_losses_for_team
-    assert_equal ({"6"=>5, "5"=>0}), @@stat_tracker.opponents_and_num_losses_for_team("3")
+  def test_it_can_return_opponents_and_num_result_for_team
+    assert_equal ({"6"=>5, "5"=>0}), @@stat_tracker.opponents_and_num_result_for_team("3", "LOSS")
   end
 
 # ==================       Game Stat Methods Tests     ==================
@@ -357,9 +357,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal 6, @@stat_tracker.most_goals_scored("28")
   end
 
-  def test_it_can_get_rival_for_a_team 
-    assert_equal "FC Dallas", @@stat_tracker.rival("3")
-  end
+  # def test_it_can_get_rival_for_a_team 
+  #   assert_equal "FC Dallas", @@stat_tracker.rival("3")
+  # end
 
   def test_it_can_get_win_percentage_for_a_team 
     assert_equal 0.44, @@stat_tracker.average_win_percentage("3")
