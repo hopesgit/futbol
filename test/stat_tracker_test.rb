@@ -337,6 +337,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3, @@stat_tracker.most_goals_scored("14")
     assert_equal 6, @@stat_tracker.most_goals_scored("28")
   end
+  
+  def test_it_can_get_fewest_goals_scored 
+    assert_equal 0, @@stat_tracker.fewest_goals_scored("14")
+    assert_equal 2, @@stat_tracker.fewest_goals_scored("16")
+  end
 
   def test_it_can_get_win_percentage_for_a_team 
     assert_equal 0.44, @@stat_tracker.average_win_percentage("3")
