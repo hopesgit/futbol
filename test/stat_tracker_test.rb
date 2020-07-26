@@ -383,8 +383,13 @@ class StatTrackerTest < Minitest::Test
     assert_equal (0.44), @@stat_tracker.average_win_percentage("3")
   end
 
-  def test_it_can_get_win_count_by_season
-    assert_equal ({}), @@stat_tracker.worst_season("3")
+  def test_it_can_return_worst_season_for_team
+    assert_equal "20172018", @@stat_tracker.worst_season("3")
+  end
+
+  def test_it_can_get_favorite_opponent_for_a_team
+    skip
+    assert_equal "FC Dallas", @@stat_tracker.rival("3")
   end
 
 end

@@ -293,8 +293,17 @@ class StatTracker
     win_percentage_per_team[team_id]
   end
 
-  def worst_season(team_id)
+  def win_percentage_by_season(team_id)
+    result = {}
+    @game_teams.each do |game_team|
+      result[game_team.season] = win_percentage_per_team
+    end
+    result
+  end
 
+  def worst_season(team_id)
+    lowest_win_percent = win_percentage_by_season(team_id).values.min
+    win_percentage_by_season(team_id).invert[lowest_win_percent]
   end
 
 end
