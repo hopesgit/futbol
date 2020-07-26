@@ -218,6 +218,36 @@ class StatTrackerTest < Minitest::Test
     @@stat_tracker.percent_wins_by_coach("20122013")
   end
 
+  def test_it_can_return_games_won_per_team
+    teams_to_wins = {
+      "3" => 4,
+      "5" => 0,
+      "6" => 9,
+      "16" => 6,
+      "17" => 0,
+      "14" => 1,
+      "28" => 6,
+      "54" => 3,
+      "24" => 0
+    }
+    assert_equal teams_to_wins, @@stat_tracker.games_won_per_team
+  end
+
+  def test_it_can_return_win_percentage_per_team
+    teams_to_games = {
+      "3" => 0.44,
+      "5" => 0.00,
+      "6" => 1.00,
+      '16' =>	0.86,
+      "17" =>	0.00,
+      "14" =>	0.17,
+      "28" =>	0.60,
+      "54" =>	0.50,
+      "24" =>	0.00
+    }
+    assert_equal teams_to_games, @@stat_tracker.win_percentage_per_team
+  end
+
 
 # ==================       Game Stat Methods Tests     ==================
 
@@ -326,11 +356,11 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_gets_team_info
     expected = {
-                id: "3",
-                franchise_id: "10",
-                name: "Houston Dynamo",
-                abbreviation: "HOU",
-                link: "/api/v1/teams/3"
+                "id" => "3",
+                "franchise_id" => "10",
+                "name" => "Houston Dynamo",
+                "abbreviation" => "HOU",
+                "link" => "/api/v1/teams/3"
                 }
 
     assert_equal expected, @@stat_tracker.team_info("3")

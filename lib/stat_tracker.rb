@@ -17,9 +17,8 @@ class StatTracker
 
   def initialize(game_path, team_path, game_teams_path)
     game_collection = GameCollection.new(game_path)
-    all_gameids_per_season = game_collection.all_gameids_per_season
     team_collection = TeamCollection.new(team_path)
-    game_team_collection = GameTeamCollection.new(game_teams_path, all_gameids_per_season)
+    game_team_collection = GameTeamCollection.new(game_teams_path)
     @games = game_collection.all_games
     @teams = team_collection.all_teams
     @game_teams = game_team_collection.all_game_teams
@@ -263,11 +262,11 @@ class StatTracker
   def team_info(team_id)
     team = find_team(team_id)
     {
-      id: team.id,
-      franchise_id: team.franchise_id,
-      name: team.name,
-      abbreviation: team.abbreviation,
-      link: team.link
+      "id" => team.id,
+      "franchise_id" => team.franchise_id,
+      "name" => team.name,
+      "abbreviation" => team.abbreviation,
+      "link" => team.link
     }
   end
 
