@@ -333,9 +333,15 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_the_least_accurate_team_per_season
-    assert_equal "FC Dallas", @@stat_tracker.least_accurate_team("20122013")
-    assert_equal "Houston Dynamo", @@stat_tracker.least_accurate_team("20142015")
-    assert_equal "Reign FC", @@stat_tracker.least_accurate_team("20172018")
+    assert_equal "Sporting Kansas City", @@stat_tracker.least_accurate_team("20122013")
+    assert_equal "DC United", @@stat_tracker.least_accurate_team("20142015")
+    assert_equal "Real Salt Lake", @@stat_tracker.least_accurate_team("20172018")
+  end
+
+  def test_it_can_find_the_most_accurate_team_per_season
+    assert_equal "FC Dallas", @@stat_tracker.most_accurate_team("20122013")
+    assert_equal "Houston Dynamo", @@stat_tracker.most_accurate_team("20142015")
+    assert_equal "Reign FC", @@stat_tracker.most_accurate_team("20172018")
   end
 
   # ==================       Team Stat Methods Tests     ==================
