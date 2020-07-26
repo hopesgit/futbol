@@ -172,6 +172,33 @@ class StatTracker
     result
   end
 
+  def win_percentage_per_team
+    games_won_per_team.merge(total_games_per_team){|team_id, wins, games| (wins.to_f / games).round(2)}
+  end
+
+  def games_for_team(team_id)
+    @games.select {|game| game.away_team_id == team_id || game.home_team_id == team_id}
+  end
+
+  def opponent_by_game_id_for_team(team_id)
+    games_for_team(team_id).reduce({}) do |result, game|
+      result[game.game_id] = [game.away_team_id, game.home_team_id].select {|id| id != team_id}.join
+      result
+    end
+  end
+
+  def game_result?(result, team_id, game_id)
+    game = @game_teams.find { |game_team| game_team.game_id == game_id && game_team.team_id == team_id }
+    game.team_id == team_id && game.result == result
+  end
+
+  def opponents_and_num_result_for_team(team_id, game_result)
+    opponent_by_game_id_for_team(team_id).reduce(Hash.new(0)) do |result, game_id_oppo_ary|
+      result[game_id_oppo_ary[1]] += 1 if game_result?(game_result, team_id, game_id_oppo_ary[0])
+      result
+    end
+  end
+
 # ==================       Game Stats Methods      ==================
 
   def total_goals_per_season
@@ -333,33 +360,6 @@ class StatTracker
   def worst_season(team_id)
     lowest_win_percent = win_percentage_by_season(team_id).values.min
     win_percentage_by_season(team_id).invert[lowest_win_percent]
-  end
-
-  def games_for_team(team_id)
-    @games.select {|game| game.away_team_id == team_id || game.home_team_id == team_id}
-  end
-
-  def opponent_by_game_id_for_team(team_id)
-    games_for_team(team_id).reduce({}) do |result, game|
-      result[game.game_id] = [game.away_team_id, game.home_team_id].select {|id| id != team_id}.join
-      result
-    end
-  end
-
-  def game_result?(result, team_id, game_id)
-    game = @game_teams.find { |game_team| game_team.game_id == game_id && game_team.team_id == team_id }
-    game.team_id == team_id && game.result == result
-  end
-
-  def opponents_and_num_result_for_team(team_id, game_result)
-    opponent_by_game_id_for_team(team_id).reduce(Hash.new(0)) do |result, game_id_oppo_ary|
-      result[game_id_oppo_ary[1]] += 1 if game_result?(game_result, team_id, game_id_oppo_ary[0])
-      result
-    end
-  end
-
-  def win_percentage_per_team
-    games_won_per_team.merge(total_games_per_team){|team_id, wins, games| (wins.to_f / games).round(2)}
   end
 
   def favorite_opponent(team_id)
