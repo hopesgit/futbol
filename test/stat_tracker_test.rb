@@ -341,4 +341,20 @@ class StatTrackerTest < Minitest::Test
     assert_equal 6, @@stat_tracker.most_goals_scored("28")
   end
 
+  def test_it_can_get_games_won_per_team
+    assert_equal ({"3"=>4, "6"=>9, "5"=>0, "17"=>0, "16"=>6, "14"=>1, "28"=>6, "54"=>3, "24"=>0}), @@stat_tracker.games_won_per_team
+  end
+
+  def test_it_can_get_win_percentage_per_team
+    assert_equal ({"3"=>0.44, "6"=>1.0, "5"=>0.0, "17"=>0.0, "16"=>0.86, "14"=>0.17, "28"=>0.6, "54"=>0.5, "24"=>0.0}), @@stat_tracker.win_percentage_per_team
+  end
+
+  def test_it_can_get_average_win_percentage_per_team
+    assert_equal (0.44), @@stat_tracker.average_win_percentage("3")
+  end
+
+  def test_it_can_get_win_count_by_season
+    assert_equal ({}), @@stat_tracker.worst_season("3")
+  end
+
 end
