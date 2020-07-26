@@ -154,7 +154,7 @@ class StatTracker
 
   def game_result?(result, team_id, game_id)
     game = @game_teams.find { |game_team| game_team.game_id == game_id && game_team.team_id == team_id }
-    game.team_id == team_id && game.result == result
+    game.result == result
   end
 
   def opponents_and_num_result_for_team(team_id, game_result)
