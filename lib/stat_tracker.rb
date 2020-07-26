@@ -114,6 +114,24 @@ class StatTracker
     total_shots_per_team.merge(total_goals_per_team){|team_id, shots, goals| (shots.to_f / goals).round(2)}
   end
 
+  def total_goals_per_team_per_season(season_id)
+  @game_teams.reduce(Hash.new(0)) do |result, game_team|
+    result[game_team.team_id] += game_team.goals if game_team.season == season_id
+    result
+    end
+  end
+
+  def shots_to_goals_ratio_per_team_per_season(season_id)
+   total_shots_per_team_per_season(season_id).merge(total_goals_per_team_per_season(season_id)){|team_id, shots, goals| (shots.to_f / goals).round(2)}
+  end
+
+  def total_shots_per_team_per_season(season_id)
+  @game_teams.reduce(Hash.new(0)) do |result, game_team|
+    result[game_team.team_id] += game_team.shots if game_team.season == season_id
+    result
+    end
+  end
+
   def games_won_per_team_for_season(season_id)
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += 1 if game_team.season == season_id &&  game_team.result == "WIN"
@@ -257,6 +275,17 @@ class StatTracker
     end[0]
   end
 
+  def least_accurate_team(season_id)
+    worst = shots_to_goals_ratio_per_team_per_season(season_id).min_by { |team_id, avg| avg}[0]
+    find_team(worst).name
+  end
+
+  def most_accurate_team(season_id)
+    best = shots_to_goals_ratio_per_team_per_season(season_id).max_by { |team_id, avg| avg}[0]
+    find_team(best).name
+  end
+
+
 # ==================       Team Stats Methods      ==================
 
   def team_info(team_id)
@@ -305,5 +334,42 @@ class StatTracker
     lowest_win_percent = win_percentage_by_season(team_id).values.min
     win_percentage_by_season(team_id).invert[lowest_win_percent]
   end
+
+  def games_for_team(team_id)
+    @games.select {|game| game.away_team_id == team_id || game.home_team_id == team_id}
+  end
+
+  def opponent_by_game_id_for_team(team_id)
+    games_for_team(team_id).reduce({}) do |result, game|
+      result[game.game_id] = [game.away_team_id, game.home_team_id].select {|id| id != team_id}.join
+      result
+    end
+  end
+
+  def game_result?(result, team_id, game_id)
+    game = @game_teams.find { |game_team| game_team.game_id == game_id && game_team.team_id == team_id }
+    game.team_id == team_id && game.result == result
+  end
+
+  def opponents_and_num_result_for_team(team_id, game_result)
+    opponent_by_game_id_for_team(team_id).reduce(Hash.new(0)) do |result, game_id_oppo_ary|
+      result[game_id_oppo_ary[1]] += 1 if game_result?(game_result, team_id, game_id_oppo_ary[0])
+      result
+    end
+  end
+
+  def win_percentage_per_team
+    games_won_per_team.merge(total_games_per_team){|team_id, wins, games| (wins.to_f / games).round(2)}
+  end
+
+  def favorite_opponent(team_id)
+    find_team(opponents_and_num_result_for_team(team_id, "WIN").max_by {|opponent, num_result| num_result}[0]).name
+  end
+
+  def rival(team_id)
+    find_team(opponents_and_num_result_for_team(team_id, "LOSS").max_by {|opponent, num_result| num_result}[0]).name
+  end
+
+
 
 end
