@@ -179,15 +179,15 @@ class StatTrackerTest < Minitest::Test
       "17" => 5.00,
       "16" => 5.00,
     }
-    assert_equal ratio, @@stat_tracker.shots_to_goals_ratio_per_team("20122013")
+    assert_equal ratio, @@stat_tracker.shots_to_goals_ratio_per_team_per_season("20122013")
   end
 
   def test_it_can_return_games_won_per_team_for_a_season
-    assert_equal ({"6"=>9, "16"=>1}), @@stat_tracker.games_won_per_team_for("20122013")
+    assert_equal ({"6"=>9, "16"=>1}), @@stat_tracker.games_won_per_team_per_season("20122013")
   end
 
   def test_it_can_return_total_games_per_team_for_a_season
-    assert_equal ({"3"=>5, "6"=>9, "5"=>4, "17"=>1, "16"=>1}), @@stat_tracker.total_games_per_team_for("20122013")
+    assert_equal ({"3"=>5, "6"=>9, "5"=>4, "17"=>1, "16"=>1}), @@stat_tracker.total_games_per_team_per_season("20122013")
   end
 
   def test_it_can_return_games_won_per_team
