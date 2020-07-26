@@ -1,3 +1,4 @@
+
 require_relative './game_collection'
 require_relative './team_collection'
 require_relative './game_team_collection'
@@ -85,15 +86,15 @@ class StatTracker
     end
   end
 
-  def find_team(team_id)
-    teams.find { |team| team.id == team_id }
-  end
-
   def tackles_per_team_for(season_id)
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
       result[find_team(game_team.team_id).name] += game_team.tackles if game_team.season == season_id
       result
     end
+  end
+
+  def find_team(team_id)
+    teams.find { |team| team.id == team_id }
   end
 
   def goals_per_game_per_team
@@ -110,25 +111,35 @@ class StatTracker
     end
   end
 
-  def shots_to_goals_ratio_per_team
-    total_shots_per_team.merge(total_goals_per_team){|team_id, shots, goals| (shots.to_f / goals).round(2)}
-  end
-
-  def total_goals_per_team_per_season(season_id)
-  @game_teams.reduce(Hash.new(0)) do |result, game_team|
-    result[game_team.team_id] += game_team.goals if game_team.season == season_id
-    result
+  def games_won_per_team_per_season(season_id)
+    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[game_team.team_id] += 1 if game_team.season == season_id &&  game_team.result == "WIN"
+      result
     end
   end
 
   def shots_to_goals_ratio_per_team_per_season(season_id)
-   total_shots_per_team_per_season(season_id).merge(total_goals_per_team_per_season(season_id)){|team_id, shots, goals| (shots.to_f / goals).round(2)}
+    total_shots_per_team_per_season(season_id).merge(total_goals_per_team_per_season(season_id)){|team_id, shots, goals| (shots.to_f / goals).round(2)}
+  end
+
+  def total_goals_per_team_per_season(season_id)
+    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[game_team.team_id] += game_team.goals if game_team.season == season_id
+      result
+    end
   end
 
   def total_shots_per_team_per_season(season_id)
-  @game_teams.reduce(Hash.new(0)) do |result, game_team|
-    result[game_team.team_id] += game_team.shots if game_team.season == season_id
-    result
+    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[game_team.team_id] += game_team.shots if game_team.season == season_id
+      result
+    end
+  end
+
+  def total_games_per_team_per_season(season_id)
+    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[game_team.team_id] += 1 if game_team.season == season_id
+      result
     end
   end
 
@@ -187,9 +198,20 @@ class StatTracker
     end
   end
 
+  def games_won_per_team
+    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+      if game_team.result == "WIN"
+        result[game_team.team_id] += 1
+      else
+        result[game_team.team_id] += 0
+      end
+      result
+    end
+  end
+
   def game_result?(result, team_id, game_id)
     game = @game_teams.find { |game_team| game_team.game_id == game_id && game_team.team_id == team_id }
-    game.team_id == team_id && game.result == result
+    game.result == result
   end
 
   def opponents_and_num_result_for_team(team_id, game_result)
@@ -284,34 +306,16 @@ class StatTracker
 
 # ==================       Season Stats Methods      ==================
 
-  def winningest_coach(season_id)
-    find_all_wins_by_coach(season_id).max_by do |coach, percent_wins|
-      percent_wins
-    end[0]
-  end
-
   def fewest_tackles(season_id)
     tackles_per_team_for(season_id).min_by do |team_id, tackles|
       tackles
     end[0]
   end
 
-  def most_tackles(season_id)
-    tackles_per_team_for(season_id).max_by do |team_id, tackles|
-      tackles
-    end[0]
-  end
-
   def least_accurate_team(season_id)
-    worst = shots_to_goals_ratio_per_team_per_season(season_id).min_by { |team_id, avg| avg}[0]
+    worst = shots_to_goals_ratio_per_team_per_season(season_id).min_by { |season, avg| avg}[0]
     find_team(worst).name
   end
-
-  def most_accurate_team(season_id)
-    best = shots_to_goals_ratio_per_team_per_season(season_id).max_by { |team_id, avg| avg}[0]
-    find_team(best).name
-  end
-
 
 # ==================       Team Stats Methods      ==================
 
@@ -330,19 +334,12 @@ class StatTracker
      goals_per_game_per_team[team_id].max
   end
 
-  def games_won_per_team
-    @game_teams.reduce(Hash.new(0)) do  |result, game_team|
-      if game_team.result == "WIN"
-        result[game_team.team_id] += 1
-      else
-        result[game_team.team_id] += 0
-      end
-    result
-    end
+  def rival(team_id)
+    find_team(opponents_and_num_result_for_team(team_id, "LOSS").max_by {|opponent, num_result| num_result}[0]).name
   end
 
-  def win_percentage_per_team
-    games_won_per_team.merge(total_games_per_team){|team_id, wins, games| (wins.to_f / games).round(2)}
+  def fewest_goals_scored(team_id)
+    goals_per_game_per_team[team_id].min
   end
 
   def average_win_percentage(team_id)
@@ -360,10 +357,6 @@ class StatTracker
   def worst_season(team_id)
     lowest_win_percent = win_percentage_by_season(team_id).values.min
     win_percentage_by_season(team_id).invert[lowest_win_percent]
-  end
-
-  def favorite_opponent(team_id)
-    find_team(opponents_and_num_result_for_team(team_id, "WIN").max_by {|opponent, num_result| num_result}[0]).name
   end
 
   def rival(team_id)

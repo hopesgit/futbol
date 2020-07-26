@@ -162,40 +162,32 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_get_shots_per_team
     shots_fired = {
-      "3" => 65,
+      "3" => 38,
       "6" => 76,
-      "5" => 54,
+      "5" => 32,
       "17" => 5,
-      "16" => 50,
-      "14" => 39,
-      "28" => 82,
-      "54" => 48,
-      "24" => 31
+      "16" => 10,
     }
-    assert_equal shots_fired, @@stat_tracker.total_shots_per_team
+    assert_equal shots_fired, @@stat_tracker.total_shots_per_team_per_season("20122013")
   end
 
   def test_shots_to_goals_ratio_per_team
     ratio = {
-      "3" => 3.82,
+      "3" => 4.75,
       "6" => 3.17,
-      "5" => 7.71,
+      "5" => 16.0,
       "17" => 5.00,
-      "16" => 3.33,
-      "14" => 4.88,
-      "28" => 3.42,
-      "54" => 3.00,
-      "24" => 7.75
+      "16" => 5.00,
     }
-    assert_equal ratio, @@stat_tracker.shots_to_goals_ratio_per_team
-  end
-
-  def test_it_can_return_games_won_per_team_for_a_season
-    assert_equal ({"6"=>9, "16"=>1}), @@stat_tracker.games_won_per_team_for_season("20122013")
+    assert_equal ratio, @@stat_tracker.shots_to_goals_ratio_per_team_per_season("20122013")
   end
 
   def test_it_can_return_total_games_per_team_for_a_season
     assert_equal ({"3"=>5, "6"=>9, "5"=>4, "17"=>1, "16"=>1}), @@stat_tracker.total_games_per_team_for_season("20122013")
+  end
+
+  def test_it_can_return_games_won_per_team_for_a_season
+    assert_equal ({"6"=>9, "16"=>1}), @@stat_tracker.games_won_per_team_for_season("20122013")
   end
 
   def test_it_can_get_game_teams_by_coach_for_season
@@ -216,6 +208,14 @@ class StatTrackerTest < Minitest::Test
   def test_percent_wins_by_coach
     assert_equal ({"John Tortorella"=>0.0, "Claude Julien"=>1.0, "Dan Bylsma"=>0.0, "Mike Babcock"=>0.0, "Joel Quenneville"=>1.0}),
     @@stat_tracker.percent_wins_by_coach("20122013")
+  end
+
+  def test_it_can_return_games_won_per_team_for_a_season
+    assert_equal ({"6"=>9, "16"=>1}), @@stat_tracker.games_won_per_team_per_season("20122013")
+  end
+
+  def test_it_can_return_total_games_per_team_for_a_season
+    assert_equal ({"3"=>5, "6"=>9, "5"=>4, "17"=>1, "16"=>1}), @@stat_tracker.total_games_per_team_per_season("20122013")
   end
 
   def test_it_can_return_games_won_per_team
@@ -350,9 +350,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Sporting Kansas City", @@stat_tracker.lowest_scoring_home_team
   end
 
-  def test_it_can_get_winningest_coach
-    assert_equal "Claude Julien", @@stat_tracker.winningest_coach("20122013")
-  end
+  # =================       Season Stat Methods Tests     ==================
 
   def test_it_can_return_team_with_fewest_tackles_in_season
     assert_equal "New England Revolution", @@stat_tracker.fewest_tackles("20122013")
@@ -362,26 +360,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Real Salt Lake", @@stat_tracker.fewest_tackles("20172018")
   end
 
-  def test_it_can_return_team_with_most_tackles_in_season
-    assert_equal "FC Dallas", @@stat_tracker.most_tackles("20122013")
-
-    assert_equal "DC United", @@stat_tracker.most_tackles("20142015")
-
-    assert_equal "Los Angeles FC", @@stat_tracker.most_tackles("20172018")
-  end
-
   def test_it_can_find_the_least_accurate_team_per_season
-   assert_equal "FC Dallas", @@stat_tracker.least_accurate_team("20122013")
-   assert_equal "Houston Dynamo", @@stat_tracker.least_accurate_team("20142015")
-   assert_equal "Reign FC", @@stat_tracker.least_accurate_team("20172018")
+    assert_equal "FC Dallas", @@stat_tracker.least_accurate_team("20122013")
+    assert_equal "Houston Dynamo", @@stat_tracker.least_accurate_team("20142015")
+    assert_equal "Reign FC", @@stat_tracker.least_accurate_team("20172018")
   end
-
-  def test_it_can_find_the_most_accurate_team_per_season
-   assert_equal "Sporting Kansas City", @@stat_tracker.most_accurate_team("20122013")
-   assert_equal "DC United", @@stat_tracker.most_accurate_team("20142015")
-   assert_equal "Real Salt Lake", @@stat_tracker.most_accurate_team("20172018")
-  end
-
 
   # ==================       Team Stat Methods Tests     ==================
 
@@ -402,28 +385,16 @@ class StatTrackerTest < Minitest::Test
     assert_equal 6, @@stat_tracker.most_goals_scored("28")
   end
 
-  def test_it_can_get_games_won_per_team
-    assert_equal ({"3"=>4, "6"=>9, "5"=>0, "17"=>0, "16"=>6, "14"=>1, "28"=>6, "54"=>3, "24"=>0}), @@stat_tracker.games_won_per_team
-  end
-
-  def test_it_can_get_win_percentage_per_team
-    assert_equal ({"3"=>0.44, "6"=>1.0, "5"=>0.0, "17"=>0.0, "16"=>0.86, "14"=>0.17, "28"=>0.6, "54"=>0.5, "24"=>0.0}), @@stat_tracker.win_percentage_per_team
-  end
-
-  def test_it_can_get_average_win_percentage_per_team
-    assert_equal (0.44), @@stat_tracker.average_win_percentage("3")
-  end
-
-  def test_it_can_return_worst_season_for_team
-    assert_equal "20172018", @@stat_tracker.worst_season("3")
-  end
-
-  def test_it_can_get_favorite_opponent_for_a_team
-    assert_equal "Sporting Kansas City", @@stat_tracker.favorite_opponent("3")
+  def test_it_can_get_fewest_goals_scored
+    assert_equal 0, @@stat_tracker.fewest_goals_scored("14")
+    assert_equal 2, @@stat_tracker.fewest_goals_scored("16")
   end
 
   def test_it_can_get_rival_for_a_team
     assert_equal "FC Dallas", @@stat_tracker.rival("3")
   end
 
+  def test_it_can_get_win_percentage_for_a_team
+    assert_equal 0.44, @@stat_tracker.average_win_percentage("3")
+  end
 end
