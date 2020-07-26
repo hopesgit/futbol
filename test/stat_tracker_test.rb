@@ -319,6 +319,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Reign FC", @@stat_tracker.least_accurate_team("20172018")
   end
 
+  def test_it_can_find_the_most_accurate_team_per_season
+    assert_equal "FC Dallas", @@stat_tracker.most_accurate_team("20122013")
+    assert_equal "Houston Dynamo", @@stat_tracker.most_accurate_team("20142015")
+    assert_equal "Reign FC", @@stat_tracker.most_accurate_team("20172018")
+  end
+
   # ==================       Team Stat Methods Tests     ==================
 
   def test_it_gets_team_info
@@ -337,8 +343,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3, @@stat_tracker.most_goals_scored("14")
     assert_equal 6, @@stat_tracker.most_goals_scored("28")
   end
-  
-  def test_it_can_get_fewest_goals_scored 
+
+  def test_it_can_get_fewest_goals_scored
     assert_equal 0, @@stat_tracker.fewest_goals_scored("14")
     assert_equal 2, @@stat_tracker.fewest_goals_scored("16")
   end
