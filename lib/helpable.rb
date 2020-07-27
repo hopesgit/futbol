@@ -103,7 +103,7 @@ module Helpable
       result[game.game_id] = [game.away_team_id, game.home_team_id].select {|id| id != team_id}.join
       result
       end
-    end
+  end
 
   def games_won_per_team
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
@@ -173,12 +173,12 @@ module Helpable
   end
 
   def num_games_per_opponent_for_team(team_id)
-    opponent_by_game_id_for_team(team_id).each_with_object(Hash.new(0)) do |(game_id, team_id), result|
-      result[team_id] += 1 if team_id == team_id
+    opponent_by_game_id_for_team(team_id).each_with_object(Hash.new(0)) do |(game_id, team_ID), result|
+      result[team_ID] += 1 if team_ID == team_ID
     end
   end
 
   def opponents_and_opponent_win_percent_for_team(team_id)
-    opponents_and_opponents_num_result_for_team(team_id, "WIN").merge(num_games_per_opponent_for_team(team_id)){|team_id, wins, games| (wins.to_f / games).round(2)}
+    opponents_and_opponents_num_result_for_team(team_id, "WIN").merge(num_games_per_opponent_for_team(team_id)){|team_ID, wins, games| (wins.to_f / games).round(2)}
   end
 end
