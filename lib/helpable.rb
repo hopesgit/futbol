@@ -17,9 +17,10 @@ module Helpable
   end
 
   def total_tied_games
-   (@game_teams.find_all do |game_team|
-      game_team.result == "TIE"
-   end.size) / 2
+    @games.reduce(0) do |ties, game|
+      ties += 1 if game.away_goals == game.home_goals
+      ties
+    end
   end
 
   def total_goals_per_game
