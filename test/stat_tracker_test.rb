@@ -352,12 +352,20 @@ class StatTrackerTest < Minitest::Test
 
   # =================       Season Stat Methods Tests     ==================
 
+  def test_it_can_get_winningest_coach
+    assert_equal "Claude Julien", @@stat_tracker.winningest_coach("20122013")
+  end
+
   def test_it_can_return_team_with_fewest_tackles_in_season
     assert_equal "New England Revolution", @@stat_tracker.fewest_tackles("20122013")
-
     assert_equal "Sporting Kansas City", @@stat_tracker.fewest_tackles("20142015")
-
     assert_equal "Real Salt Lake", @@stat_tracker.fewest_tackles("20172018")
+  end
+
+  def test_it_can_return_team_with_most_tackles_in_season
+    assert_equal "FC Dallas", @@stat_tracker.most_tackles("20122013")
+    assert_equal "DC United", @@stat_tracker.most_tackles("20142015")
+    assert_equal "Los Angeles FC", @@stat_tracker.most_tackles("20172018")
   end
 
   def test_it_can_find_the_least_accurate_team_per_season

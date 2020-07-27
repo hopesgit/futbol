@@ -324,8 +324,20 @@ class StatTracker
 
 # ==================       Season Stats Methods      ==================
 
+  def winningest_coach(season_id)
+    find_all_wins_by_coach(season_id).max_by do |coach, percent_wins|
+      percent_wins
+    end[0]
+  end
+
   def fewest_tackles(season_id)
     tackles_per_team_for(season_id).min_by do |team_id, tackles|
+      tackles
+    end[0]
+  end
+
+  def most_tackles(season_id)
+    tackles_per_team_for(season_id).max_by do |team_id, tackles|
       tackles
     end[0]
   end
