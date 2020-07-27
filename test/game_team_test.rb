@@ -3,7 +3,7 @@ require 'minitest/pride'
 require './lib/game_team'
 
 class GameTeamTest < Minitest::Test
-  GameTeam.create('./data/game_teams_fixture.csv')
+
   def setup
     @game_team = GameTeam.new({
                                 :game_id=>"2012030221",
@@ -18,6 +18,7 @@ class GameTeamTest < Minitest::Test
                                 })
 
     @game_team.season = "20122013"
+    GameTeam.class_variable_set(:@@all_game_teams, [])
   end
 
   def test_it_exists
@@ -38,12 +39,14 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_return_an_array_of_info
+    GameTeam.create('./data/game_teams_fixture.csv')
     assert_instance_of Array, GameTeam.class_variable_get(:@@all_game_teams)
     assert_equal 60, GameTeam.class_variable_get(:@@all_game_teams).count
     assert_equal true, GameTeam.class_variable_get(:@@all_game_teams).all? { |game_team| game_team.class == GameTeam }
   end
 
   def test_it_can_add_season_id
+    GameTeam.create('./data/game_teams_fixture.csv')
     assert_equal "20122013", GameTeam.class_variable_get(:@@all_game_teams)[1].season
     assert_equal "20172018",  GameTeam.class_variable_get(:@@all_game_teams)[59].season
   end
