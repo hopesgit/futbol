@@ -1,6 +1,8 @@
 require 'csv'
+require_relative "./countable"
 
 class Game
+  include Countable
   attr_reader :game_id,
               :season,
               :type,
@@ -26,6 +28,10 @@ class Game
     CSV.foreach(game_path, headers: true, header_converters: :symbol) do |row|
       @@all_games << Game.new(row.to_h)
     end
+  end
+
+  def self.count
+    @@all_games.count
   end
 
 end

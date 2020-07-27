@@ -6,10 +6,6 @@ module Helpable
     end
   end
 
-  def total_games
-    @games.size
-  end
-
   def total_home_wins
    @game_teams.find_all do |game_team|
      game_team.hoa == "home" && game_team.result == "WIN"

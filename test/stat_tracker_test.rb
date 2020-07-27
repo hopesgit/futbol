@@ -38,11 +38,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal 3, @@stat_tracker.total_goals_per_game["2012030231"]
   end
 
-  def test_it_can_get_total_number_of_games
-    assert_equal 30, @@stat_tracker.total_games
-  end
-
-  def test_it_can_get_total_wome_wins
+  def test_it_can_get_total_home_wins
     assert_equal 16, @@stat_tracker.total_home_wins
   end
 
