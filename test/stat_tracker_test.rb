@@ -236,7 +236,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_opponents_and_num_result_for_team
-    assert_equal ({"6"=>5,"5"=>0}), @@stat_tracker.opponents_and_num_result_for_team("3", "WIN")
+    assert_equal ({"6"=>5,"5"=>0}), @@stat_tracker.opponents_and_opponents_num_result_for_team("3", "WIN")
   end
 
   def test_it_can_get_game_teams_by_coach_for_season
