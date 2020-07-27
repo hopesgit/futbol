@@ -174,7 +174,7 @@ class StatTrackerTest < Minitest::Test
   def test_shots_to_goals_ratio_per_team
     ratio = {
       "3" => 4.75,
-      "6" => 3.17,
+      "6" => 3.167,
       "5" => 16.0,
       "17" => 5.00,
       "16" => 5.00,

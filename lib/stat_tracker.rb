@@ -104,7 +104,7 @@ class StatTracker
   end
 
   def shots_to_goals_ratio_per_team_per_season(season_id)
-    total_shots_per_team_per_season(season_id).merge(total_goals_per_team_per_season(season_id)){|team_id, shots, goals| (shots.to_f / goals).round(2)}
+    total_shots_per_team_per_season(season_id).merge(total_goals_per_team_per_season(season_id)){|team_id, shots, goals| (goals == 0) ? 0 : (shots.to_f / goals).round(3)}
   end
 
   def total_goals_per_team_per_season(season_id)
