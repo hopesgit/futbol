@@ -239,6 +239,26 @@ class StatTrackerTest < Minitest::Test
     assert_equal ({"6"=>5}), @@stat_tracker.opponents_and_num_result_for_team("3", "LOSS")
   end
 
+  def test_it_can_get_game_teams_by_coach_for_season
+    assert_instance_of Hash, @@stat_tracker.game_teams_by_coach_for_season("20122013")
+    assert_equal 5, @@stat_tracker.game_teams_by_coach_for_season("20122013").length
+  end
+
+  def test_it_can_get_number_of_games_by_coach
+    expected = {"John Tortorella"=>5, "Claude Julien"=>9, "Dan Bylsma"=>4, "Mike Babcock"=>1, "Joel Quenneville"=>1}
+    assert_equal expected, @@stat_tracker.number_of_games_by_coach("20122013")
+  end
+
+  def test_it_can_get_all_wins_by_coach
+    expected = {"John Tortorella"=>0, "Claude Julien"=>9, "Dan Bylsma"=>0, "Mike Babcock"=>0, "Joel Quenneville"=>1}
+    assert_equal expected, @@stat_tracker.find_all_wins_by_coach("20122013")
+  end
+
+  def test_percent_wins_by_coach
+    assert_equal ({"John Tortorella"=>0.0, "Claude Julien"=>1.0, "Dan Bylsma"=>0.0, "Mike Babcock"=>0.0, "Joel Quenneville"=>1.0}),
+    @@stat_tracker.percent_wins_by_coach("20122013")
+  end
+
 # ==================       Game Stat Methods Tests     ==================
 
   def test_it_can_return_total_goals_per_season
@@ -344,13 +364,23 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Reign FC", @@stat_tracker.most_accurate_team("20172018")
   end
 
+  def test_it_can_get_winningest_coach
+    assert_equal "Claude Julien", @@stat_tracker.winningest_coach("20122013")
+  end
+
+  def test_it_can_return_team_with_most_tackles_in_season
+    assert_equal "FC Dallas", @@stat_tracker.most_tackles("20122013")
+    assert_equal "DC United", @@stat_tracker.most_tackles("20142015")
+    assert_equal "Los Angeles FC", @@stat_tracker.most_tackles("20172018")
+  end
+
   # ==================       Team Stat Methods Tests     ==================
 
   def test_it_gets_team_info
     expected = {
-                "id" => "3",
+                "team_id" => "3",
                 "franchise_id" => "10",
-                "name" => "Houston Dynamo",
+                "team_name" => "Houston Dynamo",
                 "abbreviation" => "HOU",
                 "link" => "/api/v1/teams/3"
                 }
@@ -375,4 +405,14 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_win_percentage_for_a_team
     assert_equal 0.44, @@stat_tracker.average_win_percentage("3")
   end
+
+  def test_it_can_return_worst_season_for_team
+    skip
+    assert_equal "20172018", @@stat_tracker.worst_season("3")
+  end
+
+  def test_it_can_get_favorite_opponent_for_a_team
+    assert_equal "Sporting Kansas City", @@stat_tracker.favorite_opponent("3")
+  end
+
 end
