@@ -1,4 +1,3 @@
-
 require_relative './game_collection'
 require_relative './team_collection'
 require_relative './game_team_collection'
