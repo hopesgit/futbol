@@ -348,9 +348,9 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_gets_team_info
     expected = {
-                "id" => "3",
+                "team_id" => "3",
                 "franchise_id" => "10",
-                "name" => "Houston Dynamo",
+                "team_name" => "Houston Dynamo",
                 "abbreviation" => "HOU",
                 "link" => "/api/v1/teams/3"
                 }
