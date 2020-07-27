@@ -1,8 +1,4 @@
 module Helpable
-  def seasons
-    @games.map {|game| game.season}.uniq
-  end
-
   def total_away_wins
     away_wins = 0
     @games.each do |game|
