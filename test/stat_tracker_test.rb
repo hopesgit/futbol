@@ -12,7 +12,9 @@ class StatTrackerTest < Minitest::Test
     teams: team_fixture_path,
     game_teams: game_teams_fixture_path
     }
-
+    Game.class_variable_set(:@@all_games, [])
+    Team.class_variable_set(:@@all_teams, [])
+    GameTeam.class_variable_set(:@@all_game_teams, [])
     @@stat_tracker = StatTracker.from_csv(fixture_locations)
 
   def test_it_exists
