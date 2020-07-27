@@ -407,7 +407,6 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_worst_season_for_team
-    skip
     assert_equal "20172018", @@stat_tracker.worst_season("3")
   end
 

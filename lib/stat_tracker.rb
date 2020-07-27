@@ -103,13 +103,6 @@ class StatTracker
     end
   end
 
-  def total_shots_per_team
-    @game_teams.reduce(Hash.new(0)) do |result, game_team|
-      result[game_team.team_id] += game_team.shots
-      result
-    end
-  end
-
   def games_won_per_team_per_season(season_id)
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += 1 if game_team.season == season_id &&  game_team.result == "WIN"
@@ -186,13 +179,6 @@ class StatTracker
       result
     end
   end
-
-  # def total_games_per_team_for_season(season_id)
-  #   @game_teams.reduce(Hash.new(0)) do |result, game_team|
-  #     result[game_team.team_id] += game_team.goals if game_team.season == season_id
-  #     result
-  #   end
-  # end
 
   def game_teams_by_coach_for_season(season_id)
     @game_teams.reduce(Hash.new { |h,k| h[k] = [] }) do |result, game_team|
@@ -321,7 +307,7 @@ class StatTracker
   end
 
   def winningest_coach(season_id)
-    find_all_wins_by_coach(season_id).max_by do |coach, percent_wins|
+    percent_wins_by_coach(season_id).max_by do |coach, percent_wins|
       percent_wins
     end[0]
   end
@@ -361,9 +347,27 @@ class StatTracker
     win_percentage_per_team[team_id]
   end
 
-  def worst_season(team_id)
-    win_percentage_per_team.values.min
+  def all_seasons
+    @games.map { |game| game.season }.uniq
   end
+
+  def win_percentage_per_team_per_season
+    all_seasons.reduce(Hash.new { |h,k| h[k] = {} }) do |result,    season|
+     result[season] = games_won_per_team_for_season(season).merge(total_games_per_team_per_season(season)) do |team_id, wins, games|
+      (wins.to_f / games).round(2)
+     end
+     result
+    end
+  end
+
+  def worst_season(team_id)
+    win_percentage_per_team_per_season.min_by { |season, team_win_percent_hash| team_win_percent_hash[team_id]}[0]
+  end
+
+  # def worst_season(team_id)
+  #   win_percentage_per_team
+  #   require "pry"; binding.pry
+  # end
 
   def favorite_opponent(team_id)
     find_team(opponents_and_num_result_for_team(team_id, "WIN").max_by {|opponent, num_result| num_result}[0]).name
