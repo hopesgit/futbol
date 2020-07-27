@@ -101,11 +101,8 @@ module Helpable
 
   def games_won_per_team
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
-      if game_team.result == "WIN"
-        result[game_team.team_id] += 1
-      else
-        result[game_team.team_id] += 0
-      end
+      result[game_team.team_id] += 0
+      result[game_team.team_id] += 1 if game_team.result == "WIN"
       result
     end
   end
