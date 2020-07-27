@@ -340,7 +340,7 @@ class StatTracker
   end
 
   def rival(team_id)
-    find_team(opponents_and_num_result_for_team(team_id, "LOSS").max_by {|opponent, num_result| num_result}[0]).name
+    find_team(opponents_and_opponent_win_percent_for_team(team_id).max_by {|opponent, win_percentage| win_percentage}[0]).name
   end
 
   def fewest_goals_scored(team_id)
@@ -369,7 +369,6 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-    find_team(opponents_and_num_result_for_team(team_id, "WIN").max_by {|opponent, num_result| num_result}[0]).name
+    find_team(opponents_and_opponent_win_percent_for_team(team_id).min_by {|opponent, win_percentage| win_percentage}[0]).name
   end
-
 end
