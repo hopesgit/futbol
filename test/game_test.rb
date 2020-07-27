@@ -25,4 +25,10 @@ class GameTest < Minitest::Test
     assert_equal 3, @game.home_goals
   end
 
+  def test_it_can_return_an_array_of_info
+    Game.create('./data/games_fixture.csv')
+    assert_instance_of Array, Game.class_variable_get(:@@all_games)
+    assert_equal 30, Game.class_variable_get(:@@all_games).count
+    assert_equal true, Game.class_variable_get(:@@all_games).all? { |game| game.class == Game }
+  end
 end
