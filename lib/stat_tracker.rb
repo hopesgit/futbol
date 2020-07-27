@@ -364,11 +364,6 @@ class StatTracker
     win_percentage_per_team_per_season.min_by { |season, team_win_percent_hash| team_win_percent_hash[team_id]}[0]
   end
 
-  # def worst_season(team_id)
-  #   win_percentage_per_team
-  #   require "pry"; binding.pry
-  # end
-
   def favorite_opponent(team_id)
     find_team(opponents_and_num_result_for_team(team_id, "WIN").max_by {|opponent, num_result| num_result}[0]).name
   end
