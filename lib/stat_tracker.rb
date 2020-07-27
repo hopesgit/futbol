@@ -103,13 +103,6 @@ class StatTracker
     end
   end
 
-  def games_won_per_team_per_season(season_id)
-    @game_teams.reduce(Hash.new(0)) do |result, game_team|
-      result[game_team.team_id] += 1 if game_team.season == season_id &&  game_team.result == "WIN"
-      result
-    end
-  end
-
   def shots_to_goals_ratio_per_team_per_season(season_id)
     total_shots_per_team_per_season(season_id).merge(total_goals_per_team_per_season(season_id)){|team_id, shots, goals| (shots.to_f / goals).round(2)}
   end

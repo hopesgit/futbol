@@ -183,7 +183,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_games_won_per_team_for_a_season
-    assert_equal ({"6"=>9, "16"=>1}), @@stat_tracker.games_won_per_team_per_season("20122013")
+    assert_equal ({"6"=>9, "16"=>1}), @@stat_tracker.games_won_per_team_for_season("20122013")
   end
 
   def test_it_can_return_total_games_per_team_for_a_season
@@ -404,6 +404,10 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_get_win_percentage_for_a_team
     assert_equal 0.44, @@stat_tracker.average_win_percentage("3")
+  end
+
+  def test_it_can_return_all_seasons
+
   end
 
   def test_win_percentage_per_team_per_season
