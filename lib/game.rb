@@ -20,7 +20,7 @@ class Game
     @home_goals = info[:home_goals].to_i
   end
 
-  def self.create_games(game_path)
+  def self.create(game_path)
     CSV.foreach(game_path, headers: true, header_converters: :symbol) do |row|
       @@all_games << Game.new(row.to_h)
     end
