@@ -361,4 +361,9 @@ class StatTracker
     find_team(opponents_and_num_result_for_team(team_id, "WIN").max_by {|opponent, num_result| num_result}[0]).name
   end
 
+  def worst_coach(season_id)
+    percent_wins_by_coach(season_id).min_by do |coach, percent_wins|
+      percent_wins
+    end[0]
+  end
 end

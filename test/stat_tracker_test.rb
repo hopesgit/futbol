@@ -422,4 +422,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Sporting Kansas City", @@stat_tracker.favorite_opponent("3")
   end
 
+  def test_it_can_get_worst_coach_for_a_season
+    assert_equal "John Tortorella", @@stat_tracker.worst_coach("20122013")
+  end
 end
