@@ -366,4 +366,9 @@ class StatTracker
       percent_wins
     end[0]
   end
+  
+  def best_season(team_id)
+    win_percentage_per_team_per_season.max_by { |season, team_win_percent_hash| team_win_percent_hash[team_id]}[0]
+  end
+
 end

@@ -425,4 +425,9 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_worst_coach_for_a_season
     assert_equal "John Tortorella", @@stat_tracker.worst_coach("20122013")
   end
+  
+  def test_it_can_find_the_best_season_for_a_team
+    assert_equal "20122013", @@stat_tracker.best_season("3")
+  end
+
 end
