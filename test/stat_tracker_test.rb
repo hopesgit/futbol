@@ -27,8 +27,8 @@ class StatTrackerTest < Minitest::Test
 
 # ==================        Helper Methods Tests       ==================
 
-  def test_it_can_get_seasons
-    assert_equal ["20122013", "20142015", "20172018"], @@stat_tracker.seasons
+  def test_it_can_get_all_seasons
+    assert_equal ["20122013", "20142015", "20172018"], @@stat_tracker.all_seasons
   end
 
   def test_it_can_get_total_goals_per_game
@@ -259,7 +259,7 @@ class StatTrackerTest < Minitest::Test
     @@stat_tracker.percent_wins_by_coach("20122013")
   end
 
-  def test_it_can_return_num_games_by_opponent 
+  def test_it_can_return_num_games_by_opponent
     assert_equal ({"6"=>5, "5"=>4}), @@stat_tracker.num_games_per_opponent_for_team("3")
   end
 
@@ -414,10 +414,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 0.44, @@stat_tracker.average_win_percentage("3")
   end
 
-  def test_it_can_return_all_seasons
-
-  end
-
   def test_win_percentage_per_team_per_season
     assert_equal ({"20122013"=>{"6"=>1.0, "16"=>1.0, "3"=>5, "5"=>4, "17"=>1}, "20142015"=>{"16"=>0.83, "14"=>0.17, "3"=>1.0, "5"=>4}, "20172018"=>{"54"=>0.5, "28"=>0.6, "24"=>4}}), @@stat_tracker.win_percentage_per_team_per_season
   end
@@ -433,7 +429,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_worst_coach_for_a_season
     assert_equal "John Tortorella", @@stat_tracker.worst_coach("20122013")
   end
-  
+
   def test_it_can_find_the_best_season_for_a_team
     assert_equal "20122013", @@stat_tracker.best_season("3")
   end

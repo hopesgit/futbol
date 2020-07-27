@@ -1,16 +1,9 @@
 module Helpable
-  def seasons
-    @games.map {|game| game.season}.uniq
-  end
-
   def total_away_wins
-    away_wins = 0
-    @games.each do |game|
-      if game.away_goals > game.home_goals
-        away_wins += 1
-      end
+    @games.reduce(0) do |away_wins, game|
+      away_wins += 1 if game.away_goals > game.home_goals
+      away_wins
     end
-    away_wins
   end
 
   def total_games
@@ -24,9 +17,10 @@ module Helpable
   end
 
   def total_tied_games
-   (@game_teams.find_all do |game_team|
-      game_team.result == "TIE"
-   end.size) / 2
+    @games.reduce(0) do |ties, game|
+      ties += 1 if game.away_goals == game.home_goals
+      ties
+    end
   end
 
   def total_goals_per_game
@@ -107,11 +101,8 @@ module Helpable
 
   def games_won_per_team
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
-      if game_team.result == "WIN"
-        result[game_team.team_id] += 1
-      else
-        result[game_team.team_id] += 0
-      end
+      result[game_team.team_id] += 0
+      result[game_team.team_id] += 1 if game_team.result == "WIN"
       result
     end
   end
