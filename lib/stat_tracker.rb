@@ -1,8 +1,11 @@
 require_relative './game_collection'
 require_relative './team_collection'
 require_relative './game_team_collection'
+require_relative './helpable'
 
 class StatTracker
+  include Helpable
+
   attr_reader :games,
               :teams,
               :game_teams
