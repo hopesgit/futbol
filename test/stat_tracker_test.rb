@@ -422,4 +422,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Sporting Kansas City", @@stat_tracker.favorite_opponent("3")
   end
 
+  def test_it_can_find_the_best_season_for_a_team
+    assert_equal "20122013", @@stat_tracker.best_season("3")
+  end
+
 end
