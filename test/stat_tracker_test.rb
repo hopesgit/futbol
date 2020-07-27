@@ -406,6 +406,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal 0.44, @@stat_tracker.average_win_percentage("3")
   end
 
+  def test_win_percentage_per_team_per_season
+    assert_equal ({"20122013"=>{"6"=>1.0, "16"=>1.0, "3"=>5, "5"=>4, "17"=>1}, "20142015"=>{"16"=>0.83, "14"=>0.17, "3"=>1.0, "5"=>4}, "20172018"=>{"54"=>0.5, "28"=>0.6, "24"=>4}}), @@stat_tracker.win_percentage_per_team_per_season
+  end
+
   def test_it_can_return_worst_season_for_team
     assert_equal "20172018", @@stat_tracker.worst_season("3")
   end
