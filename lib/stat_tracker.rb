@@ -1,6 +1,6 @@
 require_relative './game'
-require_relative './team_collection'
-require_relative './game_team_collection'
+require_relative './team'
+require_relative './game_team'
 require_relative './helpable'
 
 class StatTracker
@@ -19,12 +19,12 @@ class StatTracker
   end
 
   def initialize(game_path, team_path, game_teams_path)
-    game_team_collection = GameTeamCollection.new(game_teams_path)
     Game.create(game_path)
     @games = Game.class_variable_get(:@@all_games)
     Team.create(team_path)
     @teams = Team.class_variable_get(:@@all_teams)
-    @game_teams = game_team_collection.all_game_teams
+    GameTeam.create(game_teams_path)
+    @game_teams = GameTeam.class_variable_get(:@@all_game_teams)
   end
 
 # ==================       Game Stats Methods      ==================
