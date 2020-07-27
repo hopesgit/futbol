@@ -148,9 +148,10 @@ class StatTracker
     game.result == result
   end
 
-  def opponents_and_num_result_for_team(team_id, game_result)
+  def opponents_and_opponents_num_result_for_team(team_id, game_result)
     opponent_by_game_id_for_team(team_id).reduce(Hash.new(0)) do |result, game_id_oppo_ary|
-      result[game_id_oppo_ary[1]] += 1 if game_result?(game_result, team_id, game_id_oppo_ary[0])
+      result[game_id_oppo_ary[1]] += 0 
+      result[game_id_oppo_ary[1]] += 1 if game_result?(game_result, game_id_oppo_ary[1], game_id_oppo_ary[0])
       result
     end
   end
@@ -196,6 +197,16 @@ class StatTracker
      find_all_wins_by_coach(season_id).merge(number_of_games_by_coach(season_id)) do |head_coach, wins, games|
       (wins.to_f / games).round(2)
     end
+  end
+
+  def num_games_per_opponent_for_team(team_id)
+    opponent_by_game_id_for_team(team_id).each_with_object(Hash.new(0)) do |(game_id, team_id), result| 
+      result[team_id] += 1 if team_id == team_id 
+    end 
+  end
+
+  def opponents_and_opponent_win_percent_for_team(team_id) 
+    opponents_and_opponents_num_result_for_team(team_id, "WIN").merge(num_games_per_opponent_for_team(team_id)){|team_id, wins, games| (wins.to_f / games).round(2)}
   end
 
 # ==================       Game Stats Methods      ==================
@@ -329,7 +340,7 @@ class StatTracker
   end
 
   def rival(team_id)
-    find_team(opponents_and_num_result_for_team(team_id, "LOSS").max_by {|opponent, num_result| num_result}[0]).name
+    find_team(opponents_and_opponent_win_percent_for_team(team_id).max_by {|opponent, win_percentage| win_percentage}[0]).name
   end
 
   def fewest_goals_scored(team_id)
@@ -358,7 +369,7 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-    find_team(opponents_and_num_result_for_team(team_id, "WIN").max_by {|opponent, num_result| num_result}[0]).name
+    find_team(opponents_and_opponent_win_percent_for_team(team_id).min_by {|opponent, win_percentage| win_percentage}[0]).name
   end
 
   def best_season(team_id)
