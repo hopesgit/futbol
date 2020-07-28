@@ -1,3 +1,4 @@
+require_relative './data_set'
 
 class Game < DataSet
   attr_reader :game_id,
