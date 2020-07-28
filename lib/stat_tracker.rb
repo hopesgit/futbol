@@ -38,7 +38,7 @@ class StatTracker
   end
 
   def percentage_home_wins
-    (total_home_wins / Game.count.to_f).round(2)
+    (GameTeam.total_home_wins / Game.count.to_f).round(2)
   end
 
   def percentage_visitor_wins
