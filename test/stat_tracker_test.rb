@@ -16,9 +16,10 @@ class StatTrackerTest < Minitest::Test
     Team.class_variable_set(:@@all_teams, [])
     GameTeam.class_variable_set(:@@all_game_teams, [])
     @@stat_tracker = StatTracker.from_csv(fixture_locations)
-
+require "pry"; binding.pry
   def test_it_exists
     assert_instance_of StatTracker, @@stat_tracker
+    require "pry"; binding.pry
   end
 
   def test_it_has_attributes
