@@ -57,4 +57,8 @@ class GameTeamTest < Minitest::Test
   def test_it_can_get_total_home_wins
     assert_equal 16, GameTeam.total_home_wins
   end
+
+  def test_it_can_get_total_goals_per_team_for_a_season 
+    assert_equal ({"3"=>8, "6"=>24, "5"=>2, "17"=>1, "16"=>2}), GameTeam.total_goals_per_team_per_season("20122013")
+  end
 end

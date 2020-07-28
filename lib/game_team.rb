@@ -52,9 +52,9 @@ class GameTeam
     end.size
   end
 
-  def self.tackles_per_team_for(season_id)
-    @game_teams.reduce(Hash.new(0)) do |result, game_team|
-      result[find_team(game_team.team_id).name] += game_team.tackles if game_team.season == season_id
+  def self.total_goals_per_team_per_season(season_id)
+    @@all_game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[game_team.team_id] += game_team.goals if game_team.season == season_id
       result
     end
   end
