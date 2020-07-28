@@ -50,16 +50,11 @@ class StatTracker
   end
 
   def percentage_ties
-    # require "pry"; binding.pry
     (total_tied_games / Game.count.to_f).round(2)
   end
 
   def count_of_games_by_season
-    season_games = Hash.new(0)
-    @games.each do |game|
-      season_games[game.season] += 1
-    end
-    season_games
+    Game.count_of_games_by_season
   end
 
   def average_goals_per_game
