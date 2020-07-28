@@ -25,6 +25,10 @@ class Team
     end
   end
 
+  def self.all 
+    @@all_teams
+  end 
+
   def self.count
     @@all_teams.count
   end

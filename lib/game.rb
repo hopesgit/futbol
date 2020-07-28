@@ -31,7 +31,7 @@ class Game
     end
   end
 
-  def self.games 
+  def self.all 
     @@all_games
   end 
 

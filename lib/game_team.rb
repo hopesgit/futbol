@@ -42,6 +42,10 @@ class GameTeam
     end
   end
 
+  def self.all 
+    @@all_game_teams
+  end 
+
   def self.total_home_wins
     @@all_game_teams.find_all do |game_team|
       game_team.hoa == "home" && game_team.result == "WIN"

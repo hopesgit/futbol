@@ -59,7 +59,7 @@ module Helpable
   end
 
   def games_for_team(team_id)
-    @games.select {|game| game.away_team_id == team_id || game.home_team_id == team_id}
+    Game.all.select {|game| game.away_team_id == team_id || game.home_team_id == team_id}
   end
 
   def opponent_by_game_id_for_team(team_id)
