@@ -37,12 +37,12 @@ class StatTracker
     Game.lowest_total_score
   end
 
-  def percentage_visitor_wins
-    (Game.total_away_wins / Game.count.to_f).round(2)
-  end
-
   def percentage_home_wins
     (total_home_wins / Game.count.to_f).round(2)
+  end
+
+  def percentage_visitor_wins
+    (Game.total_away_wins / Game.count.to_f).round(2)
   end
 
   def percentage_ties
