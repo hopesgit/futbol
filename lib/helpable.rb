@@ -6,10 +6,6 @@ module Helpable
     end
   end
 
-  def total_games
-    @games.size
-  end
-
   def total_home_wins
    @game_teams.find_all do |game_team|
      game_team.hoa == "home" && game_team.result == "WIN"
@@ -24,6 +20,7 @@ module Helpable
   end
 
   def total_goals_per_game
+    # require "pry"; binding.pry
     @games.reduce({}) do |ids_to_scores, game|
       ids_to_scores[game.game_id] = game.away_goals + game.home_goals
       ids_to_scores

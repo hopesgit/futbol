@@ -28,4 +28,8 @@ class Game
     end
   end
 
+  def self.count
+    @@all_games.count
+  end
+
 end

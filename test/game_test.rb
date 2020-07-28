@@ -32,4 +32,9 @@ class GameTest < Minitest::Test
     assert_equal 30, Game.class_variable_get(:@@all_games).count
     assert_equal true, Game.class_variable_get(:@@all_games).all? { |game| game.class == Game }
   end
+
+  def test_it_can_get_total_number_of_games
+    Game.create('./data/games_fixture.csv')
+    assert_equal 30, Game.count
+  end
 end
