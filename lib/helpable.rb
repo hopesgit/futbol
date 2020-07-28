@@ -20,6 +20,7 @@ module Helpable
   end
 
   def total_goals_per_game
+    # require "pry"; binding.pry
     @games.reduce({}) do |ids_to_scores, game|
       ids_to_scores[game.game_id] = game.away_goals + game.home_goals
       ids_to_scores

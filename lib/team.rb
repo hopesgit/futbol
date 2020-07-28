@@ -6,7 +6,7 @@ class Team
               :name,
               :abbreviation,
               :link
-  @@all_teams = []
+  @@all = []
 
   def initialize(team_collection_data)
     @id = team_collection_data[:team_id]

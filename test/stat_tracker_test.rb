@@ -1,8 +1,11 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/stat_tracker'
+require './lib/helpable'
+require './test/test_helper'
 
 class StatTrackerTest < Minitest::Test
+  include Helpable
 
   def setup
     game_fixture_path = './data/games_fixture.csv'
