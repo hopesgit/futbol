@@ -1,4 +1,5 @@
 module Helpable
+
   def total_away_wins
     @games.reduce(0) do |away_wins, game|
       away_wins += 1 if game.away_goals > game.home_goals
@@ -20,8 +21,7 @@ module Helpable
   end
 
   def total_goals_per_game
-    # require "pry"; binding.pry
-    @games.reduce({}) do |ids_to_scores, game|
+    games.reduce({}) do |ids_to_scores, game|
       ids_to_scores[game.game_id] = game.away_goals + game.home_goals
       ids_to_scores
     end

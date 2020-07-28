@@ -287,10 +287,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 13, @stat_tracker.total_away_wins
   end
 
-  def test_it_can_get_highest_total_score
-    assert_equal 7, @stat_tracker.highest_total_score
-  end
-
   def test_it_can_calculate_percentage_home_wins
    assert_equal 0.53, @stat_tracker.percentage_home_wins
   end

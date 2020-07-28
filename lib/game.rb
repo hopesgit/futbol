@@ -2,7 +2,7 @@ require 'csv'
 require_relative './helpable'
 
 class Game
-  include Helpable
+  extend Helpable
 
   attr_reader :game_id,
               :season,
@@ -31,6 +31,10 @@ class Game
     end
   end
 
+  def self.games 
+    @@all_games
+  end 
+
   def self.count
     @@all_games.count
   end
@@ -48,6 +52,10 @@ class Game
       season_games[game.season] += 1
     end
     season_games
+  end
+
+  def self.highest_total_score
+    total_goals_per_game.max_by {|game_id, total_goals| total_goals}[1]
   end
 
   def self.all_seasons
