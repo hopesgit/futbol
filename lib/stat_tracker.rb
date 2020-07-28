@@ -63,8 +63,16 @@ class StatTracker
 
 # ==================       League Stats Methods      ==================
 
+  def count_of_teams
+    Team.count
+  end
+
   def best_offense
     average_goals_per_game_per_team.max_by { |team, avg| avg }[0].name
+  end
+
+  def worst_offense
+    average_goals_per_game_per_team.min_by { |team, avg| avg}[0].name
   end
 
   def highest_scoring_visitor
@@ -72,22 +80,14 @@ class StatTracker
     average_goals_per_game_per_team(exclude).max_by { |team, avg| avg }[0].name
   end
 
-  def lowest_scoring_visitor
-    exclude = "home"
-    average_goals_per_game_per_team(exclude).min_by { |team, avg| avg }[0].name
-  end
-
   def highest_scoring_home_team
     exclude = "away"
     average_goals_per_game_per_team(exclude).max_by { |team, avg| avg }[0].name
   end
 
-  def count_of_teams
-    Team.count
-  end
-
-  def worst_offense
-    average_goals_per_game_per_team.min_by { |team, avg| avg}[0].name
+  def lowest_scoring_visitor
+    exclude = "home"
+    average_goals_per_game_per_team(exclude).min_by { |team, avg| avg }[0].name
   end
 
   def lowest_scoring_home_team

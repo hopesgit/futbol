@@ -292,29 +292,29 @@ class StatTrackerTest < Minitest::Test
   end
 
   # ==================       League Stat Methods Tests     ==================
+  
+  def test_it_can_get_count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
 
   def test_it_can_find_the_best_offensive_team
     assert_equal "FC Dallas", @stat_tracker.best_offense
+  end
+  
+  def test_it_can_find_the_worst_offensive_team
+    assert_equal "Sporting Kansas City", @stat_tracker.worst_offense
   end
 
   def test_it_can_get_highest_scoring_visitor
     assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
   end
 
-  def test_it_can_get_lowest_scoring_visitor
-    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_visitor
-  end
-
   def test_it_can_get_highest_scoring_home_team
     assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
   end
 
-  def test_it_can_get_count_of_teams
-    assert_equal 32, @stat_tracker.count_of_teams
-  end
-
-  def test_it_can_find_the_worst_offensive_team
-    assert_equal "Sporting Kansas City", @stat_tracker.worst_offense
+  def test_it_can_get_lowest_scoring_visitor
+    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_visitor
   end
 
   def test_it_can_get_lowest_scoring_home_team
