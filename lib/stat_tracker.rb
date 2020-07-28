@@ -45,15 +45,16 @@ class StatTracker
   end
 
   def percentage_visitor_wins
-    (total_away_wins / total_games.to_f).round(2)
+    (total_away_wins / Game.count.to_f).round(2)
   end
 
   def percentage_home_wins
-    (total_home_wins / total_games.to_f).round(2)
+    (total_home_wins / Game.count.to_f).round(2)
   end
 
   def percentage_ties
-    (total_tied_games / total_games.to_f).round(2)
+    # require "pry"; binding.pry
+    (total_tied_games / Game.count.to_f).round(2)
   end
 
   def count_of_games_by_season
@@ -98,7 +99,7 @@ class StatTracker
   end
 
   def count_of_teams
-    @teams.size
+    Team.count
   end
 
   def worst_offense
@@ -199,5 +200,4 @@ class StatTracker
   def best_season(team_id)
     win_percentage_per_team_per_season.max_by { |season, team_win_percent_hash| team_win_percent_hash[team_id]}[0]
   end
-
 end

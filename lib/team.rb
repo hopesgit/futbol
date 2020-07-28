@@ -22,4 +22,7 @@ class Team
     end
   end
 
+  def self.count
+    @@all_teams.count
+  end
 end
