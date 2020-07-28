@@ -1,5 +1,4 @@
 require 'csv'
-require_relative "./countable"
 
 class Game
   attr_reader :game_id,
