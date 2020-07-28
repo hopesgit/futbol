@@ -1,6 +1,6 @@
 require 'csv'
 
-class Team
+class Team < DataSet
   attr_reader :id,
               :franchise_id,
               :name,
@@ -8,21 +8,15 @@ class Team
               :link
   @@all_teams = []
 
+  def self.all
+    @@all_teams
+  end
+
   def initialize(team_collection_data)
     @id = team_collection_data[:team_id]
     @franchise_id = team_collection_data[:franchiseid]
     @name = team_collection_data[:teamname]
     @abbreviation = team_collection_data[:abbreviation]
     @link = team_collection_data[:link]
-  end
-
-  def self.create(team_path)
-    CSV.foreach(team_path, headers: true, header_converters: :symbol) do |row|
-      @@all_teams << Team.new(row.to_h)
-    end
-  end
-
-  def self.count
-    @@all_teams.count
   end
 end
