@@ -49,4 +49,8 @@ class Game
     end
     season_games
   end
+
+  def self.all_seasons
+    @@all_games.map { |game| game.season }.uniq
+  end
 end

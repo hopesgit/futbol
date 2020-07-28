@@ -163,7 +163,7 @@ class StatTracker
   end
 
   def all_seasons
-    @games.map { |game| game.season }.uniq
+    Game.all_seasons
   end
 
   def win_percentage_per_team_per_season
