@@ -39,10 +39,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal 16, @stat_tracker.total_home_wins
   end
 
-  def test_it_can_get_total_tied_games
-    assert_equal 1, @stat_tracker.total_tied_games
-  end
-
   def test_it_can_read_season_for_game_teams
     assert_equal "20122013", @stat_tracker.game_teams[1].season
     assert_equal "20172018", @stat_tracker.game_teams[59].season
@@ -279,7 +275,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_visitor_win_percentage
     assert_equal 0.43, @stat_tracker.percentage_visitor_wins
   end
-  
+
   def test_it_can_get_percentage_ties
     assert_equal 0.03, @stat_tracker.percentage_ties
   end

@@ -61,6 +61,13 @@ class Game
     season_games
   end
 
+  def self.total_tied_games
+    @@all_games.reduce(0) do |ties, game|
+      ties += 1 if game.away_goals == game.home_goals
+      ties
+    end
+  end
+
   def self.total_goals_per_game
     @@all_games.reduce({}) do |ids_to_scores, game|
       ids_to_scores[game.game_id] = game.away_goals + game.home_goals

@@ -46,7 +46,7 @@ class StatTracker
   end
 
   def percentage_ties
-    (total_tied_games / Game.count.to_f).round(2)
+    (Game.total_tied_games / Game.count.to_f).round(2)
   end
 
   def count_of_games_by_season
