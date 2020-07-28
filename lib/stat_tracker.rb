@@ -59,10 +59,7 @@ class StatTracker
   end
 
   def average_goals_by_season
-    Game.all_seasons.reduce({}) do |result, season|
-      result[season] = (Game.total_goals_per_season[season] / count_of_games_by_season[season].to_f).round(2)
-      result
-    end
+    Game.average_goals_by_season
   end
 
 # ==================       League Stats Methods      ==================

@@ -86,4 +86,11 @@ class Game
   def self.all_seasons
     @@all_games.map { |game| game.season }.uniq
   end
+
+  def self.average_goals_by_season
+    Game.all_seasons.reduce({}) do |result, season|
+      result[season] = (Game.total_goals_per_season[season] / Game.count_of_games_by_season[season].to_f).round(2)
+      result
+    end
+  end
 end
