@@ -1,6 +1,6 @@
 require_relative './data_set'
 
-class GameTeam
+class GameTeam < DataSet
   attr_reader :game_id,
               :team_id,
               :hoa,
