@@ -65,6 +65,10 @@ class Game
     total_goals_per_game.max_by {|game_id, total_goals| total_goals}[1]
   end
 
+  def self.lowest_total_score
+    total_goals_per_game.min_by {|game_id, total_goals| total_goals}[1]
+  end
+
   def self.all_seasons
     @@all_games.map { |game| game.season }.uniq
   end

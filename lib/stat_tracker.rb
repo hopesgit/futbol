@@ -34,7 +34,7 @@ class StatTracker
   end
 
   def lowest_total_score
-    total_goals_per_game.min_by {|game_id, total_goals| total_goals}[1]
+    Game.lowest_total_score
   end
 
   def percentage_visitor_wins
@@ -60,7 +60,7 @@ class StatTracker
 
   def average_goals_by_season
     Game.all_seasons.reduce({}) do |result, season|
-      result[season] = (total_goals_per_season[season] / count_of_games_by_season[season].to_f).round(2)
+      result[season] = (Game.total_goals_per_season[season] / count_of_games_by_season[season].to_f).round(2)
       result
     end
   end

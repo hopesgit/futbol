@@ -61,6 +61,10 @@ class GameTest < Minitest::Test
     assert_equal 7, Game.highest_total_score
   end
 
+  def test_it_can_get_lowest_total_score
+    assert_equal 1, Game.lowest_total_score
+  end
+
   def test_it_can_get_all_seasons
     assert_equal ["20122013", "20142015", "20172018"], Game.all_seasons
   end
