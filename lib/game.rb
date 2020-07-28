@@ -2,7 +2,6 @@ require 'csv'
 require_relative "./countable"
 
 class Game
-  include Countable
   attr_reader :game_id,
               :season,
               :type,
