@@ -1,6 +1,9 @@
 require 'csv'
+require_relative './helpable'
 
 class Team
+  include Helpable
+
   attr_reader :id,
               :franchise_id,
               :name,
