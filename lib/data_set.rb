@@ -1,4 +1,5 @@
 require 'csv'
+require_relative './game_team'
 
 class DataSet
   def self.create(path)
@@ -17,5 +18,13 @@ class DataSet
 
   def self.count
     all.count
+  end
+
+  def self.find(attribute, value)
+    all.find { |element| element.send(attribute) == value }
+  end
+
+  def self.find_all(attribute, value)
+    all.find_all { |element| element.send(attribute) == value }
   end
 end
