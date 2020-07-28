@@ -53,6 +53,7 @@ class StatTracker
   end
 
   def percentage_ties
+    # require "pry"; binding.pry
     (total_tied_games / Game.count.to_f).round(2)
   end
 
@@ -98,7 +99,7 @@ class StatTracker
   end
 
   def count_of_teams
-    @teams.size
+    Team.count
   end
 
   def worst_offense

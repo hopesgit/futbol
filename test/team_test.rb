@@ -21,8 +21,13 @@ class TeamTest < MiniTest::Test
   end
 
   def test_it_can_return_an_array_of_info
-    Team.create('./data/teams.csv') 
+    Team.create('./data/teams.csv')
     assert_equal 32, Team.class_variable_get(:@@all_teams).count
     assert_equal true, Team.class_variable_get(:@@all_teams).all? { |team| team.class == Team }
+  end
+
+  def test_it_can_get_total_number_of_teams
+    Team.create('./data/teams.csv')
+    assert_equal 32, Team.count
   end
 end
