@@ -14,6 +14,7 @@ class GameTeam
               :shots,
               :tackles
   @@all_game_teams = []
+  @games = @@all_game_teams
 
   attr_accessor :season
 

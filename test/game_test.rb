@@ -43,7 +43,25 @@ class GameTest < Minitest::Test
     assert_equal 13, Game.total_away_wins
   end
 
+  def test_it_can_return_total_goals_per_season
+    seasons_and_total_goals = {
+      "20122013" => 37,
+      "20142015" => 35,
+      "20172018" => 44
+    }
+
+    assert_equal seasons_and_total_goals, Game.total_goals_per_season
+  end
+
+  def test_count_of_games_by_season
+    assert_equal ({"20122013"=>10, "20142015"=>10, "20172018"=>10}), Game.count_of_games_by_season
+  end
+
   def test_it_can_get_highest_total_score
     assert_equal 7, Game.highest_total_score
+  end
+
+  def test_it_can_get_all_seasons
+    assert_equal ["20122013", "20142015", "20172018"], Game.all_seasons
   end
 end
