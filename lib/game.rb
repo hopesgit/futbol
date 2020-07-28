@@ -1,6 +1,5 @@
-require 'csv'
 
-class Game
+class Game < DataSet
   attr_reader :game_id,
               :season,
               :type,
@@ -10,6 +9,10 @@ class Game
               :away_goals,
               :home_goals
   @@all_games = []
+
+  def self.all
+    @@all_games
+  end
 
   def initialize(info)
     @game_id = info[:game_id]
@@ -21,15 +24,4 @@ class Game
     @away_goals = info[:away_goals].to_i
     @home_goals = info[:home_goals].to_i
   end
-
-  def self.create(game_path)
-    CSV.foreach(game_path, headers: true, header_converters: :symbol) do |row|
-      @@all_games << Game.new(row.to_h)
-    end
-  end
-
-  def self.count
-    @@all_games.count
-  end
-
 end

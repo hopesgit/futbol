@@ -1,5 +1,3 @@
-require 'csv'
-
 class Team < DataSet
   attr_reader :id,
               :franchise_id,
