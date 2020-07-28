@@ -32,4 +32,11 @@ class Game
     @@all_games.count
   end
 
+  def self.total_goals_per_season
+    @@all_games.reduce(Hash.new(0)) do |result, game|
+      result[game.season] += game.away_goals + game.home_goals
+      result
+    end
+  end
+
 end

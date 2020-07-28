@@ -30,10 +30,7 @@ class StatTracker
 # ==================       Game Stats Methods      ==================
 
   def total_goals_per_season
-    @games.reduce(Hash.new(0)) do |result, game|
-      result[game.season] += game.away_goals + game.home_goals
-      result
-    end
+    Game.total_goals_per_season
   end
 
   def highest_total_score
