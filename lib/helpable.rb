@@ -1,11 +1,5 @@
 module Helpable
 
-  def total_home_wins
-   @game_teams.find_all do |game_team|
-     game_team.hoa == "home" && game_team.result == "WIN"
-   end.size
-  end
-
   def total_games_per_team(exclude_hoa = nil)
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += 1 unless game_team.hoa == exclude_hoa

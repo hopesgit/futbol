@@ -35,10 +35,6 @@ class StatTrackerTest < Minitest::Test
 
 # ==================        Helper Methods Tests       ==================
 
-  def test_it_can_get_total_home_wins
-    assert_equal 16, @stat_tracker.total_home_wins
-  end
-
   def test_it_can_read_season_for_game_teams
     assert_equal "20122013", @stat_tracker.game_teams[1].season
     assert_equal "20172018", @stat_tracker.game_teams[59].season

@@ -14,7 +14,6 @@ class GameTeam
               :shots,
               :tackles
   @@all_game_teams = []
-  @games = @@all_game_teams
 
   attr_accessor :season
 
@@ -42,4 +41,10 @@ class GameTeam
       game_team.season = game_team.generate_season(game_team.game_id)
     end
   end
+
+  def self.total_home_wins
+    @@all_game_teams.find_all do |game_team|
+      game_team.hoa == "home" && game_team.result == "WIN"
+    end.size
+   end
 end
