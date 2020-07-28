@@ -51,4 +51,11 @@ class GameTeam
       game_team.hoa == "home" && game_team.result == "WIN"
     end.size
   end
+
+  def self.tackles_per_team_for(season_id)
+    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[find_team(game_team.team_id).name] += game_team.tackles if game_team.season == season_id
+      result
+    end
+  end
 end
