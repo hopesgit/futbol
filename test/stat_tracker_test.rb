@@ -145,28 +145,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.goals_per_game_per_team
   end
 
-  def test_it_can_get_shots_per_team
-    shots_fired = {
-      "3" => 38,
-      "6" => 76,
-      "5" => 32,
-      "17" => 5,
-      "16" => 10,
-    }
-    assert_equal shots_fired, @stat_tracker.total_shots_per_team_per_season("20122013")
-  end
-
-  def test_shots_to_goals_ratio_per_team
-    ratio = {
-      "3" => 4.75,
-      "6" => 3.167,
-      "5" => 16.0,
-      "17" => 5.00,
-      "16" => 5.00,
-    }
-    assert_equal ratio, @stat_tracker.shots_to_goals_ratio_per_team_per_season("20122013")
-  end
-
   def test_it_can_return_games_won_per_team_for_a_season
     assert_equal ({"6"=>9, "16"=>1}), @stat_tracker.games_won_per_team_for_season("20122013")
   end

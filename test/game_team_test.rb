@@ -59,6 +59,28 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_get_total_goals_per_team_for_a_season 
-    assert_equal ({"3"=>8, "6"=>24, "5"=>2, "17"=>1, "16"=>2}), GameTeam.total_goals_per_team_per_season("20122013")
+    assert_equal ({"3"=>8, "6"=>24, "5"=>2, "17"=>1, "16"=>2}), GameTeam.total_goals_per_team_for_season("20122013")
+  end
+
+  def test_it_can_get_shots_per_team
+    shots_fired = {
+      "3" => 38,
+      "6" => 76,
+      "5" => 32,
+      "17" => 5,
+      "16" => 10,
+    }
+    assert_equal shots_fired, GameTeam.total_shots_per_team_for_season("20122013")
+  end
+
+  def test_shots_to_goals_ratio_per_team
+    ratio = {
+      "3" => 4.75,
+      "6" => 3.167,
+      "5" => 16.0,
+      "17" => 5.00,
+      "16" => 5.00,
+    }
+    assert_equal ratio, GameTeam.shots_to_goals_ratio_per_team_for_season("20122013")
   end
 end
