@@ -93,4 +93,8 @@ class Game
       result
     end
   end
+
+  def self.average_goals_per_game
+    (Game.total_goals_per_game.values.sum / Game.total_goals_per_game.keys.count.to_f).round(2)
+  end
 end

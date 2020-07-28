@@ -86,4 +86,8 @@ class GameTest < Minitest::Test
     }
     assert_equal seasons_and_avg_goals, Game.average_goals_by_season
   end
+
+  def test_average_goals_per_game
+    assert_equal 3.87, Game.average_goals_per_game
+  end
 end

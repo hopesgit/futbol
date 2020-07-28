@@ -46,5 +46,5 @@ class GameTeam
     @@all_game_teams.find_all do |game_team|
       game_team.hoa == "home" && game_team.result == "WIN"
     end.size
-   end
+  end
 end

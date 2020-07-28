@@ -54,8 +54,7 @@ class StatTracker
   end
 
   def average_goals_per_game
-    result = Game.total_goals_per_game.values.sum
-    (result / Game.total_goals_per_game.keys.count.to_f).round(2)
+    Game.average_goals_per_game
   end
 
   def average_goals_by_season
