@@ -35,10 +35,6 @@ class StatTrackerTest < Minitest::Test
 
 # ==================        Helper Methods Tests       ==================
 
-  def test_it_can_get_all_seasons
-    assert_equal ["20122013", "20142015", "20172018"], @stat_tracker.all_seasons
-  end
-
   def test_it_can_get_total_goals_per_game
     assert_equal 5, @stat_tracker.total_goals_per_game["2012030221"]
     assert_equal 3, @stat_tracker.total_goals_per_game["2012030231"]
@@ -272,16 +268,6 @@ class StatTrackerTest < Minitest::Test
   end
 
 # ==================       Game Stat Methods Tests     ==================
-
-  def test_it_can_return_total_goals_per_season
-    seasons_and_total_goals = {
-      "20122013" => 37,
-      "20142015" => 35,
-      "20172018" => 44
-    }
-
-    assert_equal seasons_and_total_goals, @stat_tracker.total_goals_per_season
-  end
 
   def test_it_can_calculate_percentage_home_wins
    assert_equal 0.53, @stat_tracker.percentage_home_wins

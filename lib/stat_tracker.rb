@@ -29,10 +29,6 @@ class StatTracker
 
 # ==================       Game Stats Methods      ==================
 
-  def total_goals_per_season
-    Game.total_goals_per_season
-  end
-
   def highest_total_score
     Game.highest_total_score
   end
@@ -42,7 +38,7 @@ class StatTracker
   end
 
   def percentage_visitor_wins
-    (total_away_wins / Game.count.to_f).round(2)
+    (Game.total_away_wins / Game.count.to_f).round(2)
   end
 
   def percentage_home_wins
@@ -63,7 +59,7 @@ class StatTracker
   end
 
   def average_goals_by_season
-    all_seasons.reduce({}) do |result, season|
+    Game.all_seasons.reduce({}) do |result, season|
       result[season] = (total_goals_per_season[season] / count_of_games_by_season[season].to_f).round(2)
       result
     end
@@ -163,7 +159,7 @@ class StatTracker
   end
 
   def win_percentage_per_team_per_season
-    all_seasons.reduce(Hash.new { |h,k| h[k] = {} }) do |result,    season|
+    Game.all_seasons.reduce(Hash.new { |h,k| h[k] = {} }) do |result,    season|
      result[season] = games_won_per_team_for_season(season).merge(total_games_per_team_per_season(season)) do |team_id, wins, games|
       (wins.to_f / games).round(2)
      end
