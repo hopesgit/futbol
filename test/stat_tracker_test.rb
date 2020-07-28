@@ -35,11 +35,6 @@ class StatTrackerTest < Minitest::Test
 
 # ==================        Helper Methods Tests       ==================
 
-  def test_it_can_get_total_goals_per_game
-    assert_equal 5, @stat_tracker.total_goals_per_game["2012030221"]
-    assert_equal 3, @stat_tracker.total_goals_per_game["2012030231"]
-  end
-
   def test_it_can_get_total_home_wins
     assert_equal 16, @stat_tracker.total_home_wins
   end

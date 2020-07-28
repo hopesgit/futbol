@@ -61,12 +61,19 @@ class Game
     season_games
   end
 
+  def self.total_goals_per_game
+    @@all_games.reduce({}) do |ids_to_scores, game|
+      ids_to_scores[game.game_id] = game.away_goals + game.home_goals
+      ids_to_scores
+    end
+  end
+
   def self.highest_total_score
-    total_goals_per_game.max_by {|game_id, total_goals| total_goals}[1]
+    Game.total_goals_per_game.max_by {|game_id, total_goals| total_goals}[1]
   end
 
   def self.lowest_total_score
-    total_goals_per_game.min_by {|game_id, total_goals| total_goals}[1]
+    Game.total_goals_per_game.min_by {|game_id, total_goals| total_goals}[1]
   end
 
   def self.all_seasons

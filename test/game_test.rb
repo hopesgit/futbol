@@ -57,6 +57,11 @@ class GameTest < Minitest::Test
     assert_equal ({"20122013"=>10, "20142015"=>10, "20172018"=>10}), Game.count_of_games_by_season
   end
 
+  def test_it_can_get_total_goals_per_game
+    assert_equal 5, Game.total_goals_per_game["2012030221"]
+    assert_equal 3, Game.total_goals_per_game["2012030231"]
+  end
+
   def test_it_can_get_highest_total_score
     assert_equal 7, Game.highest_total_score
   end
