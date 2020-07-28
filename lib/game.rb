@@ -39,6 +39,13 @@ class Game
     @@all_games.count
   end
 
+  def self.total_away_wins
+    @@all_games.reduce(0) do |away_wins, game|
+      away_wins += 1 if game.away_goals > game.home_goals
+      away_wins
+    end
+  end
+
   def self.total_goals_per_season
     @@all_games.reduce(Hash.new(0)) do |result, game|
       result[game.season] += game.away_goals + game.home_goals

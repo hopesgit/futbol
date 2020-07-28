@@ -283,10 +283,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal seasons_and_total_goals, @stat_tracker.total_goals_per_season
   end
 
-  def test_it_can_get_away_wins
-    assert_equal 13, @stat_tracker.total_away_wins
-  end
-
   def test_it_can_calculate_percentage_home_wins
    assert_equal 0.53, @stat_tracker.percentage_home_wins
   end

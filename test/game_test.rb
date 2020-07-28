@@ -39,6 +39,10 @@ class GameTest < Minitest::Test
     assert_equal 30, Game.count
   end
 
+  def test_it_can_get_away_wins
+    assert_equal 13, Game.total_away_wins
+  end
+
   def test_it_can_get_highest_total_score
     assert_equal 7, Game.highest_total_score
   end

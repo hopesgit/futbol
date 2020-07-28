@@ -1,12 +1,5 @@
 module Helpable
 
-  def total_away_wins
-    @games.reduce(0) do |away_wins, game|
-      away_wins += 1 if game.away_goals > game.home_goals
-      away_wins
-    end
-  end
-
   def total_home_wins
    @game_teams.find_all do |game_team|
      game_team.hoa == "home" && game_team.result == "WIN"
