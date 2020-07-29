@@ -1,5 +1,4 @@
 require 'csv'
-require_relative './game_team'
 
 class DataSet
   def self.create(path)
