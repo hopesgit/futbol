@@ -155,16 +155,7 @@ class StatTracker
   def average_win_percentage(team_id)
     win_percentage_per_team[team_id]
   end
-
-  def win_percentage_per_team_per_season
-    Game.all_seasons.reduce(Hash.new { |h,k| h[k] = {} }) do |result,    season|
-     result[season] = games_won_per_team_for_season(season).merge(total_games_per_team_per_season(season)) do |team_id, wins, games|
-      (wins.to_f / games).round(2)
-     end
-     result
-    end
-  end
-
+  
   def worst_season(team_id)
     win_percentage_per_team_per_season.min_by { |season, team_win_percent_hash| team_win_percent_hash[team_id]}[0]
   end
