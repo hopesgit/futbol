@@ -1,9 +1,11 @@
 require 'csv'
 require_relative './helpable'
 require_relative './data_set'
+require_relative './mathable'
 
 class Game < DataSet
   extend Helpable
+  extend Mathable
 
   attr_reader :game_id,
               :season,
@@ -76,12 +78,12 @@ class Game < DataSet
 
   def self.average_goals_by_season
     Game.all_seasons.reduce({}) do |result, season|
-      result[season] = (Game.total_goals_per_season[season] / Game.count_of_games_by_season[season].to_f).round(2)
+      result[season] = average(Game.total_goals_per_season[season], Game.count_of_games_by_season[season])
       result
     end
   end
 
   def self.average_goals_per_game
-    (Game.total_goals_per_game.values.sum / Game.total_goals_per_game.keys.count.to_f).round(2)
+    average(Game.total_goals_per_game.values.sum, Game.total_goals_per_game.keys.count)
   end
 end

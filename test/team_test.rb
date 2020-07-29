@@ -1,4 +1,4 @@
-require './test/helper_test'
+require './test/test_helper'
 require './lib/team'
 
 class TeamTest < MiniTest::Test

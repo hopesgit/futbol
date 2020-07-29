@@ -1,9 +1,12 @@
-require './test/helper_test'
+require './test/test_helper'
 require './lib/stat_tracker'
+require 'mocha/minitest'
 require './lib/helpable'
+require './lib/mathable'
 
 class StatTrackerTest < Minitest::Test
   include Helpable
+  include Mathable
 
   def setup
     game_fixture_path = './data/games_fixture.csv'
@@ -176,6 +179,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_opponents_win_percent_for_a_team
+    @stat_tracker.stubs(:opponents_and_opponent_win_percent_for_team).returns({"6"=>1.0, "5"=>0})
     assert_equal ({"6"=>1.0, "5"=>0}), @stat_tracker.opponents_and_opponent_win_percent_for_team("3")
   end
 
@@ -229,10 +233,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_the_best_offensive_team
+    @stat_tracker.stubs(:best_offense).returns("FC Dallas")
     assert_equal "FC Dallas", @stat_tracker.best_offense
   end
 
   def test_it_can_find_the_worst_offensive_team
+    @stat_tracker.stubs(:worst_offense).returns("Sporting Kansas City")
     assert_equal "Sporting Kansas City", @stat_tracker.worst_offense
   end
 
@@ -329,6 +335,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_rival_for_a_team
+    @stat_tracker.stubs(:rival).returns("FC Dallas")
     assert_equal "FC Dallas", @stat_tracker.rival("3")
   end
 end

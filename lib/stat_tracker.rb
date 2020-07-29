@@ -2,9 +2,11 @@ require_relative './game'
 require_relative './team'
 require_relative './game_team'
 require_relative './helpable'
+require_relative './mathable'
 
 class StatTracker
   include Helpable
+  include Mathable
 
   def self.from_csv(locations)
     game_path = locations[:games]
@@ -30,15 +32,15 @@ class StatTracker
   end
 
   def percentage_home_wins
-    (GameTeam.total_home_wins / Game.count.to_f).round(2)
+    average(GameTeam.total_home_wins, Game.count)
   end
 
   def percentage_visitor_wins
-    (Game.total_away_wins / Game.count.to_f).round(2)
+    average(Game.total_away_wins, Game.count)
   end
 
   def percentage_ties
-    (Game.total_tied_games / Game.count.to_f).round(2)
+    average(Game.total_tied_games, Game.count)
   end
 
   def count_of_games_by_season
