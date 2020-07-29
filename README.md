@@ -19,6 +19,8 @@
 - Created a Mathable module to hold an average method that is used in multiple calculations
 - Created a Helpable module that holds helper methods used for calculations in each of the data classes
 - Since Team, Game, and GameTeam are all classes that hold sets of data, we created a DataSet superclass to hold methods that are shared between those classes
+- Stored collections of Team, Game, and GameTeam data in class variables for each respective class (this was a transition from using Collection classes for each type of object)
+- Created class methods for methods that used all instances within that class 
 
 ### Graphical Representation
 
