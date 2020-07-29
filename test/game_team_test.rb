@@ -3,7 +3,7 @@ require './lib/game_team'
 require './lib/mathable'
 
 class GameTeamTest < Minitest::Test
-  include Mathable
+
   def setup
     @game_team = GameTeam.new({
                                 :game_id=>"2012030221",
