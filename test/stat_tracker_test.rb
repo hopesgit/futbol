@@ -25,17 +25,11 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
-  def test_it_has_attributes
-    assert_instance_of Array, @stat_tracker.games
-    assert_instance_of Array, @stat_tracker.teams
-    assert_instance_of Array, @stat_tracker.game_teams
-  end
-
 # ==================        Helper Methods Tests       ==================
 
   def test_it_can_read_season_for_game_teams
-    assert_equal "20122013", @stat_tracker.game_teams[1].season
-    assert_equal "20172018", @stat_tracker.game_teams[59].season
+    assert_equal "20122013", GameTeam.all[1].season
+    assert_equal "20172018", GameTeam.all[59].season
   end
 
   def test_it_can_get_total_games_per_team
@@ -75,15 +69,15 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_average_goals_per_game_per_team
-    team3 = @stat_tracker.teams.find { |team| team.id == "3" }
-    team5 = @stat_tracker.teams.find { |team| team.id == "5" }
-    team6 = @stat_tracker.teams.find { |team| team.id == "6" }
-    team14 = @stat_tracker.teams.find { |team| team.id == "14" }
-    team16 = @stat_tracker.teams.find { |team| team.id == "16" }
-    team17 = @stat_tracker.teams.find { |team| team.id == "17" }
-    team28 = @stat_tracker.teams.find { |team| team.id == "28" }
-    team24 = @stat_tracker.teams.find { |team| team.id == "24" }
-    team54 = @stat_tracker.teams.find { |team| team.id == "54" }
+    team3 = Team.find("id", "3")
+    team5 = Team.find("id", "5")
+    team6 = Team.find("id", "6")
+    team14 = Team.find("id", "14")
+    team16 = Team.find("id", "16")
+    team17 = Team.find("id", "17")
+    team28 = Team.find("id", "28")
+    team24 = Team.find("id", "24")
+    team54 = Team.find("id", "54")
 
     expected = {team3=>1.89, team6=>2.67, team5=>0.88, team17=>1.0, team16=>2.14, team14=>1.33, team28=>2.4, team54=>2.67, team24=>1.0}
 
@@ -91,15 +85,15 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_average_goals_per_game_per_team_hoa
-    team3 = @stat_tracker.teams.find { |team| team.id == "3" }
-    team5 = @stat_tracker.teams.find { |team| team.id == "5" }
-    team6 = @stat_tracker.teams.find { |team| team.id == "6" }
-    team14 = @stat_tracker.teams.find { |team| team.id == "14" }
-    team16 = @stat_tracker.teams.find { |team| team.id == "16" }
-    team17 = @stat_tracker.teams.find { |team| team.id == "17" }
-    team28 = @stat_tracker.teams.find { |team| team.id == "28" }
-    team24 = @stat_tracker.teams.find { |team| team.id == "24" }
-    team54 = @stat_tracker.teams.find { |team| team.id == "54" }
+    team3 = Team.find("id", "3")
+    team5 = Team.find("id", "5")
+    team6 = Team.find("id", "6")
+    team14 = Team.find("id", "14")
+    team16 = Team.find("id", "16")
+    team17 = Team.find("id", "17")
+    team28 = Team.find("id", "28")
+    team24 = Team.find("id", "24")
+    team54 = Team.find("id", "54")
 
     expected_avg_home_goals_p_game_p_team = {team3=>2.0, team6=>2.4, team5=>0.75, team16=>2.0, team14=>1.33, team28=>2.6, team54=>3.67, team24=>1.0}
     exclude = "away"
@@ -198,7 +192,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_lowest_total_score
     assert_equal 1, @stat_tracker.lowest_total_score
   end
-  
+
   def test_it_can_calculate_percentage_home_wins
    assert_equal 0.53, @stat_tracker.percentage_home_wins
   end
@@ -229,7 +223,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   # ==================       League Stat Methods Tests     ==================
-  
+
   def test_it_can_get_count_of_teams
     assert_equal 32, @stat_tracker.count_of_teams
   end
@@ -237,7 +231,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_find_the_best_offensive_team
     assert_equal "FC Dallas", @stat_tracker.best_offense
   end
-  
+
   def test_it_can_find_the_worst_offensive_team
     assert_equal "Sporting Kansas City", @stat_tracker.worst_offense
   end
