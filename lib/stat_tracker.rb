@@ -97,22 +97,6 @@ class StatTracker
 
 # ==================       Season Stats Methods      ==================
 
-  def fewest_tackles(season_id)
-    tackles_per_team_for(season_id).min_by do |team_id, tackles|
-      tackles
-    end[0]
-  end
-
-  def least_accurate_team(season_id)
-    worst = GameTeam.shots_to_goals_ratio_per_team_for_season(season_id).max_by { |team_id, avg| avg}[0]
-    find_team(worst).name
-  end
-
-  def most_accurate_team(season_id)
-    best = GameTeam.shots_to_goals_ratio_per_team_for_season(season_id).min_by { |team_id, avg| avg}[0]
-    find_team(best).name
-  end
-
   def winningest_coach(season_id)
     GameTeam.winningest_coach(season_id)
   end
@@ -121,8 +105,24 @@ class StatTracker
     GameTeam.worst_coach(season_id)
   end
 
+  def most_accurate_team(season_id)
+    best = GameTeam.shots_to_goals_ratio_per_team_for_season(season_id).min_by { |team_id, avg| avg}[0]
+    find_team(best).name
+  end
+
+  def least_accurate_team(season_id)
+    worst = GameTeam.shots_to_goals_ratio_per_team_for_season(season_id).max_by { |team_id, avg| avg}[0]
+    find_team(worst).name
+  end
+
   def most_tackles(season_id)
     tackles_per_team_for(season_id).max_by do |team_id, tackles|
+      tackles
+    end[0]
+  end
+
+  def fewest_tackles(season_id)
+    tackles_per_team_for(season_id).min_by do |team_id, tackles|
       tackles
     end[0]
   end
