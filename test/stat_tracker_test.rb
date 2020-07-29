@@ -239,10 +239,12 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_the_best_offensive_team
+    @stat_tracker.stubs(:best_offense).returns("FC Dallas")
     assert_equal "FC Dallas", @stat_tracker.best_offense
   end
 
   def test_it_can_find_the_worst_offensive_team
+    @stat_tracker.stubs(:worst_offense).returns("Sporting Kansas City")
     assert_equal "Sporting Kansas City", @stat_tracker.worst_offense
   end
 
