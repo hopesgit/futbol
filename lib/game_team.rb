@@ -8,7 +8,6 @@ class GameTeam
               :team_id,
               :hoa,
               :result,
-              :settled_in,
               :head_coach,
               :goals,
               :shots,
@@ -22,7 +21,6 @@ class GameTeam
     @team_id = data[:team_id]
     @hoa = data[:hoa]
     @result = data[:result]
-    @settled_in = data[:settled_in]
     @head_coach = data[:head_coach]
     @goals = data[:goals].to_i
     @shots = data[:shots].to_i
