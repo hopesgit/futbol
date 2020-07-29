@@ -1,8 +1,9 @@
 require './test/helper_test'
 require './lib/game_team'
+require './lib/mathable'
 
 class GameTeamTest < Minitest::Test
-
+  include Mathable
   def setup
     @game_team = GameTeam.new({
                                 :game_id=>"2012030221",
@@ -17,7 +18,7 @@ class GameTeamTest < Minitest::Test
 
     @game_team.season = "20122013"
     GameTeam.class_variable_set(:@@all_game_teams, [])
-    GameTeam.create('./data/game_teams_fixture.csv')
+    GameTeam.create('./data/game_teams.csv')
   end
 
   def test_it_exists
@@ -56,7 +57,7 @@ class GameTeamTest < Minitest::Test
     assert_equal 16, GameTeam.total_home_wins
   end
 
-  def test_it_can_get_total_goals_per_team_for_a_season 
+  def test_it_can_get_total_goals_per_team_for_a_season
     assert_equal ({"3"=>8, "6"=>24, "5"=>2, "17"=>1, "16"=>2}), GameTeam.total_goals_per_team_for_season("20122013")
   end
 

@@ -1,9 +1,11 @@
 require 'csv'
 require_relative './helpable'
+require_relative './mathable'
 require_relative './data_set'
 
 class GameTeam < DataSet
   extend Helpable
+  include Mathable
 
   attr_reader :game_id,
               :team_id,

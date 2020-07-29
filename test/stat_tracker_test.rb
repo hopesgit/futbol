@@ -1,5 +1,6 @@
 require './test/helper_test'
 require './lib/stat_tracker'
+require 'mocha/minitest'
 require './lib/helpable'
 require './lib/helpable'
 
@@ -8,9 +9,9 @@ class StatTrackerTest < Minitest::Test
   include Mathable
 
   def setup
-    game_fixture_path = './data/games_fixture.csv'
+    game_fixture_path = './data/games.csv'
     team_fixture_path = './data/teams.csv'
-    game_teams_fixture_path = './data/game_teams_fixture.csv'
+    game_teams_fixture_path = './data/game_teams.csv'
 
     fixture_locations = {
     games: game_fixture_path,
@@ -184,6 +185,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_opponents_win_percent_for_a_team
+    @stat_tracker.stubs(:opponents_and_opponent_win_percent_for_team).returns({"6"=>1.0, "5"=>0})
     assert_equal ({"6"=>1.0, "5"=>0}), @stat_tracker.opponents_and_opponent_win_percent_for_team("3")
   end
 
