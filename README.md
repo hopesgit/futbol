@@ -20,4 +20,6 @@
 - Created a Helpable module that holds helper methods used for calculations in each of the data classes
 - Since Team, Game, and GameTeam are all classes that hold sets of data, we created a DataSet superclass to hold methods that are shared between those classes
 
-### Graphical Representation 
+### Graphical Representation
+
+![alt text](https://user-images.githubusercontent.com/47278429/88852464-28a50800-d1a3-11ea-9674-0e59f175a367.png)
