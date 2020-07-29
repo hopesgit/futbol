@@ -1,10 +1,6 @@
-require 'simplecov'
-SimpleCov.start
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/helper_test'
 require './lib/stat_tracker'
 require './lib/helpable'
-require './test/test_helper'
 
 class StatTrackerTest < Minitest::Test
   include Helpable
