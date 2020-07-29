@@ -1,11 +1,10 @@
-require 'csv'
+require_relative './data_set'
 
-class GameTeam
+class GameTeam < DataSet
   attr_reader :game_id,
               :team_id,
               :hoa,
               :result,
-              :settled_in,
               :head_coach,
               :goals,
               :shots,
@@ -14,12 +13,15 @@ class GameTeam
 
   attr_accessor :season
 
+  def self.all
+    @@all_game_teams
+  end
+
   def initialize(data)
     @game_id = data[:game_id]
     @team_id = data[:team_id]
     @hoa = data[:hoa]
     @result = data[:result]
-    @settled_in = data[:settled_in]
     @head_coach = data[:head_coach]
     @goals = data[:goals].to_i
     @shots = data[:shots].to_i

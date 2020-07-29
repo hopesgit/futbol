@@ -9,7 +9,6 @@ class GameTeamTest < Minitest::Test
                                 :team_id=>"3",
                                 :hoa=>"away",
                                 :result=>"LOSS",
-                                :settled_in=>"OT",
                                 :head_coach=>"John Tortorella",
                                 :goals=>2,
                                 :shots=>8,
@@ -29,7 +28,6 @@ class GameTeamTest < Minitest::Test
     assert_equal "3", @game_team.team_id
     assert_equal "away", @game_team.hoa
     assert_equal "LOSS", @game_team.result
-    assert_equal "OT", @game_team.settled_in
     assert_equal "John Tortorella", @game_team.head_coach
     assert_equal 2, @game_team.goals
     assert_equal 8, @game_team.shots
@@ -53,5 +51,13 @@ class GameTeamTest < Minitest::Test
   def test_it_can_generate_a_season_id
     assert_equal "20122013", @game_team.generate_season("2012030225")
     assert_equal "20142015", @game_team.generate_season("2014030413")
+  end
+
+  def test_it_can_find_all_game_teams_that_meet_a_condition
+    GameTeam.create('./data/game_teams_fixture.csv')
+
+    assert_instance_of Array, GameTeam.find_all("game_id", "2012030224")
+    assert_equal true, GameTeam.find_all("game_id", "2012030224").all? { |element| element.class == GameTeam}
+    assert_equal 2, GameTeam.find_all("game_id", "2012030224").size
   end
 end
