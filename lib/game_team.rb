@@ -94,4 +94,16 @@ class GameTeam
       (wins.to_f / games).round(2)
     end
   end
+
+  def self.winningest_coach(season_id)
+    percent_wins_by_coach_for_season(season_id).max_by do |coach, percent_wins|
+      percent_wins
+    end[0]
+  end
+
+  def self.worst_coach(season_id)
+    percent_wins_by_coach_for_season(season_id).min_by do |coach, percent_wins|
+      percent_wins
+    end[0]
+  end
 end

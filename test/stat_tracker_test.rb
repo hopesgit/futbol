@@ -305,6 +305,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
   end
 
+  def test_it_can_get_worst_coach_for_a_season
+    assert_equal "John Tortorella", @stat_tracker.worst_coach("20122013")
+  end
+
   def test_it_can_return_team_with_most_tackles_in_season
     assert_equal "FC Dallas", @stat_tracker.most_tackles("20122013")
     assert_equal "DC United", @stat_tracker.most_tackles("20142015")
@@ -353,10 +357,6 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_get_favorite_opponent_for_a_team
     assert_equal "Sporting Kansas City", @stat_tracker.favorite_opponent("3")
-  end
-
-  def test_it_can_get_worst_coach_for_a_season
-    assert_equal "John Tortorella", @stat_tracker.worst_coach("20122013")
   end
 
   def test_it_can_find_the_best_season_for_a_team

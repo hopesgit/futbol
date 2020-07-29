@@ -114,9 +114,11 @@ class StatTracker
   end
 
   def winningest_coach(season_id)
-    percent_wins_by_coach(season_id).max_by do |coach, percent_wins|
-      percent_wins
-    end[0]
+    GameTeam.winningest_coach(season_id)
+  end
+
+  def worst_coach(season_id)
+    GameTeam.worst_coach(season_id)
   end
 
   def most_tackles(season_id)
@@ -169,12 +171,6 @@ class StatTracker
 
   def favorite_opponent(team_id)
     find_team(opponents_and_opponent_win_percent_for_team(team_id).min_by {|opponent, win_percentage| win_percentage}[0]).name
-  end
-
-  def worst_coach(season_id)
-    percent_wins_by_coach(season_id).min_by do |coach, percent_wins|
-      percent_wins
-    end[0]
   end
 
   def best_season(team_id)

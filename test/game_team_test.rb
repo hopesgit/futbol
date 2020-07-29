@@ -103,4 +103,12 @@ class GameTeamTest < Minitest::Test
     assert_equal ({"John Tortorella"=>0.0, "Claude Julien"=>1.0, "Dan Bylsma"=>0.0, "Mike Babcock"=>0.0, "Joel Quenneville"=>1.0}),
     GameTeam.percent_wins_by_coach_for_season("20122013")
   end
+
+  def test_it_can_get_winningest_coach
+    assert_equal "Claude Julien", GameTeam.winningest_coach("20122013")
+  end
+
+  def test_it_can_get_worst_coach_for_a_season
+    assert_equal "John Tortorella", GameTeam.worst_coach("20122013")
+  end
 end
