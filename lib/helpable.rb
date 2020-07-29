@@ -33,6 +33,17 @@ module Helpable
     end
   end
 
+  def games_for_team(team_id)
+    Game.all.select {|game| game.away_team_id == team_id || game.home_team_id == team_id}
+  end
+
+  def opponent_by_game_id_for_team(team_id)
+    games_for_team(team_id).reduce({}) do |result, game|
+      result[game.game_id] = [game.away_team_id, game.home_team_id].select {|id| id != team_id}.join
+      result
+      end
+  end
+
   def games_won_per_team
     @game_teams.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += 0
