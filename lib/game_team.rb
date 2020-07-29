@@ -76,4 +76,22 @@ class GameTeam
       result
     end
   end
+
+  def self.number_of_games_by_coach(season_id)
+    game_teams_by_coach_for_season(season_id).transform_values do |game_teams|
+      game_teams.length
+    end
+  end
+
+  def self.find_all_wins_by_coach(season_id)
+    game_teams_by_coach_for_season(season_id).transform_values do |game_teams|
+      (game_teams.find_all {|game| game.result == "WIN"}).length
+    end
+  end
+
+  def self.percent_wins_by_coach(season_id)
+     find_all_wins_by_coach(season_id).merge(number_of_games_by_coach(season_id)) do |head_coach, wins, games|
+      (wins.to_f / games).round(2)
+    end
+  end
 end

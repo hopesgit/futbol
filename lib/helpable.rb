@@ -90,24 +90,6 @@ module Helpable
     end
   end
 
-  def number_of_games_by_coach(season_id)
-    game_teams_by_coach_for_season(season_id).transform_values do |game_teams|
-      game_teams.length
-    end
-  end
-
-  def find_all_wins_by_coach(season_id)
-    game_teams_by_coach_for_season(season_id).transform_values do |game_teams|
-      (game_teams.find_all {|game| game.result == "WIN"}).length
-    end
-  end
-
-  def percent_wins_by_coach(season_id)
-     find_all_wins_by_coach(season_id).merge(number_of_games_by_coach(season_id)) do |head_coach, wins, games|
-      (wins.to_f / games).round(2)
-    end
-  end
-
   def num_games_per_opponent_for_team(team_id)
     opponent_by_game_id_for_team(team_id).each_with_object(Hash.new(0)) do |(game_id, team_ID), result|
       result[team_ID] += 1 if team_ID == team_ID

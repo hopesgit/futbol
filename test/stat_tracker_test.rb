@@ -202,21 +202,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal ({"6"=>5,"5"=>0}), @stat_tracker.opponents_and_opponents_num_result_for_team("3", "WIN")
   end
 
-  def test_it_can_get_number_of_games_by_coach
-    expected = {"John Tortorella"=>5, "Claude Julien"=>9, "Dan Bylsma"=>4, "Mike Babcock"=>1, "Joel Quenneville"=>1}
-    assert_equal expected, @stat_tracker.number_of_games_by_coach("20122013")
-  end
-
-  def test_it_can_get_all_wins_by_coach
-    expected = {"John Tortorella"=>0, "Claude Julien"=>9, "Dan Bylsma"=>0, "Mike Babcock"=>0, "Joel Quenneville"=>1}
-    assert_equal expected, @stat_tracker.find_all_wins_by_coach("20122013")
-  end
-
-  def test_percent_wins_by_coach
-    assert_equal ({"John Tortorella"=>0.0, "Claude Julien"=>1.0, "Dan Bylsma"=>0.0, "Mike Babcock"=>0.0, "Joel Quenneville"=>1.0}),
-    @stat_tracker.percent_wins_by_coach("20122013")
-  end
-
   def test_it_can_return_num_games_by_opponent
     assert_equal ({"6"=>5, "5"=>4}), @stat_tracker.num_games_per_opponent_for_team("3")
   end
