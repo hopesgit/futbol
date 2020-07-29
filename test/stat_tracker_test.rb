@@ -128,23 +128,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal "10", @stat_tracker.find_team("3").franchise_id
   end
 
-  def test_it_can_get_goals_per_game_per_team
-
-    expected = {
-                "3"=>[2, 2, 1, 2, 1, 2, 3, 2, 2],
-                "6"=>[3, 3, 2, 3, 3, 3, 4, 2, 1],
-                "5"=>[0, 1, 1, 0, 1, 2, 1, 1],
-                "17"=>[1],
-                "16"=>[2, 2, 3, 2, 2, 2, 2],
-                "14"=>[1, 2, 3, 1, 1, 0],
-                "28"=>[0, 2, 3, 2, 3, 0, 3, 3, 6, 2],
-                "54"=>[5, 3, 2, 0, 3, 3],
-                "24"=>[0, 2, 1, 1]
-              }
-
-    assert_equal expected, @stat_tracker.goals_per_game_per_team
-  end
-
   def test_it_can_return_games_won_per_team_for_a_season
     assert_equal ({"6"=>9, "16"=>1}), @stat_tracker.games_won_per_team_for_season("20122013")
   end

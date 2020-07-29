@@ -33,13 +33,6 @@ module Helpable
     end
   end
 
-  def goals_per_game_per_team
-    @game_teams.reduce(Hash.new { |h,k| h[k] = [] }) do |result, game_team|
-      result[game_team.team_id] << game_team.goals
-      result
-    end
-  end
-
   def games_for_team(team_id)
     Game.all.select {|game| game.away_team_id == team_id || game.home_team_id == team_id}
   end

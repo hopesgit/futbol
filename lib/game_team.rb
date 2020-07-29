@@ -106,4 +106,11 @@ class GameTeam
       percent_wins
     end[0]
   end
+
+  def self.goals_per_game_per_team
+    @@all_game_teams.reduce(Hash.new { |h,k| h[k] = [] }) do |result, game_team|
+      result[game_team.team_id] << game_team.goals
+      result
+    end
+  end
 end
