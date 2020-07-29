@@ -13,7 +13,7 @@
 - Refactored any methods using nested iteration with non-nested iteration solutions
 - Used Mocks and stubs in expensive test methods to reduce test time from 91s -> 65s seconds when testing with full dataset
 - Used fixture files to significantly improve test performance
-- **Used class variables in tests instead of setup methods to ensure data was only loaded once** Not doing this anymore right?
+- Used class variables in tests instead of setup methods to ensure data was only loaded once
 
 ### Inheritance and Modules
 - Created a Mathable module to hold an average method that is used in multiple calculations
