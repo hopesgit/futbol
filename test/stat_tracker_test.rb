@@ -9,9 +9,9 @@ class StatTrackerTest < Minitest::Test
   include Mathable
 
   def setup
-    game_fixture_path = './data/games.csv'
+    game_fixture_path = './data/games_fixture.csv'
     team_fixture_path = './data/teams.csv'
-    game_teams_fixture_path = './data/game_teams.csv'
+    game_teams_fixture_path = './data/game_teams_fixture.csv'
 
     fixture_locations = {
     games: game_fixture_path,

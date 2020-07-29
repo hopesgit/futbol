@@ -18,7 +18,7 @@ class GameTeamTest < Minitest::Test
 
     @game_team.season = "20122013"
     GameTeam.class_variable_set(:@@all_game_teams, [])
-    GameTeam.create('./data/game_teams.csv')
+    GameTeam.create('./data/game_teams_fixture.csv')
   end
 
   def test_it_exists
