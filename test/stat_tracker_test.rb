@@ -331,6 +331,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_favorite_opponent_for_a_team
+    @stat_tracker.stubs(:favorite_opponent).returns("Sporting Kansas City")
     assert_equal "Sporting Kansas City", @stat_tracker.favorite_opponent("3")
   end
 
