@@ -32,10 +32,6 @@ class Game < DataSet
     end
   end
 
-  def self.all 
-    @@all_games
-  end 
-
   def self.count
     @@all_games.count
   end
