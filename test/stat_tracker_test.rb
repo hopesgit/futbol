@@ -1,8 +1,8 @@
-require './test/helper_test'
+require './test/test_helper'
 require './lib/stat_tracker'
 require 'mocha/minitest'
 require './lib/helpable'
-require './lib/helpable'
+require './lib/mathable'
 
 class StatTrackerTest < Minitest::Test
   include Helpable

@@ -5,7 +5,7 @@ require_relative './data_set'
 
 class GameTeam < DataSet
   extend Helpable
-  include Mathable
+  extend Mathable
 
   attr_reader :game_id,
               :team_id,
@@ -80,7 +80,7 @@ class GameTeam < DataSet
 
   def self.percent_wins_by_coach_for_season(season_id)
      find_all_wins_by_coach_for_season(season_id).merge(number_of_games_by_coach_for_season(season_id)) do |head_coach, wins, games|
-      (wins.to_f / games).round(2)
+      average(wins, games)
     end
   end
 

@@ -1,4 +1,4 @@
-require './test/helper_test'
+require './test/test_helper'
 require './lib/game_team'
 require './lib/mathable'
 
