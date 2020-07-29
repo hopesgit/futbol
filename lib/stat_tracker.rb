@@ -141,7 +141,7 @@ class StatTracker
   end
 
   def most_goals_scored(team_id)
-     goals_per_game_per_team[team_id].max
+     GameTeam.goals_per_game_per_team[team_id].max
   end
 
   def rival(team_id)
@@ -149,7 +149,7 @@ class StatTracker
   end
 
   def fewest_goals_scored(team_id)
-    goals_per_game_per_team[team_id].min
+    GameTeam.goals_per_game_per_team[team_id].min
   end
 
   def average_win_percentage(team_id)
