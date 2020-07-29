@@ -87,4 +87,15 @@ class GameTest < Minitest::Test
   def test_average_goals_per_game
     assert_equal 3.87, Game.average_goals_per_game
   end
+
+  def test_it_can_return_games_for_team
+    assert_equal ["2012030221", "2012030222", "2012030223", "2012030224", "2012030225", '2014030131', "2014030132", '2014030133', "2014030134"], Game.games_for_team("3").map {|game| game.game_id}
+  end
+
+  def test_it_can_return_opponent_by_game_id_for_team
+    game_ids_and_opponent = {
+      "2012030221"=>"6", "2012030222"=>"6", "2012030223"=>"6", "2012030224"=>"6", "2012030225"=>"6", "2014030131"=>"5", "2014030132"=>"5", "2014030133"=>"5", "2014030134"=>"5"
+    }
+    assert_equal game_ids_and_opponent, Game.opponent_by_game_id_for_team("3")
+  end
 end

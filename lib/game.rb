@@ -97,4 +97,15 @@ class Game
   def self.average_goals_per_game
     (Game.total_goals_per_game.values.sum / Game.total_goals_per_game.keys.count.to_f).round(2)
   end
+
+  def self.games_for_team(team_id)
+    Game.all.select {|game| game.away_team_id == team_id || game.home_team_id == team_id}
+  end
+
+  def self.opponent_by_game_id_for_team(team_id)
+    games_for_team(team_id).reduce({}) do |result, game|
+      result[game.game_id] = [game.away_team_id, game.home_team_id].select {|id| id != team_id}.join
+      result
+      end
+  end
 end
