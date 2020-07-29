@@ -8,10 +8,6 @@ class StatTracker
   include Helpable
   include Mathable
 
-  attr_reader :games,
-              :teams,
-              :game_teams
-
   def self.from_csv(locations)
     game_path = locations[:games]
     team_path = locations[:teams]
@@ -21,11 +17,8 @@ class StatTracker
 
   def initialize(game_path, team_path, game_teams_path)
     Game.create(game_path)
-    @games = Game.class_variable_get(:@@all_games)
     Team.create(team_path)
-    @teams = Team.class_variable_get(:@@all_teams)
     GameTeam.create(game_teams_path)
-    @game_teams = GameTeam.class_variable_get(:@@all_game_teams)
   end
 
 # ==================       Game Stats Methods      ==================
@@ -132,12 +125,7 @@ class StatTracker
 
   def team_info(team_id)
     team = find_team(team_id)
-    { "team_id" => team.id,
-      "franchise_id" => team.franchise_id,
-      "team_name" => team.name,
-      "abbreviation" => team.abbreviation,
-      "link" => team.link
-    }
+    { "team_id" => team.id, "franchise_id" => team.franchise_id, "team_name" => team.name, "abbreviation" => team.abbreviation, "link" => team.link }
   end
 
   def best_season(team_id)

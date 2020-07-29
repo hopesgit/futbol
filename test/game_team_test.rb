@@ -4,8 +4,7 @@ require './lib/mathable'
 
 class GameTeamTest < Minitest::Test
 
-  def setup
-    @game_team = GameTeam.new({
+  @@game_team = GameTeam.new({
                                 :game_id=>"2012030221",
                                 :team_id=>"3",
                                 :hoa=>"away",
@@ -16,25 +15,24 @@ class GameTeamTest < Minitest::Test
                                 :tackles=>44
                                 })
 
-    @game_team.season = "20122013"
-    GameTeam.class_variable_set(:@@all_game_teams, [])
-    GameTeam.create('./data/game_teams_fixture.csv')
-  end
+  @@game_team.season = "20122013"
+  GameTeam.class_variable_set(:@@all_game_teams, [])
+  GameTeam.create('./data/game_teams_fixture.csv')
 
   def test_it_exists
-    assert_instance_of GameTeam, @game_team
+    assert_instance_of GameTeam, @@game_team
   end
 
   def test_it_has_readable_attributes
-    assert_equal "2012030221", @game_team.game_id
-    assert_equal "3", @game_team.team_id
-    assert_equal "away", @game_team.hoa
-    assert_equal "LOSS", @game_team.result
-    assert_equal "John Tortorella", @game_team.head_coach
-    assert_equal 2, @game_team.goals
-    assert_equal 8, @game_team.shots
-    assert_equal 44, @game_team.tackles
-    assert_equal "20122013", @game_team.season
+    assert_equal "2012030221", @@game_team.game_id
+    assert_equal "3", @@game_team.team_id
+    assert_equal "away", @@game_team.hoa
+    assert_equal "LOSS", @@game_team.result
+    assert_equal "John Tortorella", @@game_team.head_coach
+    assert_equal 2, @@game_team.goals
+    assert_equal 8, @@game_team.shots
+    assert_equal 44, @@game_team.tackles
+    assert_equal "20122013", @@game_team.season
   end
 
   def test_it_can_return_an_array_of_info
@@ -49,8 +47,8 @@ class GameTeamTest < Minitest::Test
   end
 
   def test_it_can_generate_a_season_id
-    assert_equal "20122013", @game_team.generate_season("2012030225")
-    assert_equal "20142015", @game_team.generate_season("2014030413")
+    assert_equal "20122013", @@game_team.generate_season("2012030225")
+    assert_equal "20142015", @@game_team.generate_season("2014030413")
   end
 
   def test_it_can_get_total_home_wins
