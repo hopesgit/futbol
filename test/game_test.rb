@@ -87,15 +87,11 @@ class GameTest < Minitest::Test
   end
 
   def test_it_can_find_a_game
-    Game.create('./data/games_fixture.csv')
-
     assert_instance_of Game, Game.find("game_id", "2012030222")
     assert_equal 2, Game.find("game_id", "2012030222").away_goals
   end
 
   def test_it_can_find_all_games_in_a_season
-    Game.create('./data/games_fixture.csv')
-
     assert_instance_of Array, Game.find_all("season", "20172018")
     assert_equal true, Game.find_all("season", "20172018").all? { |element| element.class == Game}
     assert_equal 10, Game.find_all("season", "20172018").size
