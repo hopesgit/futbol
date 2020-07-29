@@ -84,6 +84,8 @@ class GameTest < Minitest::Test
 
   def test_average_goals_per_game
     assert_equal 3.87, Game.average_goals_per_game
+  end
+
   def test_it_can_find_a_game
     Game.create('./data/games_fixture.csv')
 

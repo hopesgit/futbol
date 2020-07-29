@@ -125,7 +125,6 @@ class GameTeamTest < Minitest::Test
 
     assert_equal expected, GameTeam.goals_per_game_per_team
   end
-end
 
   def test_it_can_find_all_game_teams_that_meet_a_condition
     GameTeam.create('./data/game_teams_fixture.csv')
