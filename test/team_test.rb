@@ -28,4 +28,9 @@ class TeamTest < MiniTest::Test
   def test_it_can_get_total_number_of_teams
     assert_equal 32, Team.count
   end
+
+  def test_it_can_find_a_team
+    Team.create('./data/teams.csv')
+    assert_equal "10", Team.find("id", "3").franchise_id
+  end
 end

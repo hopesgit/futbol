@@ -1,15 +1,19 @@
 require 'csv'
 require_relative './helpable'
+require_relative './data_set'
 
-class Team
-  include Helpable
-
+class Team < DataSet
+  extend Helpable
   attr_reader :id,
               :franchise_id,
               :name,
               :abbreviation,
               :link
   @@all_teams = []
+
+  def self.all
+    @@all_teams
+  end
 
   def initialize(team_collection_data)
     @id = team_collection_data[:team_id]

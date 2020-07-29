@@ -1,7 +1,8 @@
 require 'csv'
 require_relative './helpable'
+require_relative './data_set'
 
-class Game
+class Game < DataSet
   extend Helpable
 
   attr_reader :game_id,
@@ -11,6 +12,10 @@ class Game
               :away_goals,
               :home_goals
   @@all_games = []
+
+  def self.all
+    @@all_games
+  end
 
   def initialize(info)
     @game_id = info[:game_id]

@@ -126,3 +126,12 @@ class GameTeamTest < Minitest::Test
     assert_equal expected, GameTeam.goals_per_game_per_team
   end
 end
+
+  def test_it_can_find_all_game_teams_that_meet_a_condition
+    GameTeam.create('./data/game_teams_fixture.csv')
+
+    assert_instance_of Array, GameTeam.find_all("game_id", "2012030224")
+    assert_equal true, GameTeam.find_all("game_id", "2012030224").all? { |element| element.class == GameTeam}
+    assert_equal 2, GameTeam.find_all("game_id", "2012030224").size
+  end
+end
