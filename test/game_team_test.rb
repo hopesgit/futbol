@@ -83,4 +83,9 @@ class GameTeamTest < Minitest::Test
     }
     assert_equal ratio, GameTeam.shots_to_goals_ratio_per_team_for_season("20122013")
   end
+
+  def test_it_can_get_game_teams_by_coach_for_season
+    assert_instance_of Hash, GameTeam.game_teams_by_coach_for_season("20122013")
+    assert_equal 5, GameTeam.game_teams_by_coach_for_season("20122013").length
+  end
 end

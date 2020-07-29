@@ -90,13 +90,6 @@ module Helpable
     end
   end
 
-  def game_teams_by_coach_for_season(season_id)
-    @game_teams.reduce(Hash.new { |h,k| h[k] = [] }) do |result, game_team|
-      result[game_team.head_coach] << game_team if game_team.season == season_id
-      result
-    end
-  end
-
   def number_of_games_by_coach(season_id)
     game_teams_by_coach_for_season(season_id).transform_values do |game_teams|
       game_teams.length

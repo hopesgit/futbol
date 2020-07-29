@@ -202,11 +202,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal ({"6"=>5,"5"=>0}), @stat_tracker.opponents_and_opponents_num_result_for_team("3", "WIN")
   end
 
-  def test_it_can_get_game_teams_by_coach_for_season
-    assert_instance_of Hash, @stat_tracker.game_teams_by_coach_for_season("20122013")
-    assert_equal 5, @stat_tracker.game_teams_by_coach_for_season("20122013").length
-  end
-
   def test_it_can_get_number_of_games_by_coach
     expected = {"John Tortorella"=>5, "Claude Julien"=>9, "Dan Bylsma"=>4, "Mike Babcock"=>1, "Joel Quenneville"=>1}
     assert_equal expected, @stat_tracker.number_of_games_by_coach("20122013")

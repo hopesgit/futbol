@@ -69,4 +69,11 @@ class GameTeam
   def self.shots_to_goals_ratio_per_team_for_season(season_id)
     total_shots_per_team_for_season(season_id).merge(total_goals_per_team_for_season(season_id)){|team_id, shots, goals| (goals == 0) ? 0 : (shots.to_f / goals).round(3)}
   end
+
+  def self.game_teams_by_coach_for_season(season_id)
+    @@all_game_teams.reduce(Hash.new { |h,k| h[k] = [] }) do |result, game_team|
+      result[game_team.head_coach] << game_team if game_team.season == season_id
+      result
+    end
+  end
 end
