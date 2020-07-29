@@ -113,4 +113,18 @@ class GameTeam
       result
     end
   end
+
+  def self.games_won_per_team_for_season(season_id)
+    @@all_game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[game_team.team_id] += 1 if game_team.season == season_id &&  game_team.result == "WIN"
+      result
+    end
+  end
+
+  def self.total_games_per_team_per_season(season_id)
+    @@all_game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[game_team.team_id] += 1 if game_team.season == season_id
+      result
+    end
+  end
 end

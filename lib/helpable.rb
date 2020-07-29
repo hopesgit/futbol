@@ -65,22 +65,8 @@ module Helpable
     end
   end
 
-  def total_games_per_team_per_season(season_id)
-    @game_teams.reduce(Hash.new(0)) do |result, game_team|
-      result[game_team.team_id] += 1 if game_team.season == season_id
-      result
-    end
-  end
-
   def win_percentage_per_team
     games_won_per_team.merge(total_games_per_team){|team_id, wins, games| (wins.to_f / games).round(2)}
-  end
-
-  def games_won_per_team_for_season(season_id)
-    @game_teams.reduce(Hash.new(0)) do |result, game_team|
-      result[game_team.team_id] += 1 if game_team.season == season_id &&  game_team.result == "WIN"
-      result
-    end
   end
 
   def num_games_per_opponent_for_team(team_id)

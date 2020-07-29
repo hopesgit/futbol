@@ -127,4 +127,12 @@ class GameTeamTest < Minitest::Test
 
     assert_equal expected, GameTeam.goals_per_game_per_team
   end
+
+  def test_it_can_return_games_won_per_team_for_a_season
+    assert_equal ({"6"=>9, "16"=>1}), GameTeam.games_won_per_team_for_season("20122013")
+  end
+
+  def test_it_can_return_total_games_per_team_for_a_season
+    assert_equal ({"3"=>5, "6"=>9, "5"=>4, "17"=>1, "16"=>1}), GameTeam.total_games_per_team_per_season("20122013")
+  end
 end

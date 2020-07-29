@@ -128,14 +128,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal "10", @stat_tracker.find_team("3").franchise_id
   end
 
-  def test_it_can_return_games_won_per_team_for_a_season
-    assert_equal ({"6"=>9, "16"=>1}), @stat_tracker.games_won_per_team_for_season("20122013")
-  end
-
-  def test_it_can_return_total_games_per_team_for_a_season
-    assert_equal ({"3"=>5, "6"=>9, "5"=>4, "17"=>1, "16"=>1}), @stat_tracker.total_games_per_team_per_season("20122013")
-  end
-
   def test_it_can_return_games_won_per_team
     teams_to_wins = {
       "3" => 4,
