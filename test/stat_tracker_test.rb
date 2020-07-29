@@ -1,9 +1,11 @@
 require './test/helper_test'
 require './lib/stat_tracker'
 require './lib/helpable'
+require './lib/helpable'
 
 class StatTrackerTest < Minitest::Test
   include Helpable
+  include Mathable
 
   def setup
     game_fixture_path = './data/games_fixture.csv'
@@ -32,23 +34,6 @@ class StatTrackerTest < Minitest::Test
   end
 
 # ==================        Helper Methods Tests       ==================
-
-  def test_it_can_get_all_seasons
-    assert_equal ["20122013", "20142015", "20172018"], @stat_tracker.all_seasons
-  end
-
-  def test_it_can_get_total_goals_per_game
-    assert_equal 5, @stat_tracker.total_goals_per_game["2012030221"]
-    assert_equal 3, @stat_tracker.total_goals_per_game["2012030231"]
-  end
-
-  def test_it_can_get_total_home_wins
-    assert_equal 16, @stat_tracker.total_home_wins
-  end
-
-  def test_it_can_get_total_tied_games
-    assert_equal 1, @stat_tracker.total_tied_games
-  end
 
   def test_it_can_read_season_for_game_teams
     assert_equal "20122013", @stat_tracker.game_teams[1].season
@@ -145,53 +130,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal "10", @stat_tracker.find_team("3").franchise_id
   end
 
-  def test_it_can_get_goals_per_game_per_team
-
-    expected = {
-                "3"=>[2, 2, 1, 2, 1, 2, 3, 2, 2],
-                "6"=>[3, 3, 2, 3, 3, 3, 4, 2, 1],
-                "5"=>[0, 1, 1, 0, 1, 2, 1, 1],
-                "17"=>[1],
-                "16"=>[2, 2, 3, 2, 2, 2, 2],
-                "14"=>[1, 2, 3, 1, 1, 0],
-                "28"=>[0, 2, 3, 2, 3, 0, 3, 3, 6, 2],
-                "54"=>[5, 3, 2, 0, 3, 3],
-                "24"=>[0, 2, 1, 1]
-              }
-
-    assert_equal expected, @stat_tracker.goals_per_game_per_team
-  end
-
-  def test_it_can_get_shots_per_team
-    shots_fired = {
-      "3" => 38,
-      "6" => 76,
-      "5" => 32,
-      "17" => 5,
-      "16" => 10,
-    }
-    assert_equal shots_fired, @stat_tracker.total_shots_per_team_per_season("20122013")
-  end
-
-  def test_shots_to_goals_ratio_per_team
-    ratio = {
-      "3" => 4.75,
-      "6" => 3.167,
-      "5" => 16.0,
-      "17" => 5.00,
-      "16" => 5.00,
-    }
-    assert_equal ratio, @stat_tracker.shots_to_goals_ratio_per_team_per_season("20122013")
-  end
-
-  def test_it_can_return_games_won_per_team_for_a_season
-    assert_equal ({"6"=>9, "16"=>1}), @stat_tracker.games_won_per_team_for_season("20122013")
-  end
-
-  def test_it_can_return_total_games_per_team_for_a_season
-    assert_equal ({"3"=>5, "6"=>9, "5"=>4, "17"=>1, "16"=>1}), @stat_tracker.total_games_per_team_per_season("20122013")
-  end
-
   def test_it_can_return_games_won_per_team
     teams_to_wins = {
       "3" => 4,
@@ -241,26 +179,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal ({"6"=>5,"5"=>0}), @stat_tracker.opponents_and_opponents_num_result_for_team("3", "WIN")
   end
 
-  def test_it_can_get_game_teams_by_coach_for_season
-    assert_instance_of Hash, @stat_tracker.game_teams_by_coach_for_season("20122013")
-    assert_equal 5, @stat_tracker.game_teams_by_coach_for_season("20122013").length
-  end
-
-  def test_it_can_get_number_of_games_by_coach
-    expected = {"John Tortorella"=>5, "Claude Julien"=>9, "Dan Bylsma"=>4, "Mike Babcock"=>1, "Joel Quenneville"=>1}
-    assert_equal expected, @stat_tracker.number_of_games_by_coach("20122013")
-  end
-
-  def test_it_can_get_all_wins_by_coach
-    expected = {"John Tortorella"=>0, "Claude Julien"=>9, "Dan Bylsma"=>0, "Mike Babcock"=>0, "Joel Quenneville"=>1}
-    assert_equal expected, @stat_tracker.find_all_wins_by_coach("20122013")
-  end
-
-  def test_percent_wins_by_coach
-    assert_equal ({"John Tortorella"=>0.0, "Claude Julien"=>1.0, "Dan Bylsma"=>0.0, "Mike Babcock"=>0.0, "Joel Quenneville"=>1.0}),
-    @stat_tracker.percent_wins_by_coach("20122013")
-  end
-
   def test_it_can_return_num_games_by_opponent
     assert_equal ({"6"=>5, "5"=>4}), @stat_tracker.num_games_per_opponent_for_team("3")
   end
@@ -269,40 +187,30 @@ class StatTrackerTest < Minitest::Test
     assert_equal ({"6"=>1.0, "5"=>0}), @stat_tracker.opponents_and_opponent_win_percent_for_team("3")
   end
 
+  def test_win_percentage_per_team_per_season
+    assert_equal ({"20122013"=>{"6"=>1.0, "16"=>1.0, "3"=>5, "5"=>4, "17"=>1}, "20142015"=>{"16"=>0.83, "14"=>0.17, "3"=>1.0, "5"=>4}, "20172018"=>{"54"=>0.5, "28"=>0.6, "24"=>4}}), @stat_tracker.win_percentage_per_team_per_season
+  end
+
 # ==================       Game Stat Methods Tests     ==================
-
-  def test_it_can_return_total_goals_per_season
-    seasons_and_total_goals = {
-      "20122013" => 37,
-      "20142015" => 35,
-      "20172018" => 44
-    }
-
-    assert_equal seasons_and_total_goals, @stat_tracker.total_goals_per_season
-  end
-
-  def test_it_can_get_away_wins
-    assert_equal 13, @stat_tracker.total_away_wins
-  end
 
   def test_it_can_get_highest_total_score
     assert_equal 7, @stat_tracker.highest_total_score
-  end
-
-  def test_it_can_calculate_percentage_home_wins
-   assert_equal 0.53, @stat_tracker.percentage_home_wins
-  end
-
-  def test_it_can_get_percentage_ties
-    assert_equal 0.03, @stat_tracker.percentage_ties
   end
 
   def test_it_can_get_lowest_total_score
     assert_equal 1, @stat_tracker.lowest_total_score
   end
 
+  def test_it_can_calculate_percentage_home_wins
+   assert_equal 0.53, @stat_tracker.percentage_home_wins
+  end
+
   def test_it_can_get_visitor_win_percentage
     assert_equal 0.43, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_it_can_get_percentage_ties
+    assert_equal 0.03, @stat_tracker.percentage_ties
   end
 
   def test_count_of_games_by_season
@@ -324,28 +232,28 @@ class StatTrackerTest < Minitest::Test
 
   # ==================       League Stat Methods Tests     ==================
 
+  def test_it_can_get_count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
+  end
+
   def test_it_can_find_the_best_offensive_team
     assert_equal "FC Dallas", @stat_tracker.best_offense
+  end
+
+  def test_it_can_find_the_worst_offensive_team
+    assert_equal "Sporting Kansas City", @stat_tracker.worst_offense
   end
 
   def test_it_can_get_highest_scoring_visitor
     assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
   end
 
-  def test_it_can_get_lowest_scoring_visitor
-    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_visitor
-  end
-
   def test_it_can_get_highest_scoring_home_team
     assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
   end
 
-  def test_it_can_get_count_of_teams
-    assert_equal 32, @stat_tracker.count_of_teams
-  end
-
-  def test_it_can_find_the_worst_offensive_team
-    assert_equal "Sporting Kansas City", @stat_tracker.worst_offense
+  def test_it_can_get_lowest_scoring_visitor
+    assert_equal "Sporting Kansas City", @stat_tracker.lowest_scoring_visitor
   end
 
   def test_it_can_get_lowest_scoring_home_team
@@ -354,18 +262,12 @@ class StatTrackerTest < Minitest::Test
 
   # =================       Season Stat Methods Tests     ==================
 
-  def test_it_can_return_team_with_fewest_tackles_in_season
-    assert_equal "New England Revolution", @stat_tracker.fewest_tackles("20122013")
-
-    assert_equal "Sporting Kansas City", @stat_tracker.fewest_tackles("20142015")
-
-    assert_equal "Real Salt Lake", @stat_tracker.fewest_tackles("20172018")
+  def test_it_can_get_winningest_coach
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
   end
 
-  def test_it_can_find_the_least_accurate_team_per_season
-    assert_equal "Sporting Kansas City", @stat_tracker.least_accurate_team("20122013")
-    assert_equal "DC United", @stat_tracker.least_accurate_team("20142015")
-    assert_equal "Real Salt Lake", @stat_tracker.least_accurate_team("20172018")
+  def test_it_can_get_worst_coach_for_a_season
+    assert_equal "John Tortorella", @stat_tracker.worst_coach("20122013")
   end
 
   def test_it_can_find_the_most_accurate_team_per_season
@@ -374,14 +276,24 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Reign FC", @stat_tracker.most_accurate_team("20172018")
   end
 
-  def test_it_can_get_winningest_coach
-    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
+  def test_it_can_find_the_least_accurate_team_per_season
+    assert_equal "Sporting Kansas City", @stat_tracker.least_accurate_team("20122013")
+    assert_equal "DC United", @stat_tracker.least_accurate_team("20142015")
+    assert_equal "Real Salt Lake", @stat_tracker.least_accurate_team("20172018")
   end
 
   def test_it_can_return_team_with_most_tackles_in_season
     assert_equal "FC Dallas", @stat_tracker.most_tackles("20122013")
     assert_equal "DC United", @stat_tracker.most_tackles("20142015")
     assert_equal "Los Angeles FC", @stat_tracker.most_tackles("20172018")
+  end
+
+  def test_it_can_return_team_with_fewest_tackles_in_season
+    assert_equal "New England Revolution", @stat_tracker.fewest_tackles("20122013")
+
+    assert_equal "Sporting Kansas City", @stat_tracker.fewest_tackles("20142015")
+
+    assert_equal "Real Salt Lake", @stat_tracker.fewest_tackles("20172018")
   end
 
   # ==================       Team Stat Methods Tests     ==================
@@ -398,6 +310,18 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.team_info("3")
   end
 
+  def test_it_can_find_the_best_season_for_a_team
+    assert_equal "20122013", @stat_tracker.best_season("3")
+  end
+
+  def test_it_can_return_worst_season_for_team
+    assert_equal "20172018", @stat_tracker.worst_season("3")
+  end
+
+  def test_it_can_get_win_percentage_for_a_team
+    assert_equal 0.44, @stat_tracker.average_win_percentage("3")
+  end
+
   def test_it_can_get_most_goals_scored
     assert_equal 3, @stat_tracker.most_goals_scored("14")
     assert_equal 6, @stat_tracker.most_goals_scored("28")
@@ -408,32 +332,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal 2, @stat_tracker.fewest_goals_scored("16")
   end
 
-  def test_it_can_get_rival_for_a_team
-    assert_equal "FC Dallas", @stat_tracker.rival("3")
-  end
-
-  def test_it_can_get_win_percentage_for_a_team
-    assert_equal 0.44, @stat_tracker.average_win_percentage("3")
-  end
-
-  def test_win_percentage_per_team_per_season
-    assert_equal ({"20122013"=>{"6"=>1.0, "16"=>1.0, "3"=>5, "5"=>4, "17"=>1}, "20142015"=>{"16"=>0.83, "14"=>0.17, "3"=>1.0, "5"=>4}, "20172018"=>{"54"=>0.5, "28"=>0.6, "24"=>4}}), @stat_tracker.win_percentage_per_team_per_season
-  end
-
-  def test_it_can_return_worst_season_for_team
-    assert_equal "20172018", @stat_tracker.worst_season("3")
-  end
-
   def test_it_can_get_favorite_opponent_for_a_team
     assert_equal "Sporting Kansas City", @stat_tracker.favorite_opponent("3")
   end
 
-  def test_it_can_get_worst_coach_for_a_season
-    assert_equal "John Tortorella", @stat_tracker.worst_coach("20122013")
+  def test_it_can_get_rival_for_a_team
+    assert_equal "FC Dallas", @stat_tracker.rival("3")
   end
-
-  def test_it_can_find_the_best_season_for_a_team
-    assert_equal "20122013", @stat_tracker.best_season("3")
-  end
-
 end

@@ -1,6 +1,10 @@
+require 'csv'
+require_relative './helpable'
 require_relative './data_set'
 
 class GameTeam < DataSet
+  extend Helpable
+
   attr_reader :game_id,
               :team_id,
               :hoa,
@@ -38,6 +42,74 @@ class GameTeam < DataSet
       game_team = GameTeam.new(row.to_h)
       @@all_game_teams << game_team
       game_team.season = game_team.generate_season(game_team.game_id)
+    end
+  end
+
+  def self.total_home_wins
+    @@all_game_teams.find_all do |game_team|
+      game_team.hoa == "home" && game_team.result == "WIN"
+    end.size
+  end
+
+  def self.total_goals_per_team_for_season(season_id)
+    @@all_game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[game_team.team_id] += game_team.goals if game_team.season == season_id
+      result
+    end
+  end
+
+  def self.total_shots_per_team_for_season(season_id)
+    @@all_game_teams.reduce(Hash.new(0)) do |result, game_team|
+      result[game_team.team_id] += game_team.shots if game_team.season == season_id
+      result
+    end
+  end
+
+  def self.shots_to_goals_ratio_per_team_for_season(season_id)
+    total_shots_per_team_for_season(season_id).merge(total_goals_per_team_for_season(season_id)){|team_id, shots, goals| (goals == 0) ? 0 : (shots.to_f / goals).round(3)}
+  end
+
+  def self.game_teams_by_coach_for_season(season_id)
+    @@all_game_teams.reduce(Hash.new { |h,k| h[k] = [] }) do |result, game_team|
+      result[game_team.head_coach] << game_team if game_team.season == season_id
+      result
+    end
+  end
+
+  def self.number_of_games_by_coach_for_season(season_id)
+    game_teams_by_coach_for_season(season_id).transform_values do |game_teams|
+      game_teams.length
+    end
+  end
+
+  def self.find_all_wins_by_coach_for_season(season_id)
+    game_teams_by_coach_for_season(season_id).transform_values do |game_teams|
+      (game_teams.find_all {|game| game.result == "WIN"}).length
+    end
+  end
+
+  def self.percent_wins_by_coach_for_season(season_id)
+     find_all_wins_by_coach_for_season(season_id).merge(number_of_games_by_coach_for_season(season_id)) do |head_coach, wins, games|
+      (wins.to_f / games).round(2)
+    end
+  end
+
+  def self.winningest_coach(season_id)
+    percent_wins_by_coach_for_season(season_id).max_by do |coach, percent_wins|
+      percent_wins
+    end[0]
+  end
+
+  def self.worst_coach(season_id)
+    percent_wins_by_coach_for_season(season_id).min_by do |coach, percent_wins|
+      percent_wins
+    end[0]
+  end
+
+  def self.goals_per_game_per_team
+    @@all_game_teams.reduce(Hash.new { |h,k| h[k] = [] }) do |result, game_team|
+      result[game_team.team_id] << game_team.goals
+      result
     end
   end
 end
