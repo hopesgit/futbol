@@ -28,4 +28,14 @@ class Team < DataSet
       @@all_teams << Team.new(row.to_h)
     end
   end
+
+  def self.team_info(team_id)
+    team = find_team(team_id)
+    { "team_id" => team.id,
+      "franchise_id" => team.franchise_id,
+      "team_name" => team.name,
+      "abbreviation" => team.abbreviation,
+      "link" => team.link
+    }
+  end
 end

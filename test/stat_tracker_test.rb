@@ -198,7 +198,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_lowest_total_score
     assert_equal 1, @stat_tracker.lowest_total_score
   end
-  
+
   def test_it_can_calculate_percentage_home_wins
    assert_equal 0.53, @stat_tracker.percentage_home_wins
   end
@@ -229,7 +229,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   # ==================       League Stat Methods Tests     ==================
-  
+
   def test_it_can_get_count_of_teams
     assert_equal 32, @stat_tracker.count_of_teams
   end
@@ -237,7 +237,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_find_the_best_offensive_team
     assert_equal "FC Dallas", @stat_tracker.best_offense
   end
-  
+
   def test_it_can_find_the_worst_offensive_team
     assert_equal "Sporting Kansas City", @stat_tracker.worst_offense
   end

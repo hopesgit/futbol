@@ -5,10 +5,7 @@ require_relative './helpable'
 
 class StatTracker
   include Helpable
-
-  attr_reader :games,
-              :teams,
-              :game_teams
+  attr_reader :games, :teams, :game_teams
 
   def self.from_csv(locations)
     game_path = locations[:games]
@@ -129,13 +126,7 @@ class StatTracker
 # ==================       Team Stats Methods      ==================
 
   def team_info(team_id)
-    team = find_team(team_id)
-    { "team_id" => team.id,
-      "franchise_id" => team.franchise_id,
-      "team_name" => team.name,
-      "abbreviation" => team.abbreviation,
-      "link" => team.link
-    }
+    Team.team_info(team_id)
   end
 
   def best_season(team_id)

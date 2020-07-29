@@ -33,4 +33,16 @@ class TeamTest < MiniTest::Test
     Team.create('./data/teams.csv')
     assert_equal "10", Team.find("id", "3").franchise_id
   end
+
+  def test_it_gets_team_info
+    expected = {
+                "team_id" => "3",
+                "franchise_id" => "10",
+                "team_name" => "Houston Dynamo",
+                "abbreviation" => "HOU",
+                "link" => "/api/v1/teams/3"
+                }
+
+    assert_equal expected, Team.team_info("3")
+  end
 end
