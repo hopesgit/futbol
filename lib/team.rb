@@ -23,14 +23,8 @@ class Team < DataSet
     @link = team_collection_data[:link]
   end
 
-  def self.team_info(team_id)
-    team = find_team(team_id)
-    { "team_id" => team.id,
-      "franchise_id" => team.franchise_id,
-      "team_name" => team.name,
-      "abbreviation" => team.abbreviation,
-      "link" => team.link
-    }
+  def self.average_win_percentage(team_id)
+    win_percentage_per_team[team_id]
   end
 
   def self.best_season(team_id)

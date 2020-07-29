@@ -122,7 +122,13 @@ class StatTracker
 # ==================       Team Stats Methods      ==================
 
   def team_info(team_id)
-    Team.team_info(team_id)
+    team = find_team(team_id)
+    { "team_id" => team.id,
+      "franchise_id" => team.franchise_id,
+      "team_name" => team.name,
+      "abbreviation" => team.abbreviation,
+      "link" => team.link
+    }
   end
 
   def best_season(team_id)
@@ -134,7 +140,7 @@ class StatTracker
   end
 
   def average_win_percentage(team_id)
-    win_percentage_per_team[team_id]
+    Team.average_win_percentage(team_id)
   end
 
   def most_goals_scored(team_id)

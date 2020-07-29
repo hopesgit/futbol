@@ -34,16 +34,8 @@ class TeamTest < MiniTest::Test
     assert_equal "10", Team.find("id", "3").franchise_id
   end
 
-  def test_it_gets_team_info
-    expected = {
-                "team_id" => "3",
-                "franchise_id" => "10",
-                "team_name" => "Houston Dynamo",
-                "abbreviation" => "HOU",
-                "link" => "/api/v1/teams/3"
-                }
-
-    assert_equal expected, Team.team_info("3")
+  def test_it_can_get_win_percentage_for_a_team
+    assert_equal 0.44, Team.average_win_percentage("3")
   end
 
   def test_it_can_find_the_best_season_for_a_team
