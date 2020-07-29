@@ -1,8 +1,6 @@
 require './test/helper_test'
 require './lib/stat_tracker'
 require './lib/helpable'
-require './lib/game_team'
-
 
 class StatTrackerTest < Minitest::Test
   include Helpable
