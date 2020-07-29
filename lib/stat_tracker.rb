@@ -130,11 +130,11 @@ class StatTracker
   end
 
   def best_season(team_id)
-    win_percentage_per_team_per_season.max_by { |season, team_win_percent_hash| team_win_percent_hash[team_id]}[0]
+    Team.best_season(team_id)
   end
 
   def worst_season(team_id)
-    win_percentage_per_team_per_season.min_by { |season, team_win_percent_hash| team_win_percent_hash[team_id]}[0]
+    Team.worst_season(team_id)
   end
 
   def average_win_percentage(team_id)
@@ -142,7 +142,7 @@ class StatTracker
   end
 
   def most_goals_scored(team_id)
-     GameTeam.goals_per_game_per_team[team_id].max
+    GameTeam.goals_per_game_per_team[team_id].max
   end
 
   def fewest_goals_scored(team_id)
@@ -150,10 +150,10 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-    find_team(opponents_and_opponent_win_percent_for_team(team_id).min_by {|opponent, win_percentage| win_percentage}[0]).name
+    Team.favorite_opponent(team_id)
   end
 
   def rival(team_id)
-    find_team(opponents_and_opponent_win_percent_for_team(team_id).max_by {|opponent, win_percentage| win_percentage}[0]).name
+    Team.rival(team_id)
   end
 end

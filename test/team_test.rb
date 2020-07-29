@@ -45,4 +45,20 @@ class TeamTest < MiniTest::Test
 
     assert_equal expected, Team.team_info("3")
   end
+
+  def test_it_can_find_the_best_season_for_a_team
+    assert_equal "20122013", Team.best_season("3")
+  end
+
+  def test_it_can_return_worst_season_for_team
+    assert_equal "20172018", Team.worst_season("3")
+  end
+
+  def test_it_can_get_favorite_opponent_for_a_team
+    assert_equal "Sporting Kansas City", Team.favorite_opponent("3")
+  end
+
+  def test_it_can_get_rival_for_a_team
+    assert_equal "FC Dallas", Team.rival("3")
+  end
 end
