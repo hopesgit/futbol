@@ -5,7 +5,7 @@ class DataSet
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
       object = new(row.to_h)
       all << object
-      if object.class == GameTeam
+      if object.class.to_s == "GameTeam"
         object.season = object.generate_season(object.game_id)
       end
     end
