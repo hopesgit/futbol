@@ -1,6 +1,8 @@
 require './test/helper_test'
 require './lib/stat_tracker'
 require './lib/helpable'
+require './lib/game_team'
+
 
 class StatTrackerTest < Minitest::Test
   include Helpable
@@ -185,6 +187,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal ({"6"=>1.0, "5"=>0}), @stat_tracker.opponents_and_opponent_win_percent_for_team("3")
   end
 
+  def test_win_percentage_per_team_per_season
+    assert_equal ({"20122013"=>{"6"=>1.0, "16"=>1.0, "3"=>5, "5"=>4, "17"=>1}, "20142015"=>{"16"=>0.83, "14"=>0.17, "3"=>1.0, "5"=>4}, "20172018"=>{"54"=>0.5, "28"=>0.6, "24"=>4}}), @stat_tracker.win_percentage_per_team_per_season
+  end
+
 # ==================       Game Stat Methods Tests     ==================
 
   def test_it_can_get_highest_total_score
@@ -304,6 +310,18 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.team_info("3")
   end
 
+  def test_it_can_find_the_best_season_for_a_team
+    assert_equal "20122013", @stat_tracker.best_season("3")
+  end
+
+  def test_it_can_return_worst_season_for_team
+    assert_equal "20172018", @stat_tracker.worst_season("3")
+  end
+
+  def test_it_can_get_win_percentage_for_a_team
+    assert_equal 0.44, @stat_tracker.average_win_percentage("3")
+  end
+
   def test_it_can_get_most_goals_scored
     assert_equal 3, @stat_tracker.most_goals_scored("14")
     assert_equal 6, @stat_tracker.most_goals_scored("28")
@@ -314,28 +332,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal 2, @stat_tracker.fewest_goals_scored("16")
   end
 
-  def test_it_can_get_rival_for_a_team
-    assert_equal "FC Dallas", @stat_tracker.rival("3")
-  end
-
-  def test_it_can_get_win_percentage_for_a_team
-    assert_equal 0.44, @stat_tracker.average_win_percentage("3")
-  end
-
-  def test_win_percentage_per_team_per_season
-    assert_equal ({"20122013"=>{"6"=>1.0, "16"=>1.0, "3"=>5, "5"=>4, "17"=>1}, "20142015"=>{"16"=>0.83, "14"=>0.17, "3"=>1.0, "5"=>4}, "20172018"=>{"54"=>0.5, "28"=>0.6, "24"=>4}}), @stat_tracker.win_percentage_per_team_per_season
-  end
-
-  def test_it_can_return_worst_season_for_team
-    assert_equal "20172018", @stat_tracker.worst_season("3")
-  end
-
   def test_it_can_get_favorite_opponent_for_a_team
     assert_equal "Sporting Kansas City", @stat_tracker.favorite_opponent("3")
   end
 
-  def test_it_can_find_the_best_season_for_a_team
-    assert_equal "20122013", @stat_tracker.best_season("3")
+  def test_it_can_get_rival_for_a_team
+    assert_equal "FC Dallas", @stat_tracker.rival("3")
   end
-
 end

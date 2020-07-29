@@ -14,7 +14,6 @@ class StatTracker
     game_path = locations[:games]
     team_path = locations[:teams]
     game_teams_path = locations[:game_teams]
-
     self.new(game_path, team_path, game_teams_path)
   end
 
@@ -131,8 +130,7 @@ class StatTracker
 
   def team_info(team_id)
     team = find_team(team_id)
-    {
-      "team_id" => team.id,
+    { "team_id" => team.id,
       "franchise_id" => team.franchise_id,
       "team_name" => team.name,
       "abbreviation" => team.abbreviation,
@@ -140,31 +138,31 @@ class StatTracker
     }
   end
 
-  def most_goals_scored(team_id)
-     GameTeam.goals_per_game_per_team[team_id].max
+  def best_season(team_id)
+    win_percentage_per_team_per_season.max_by { |season, team_win_percent_hash| team_win_percent_hash[team_id]}[0]
   end
 
-  def rival(team_id)
-    find_team(opponents_and_opponent_win_percent_for_team(team_id).max_by {|opponent, win_percentage| win_percentage}[0]).name
+  def worst_season(team_id)
+    win_percentage_per_team_per_season.min_by { |season, team_win_percent_hash| team_win_percent_hash[team_id]}[0]
+  end
+
+  def average_win_percentage(team_id)
+    win_percentage_per_team[team_id]
+  end
+
+  def most_goals_scored(team_id)
+     GameTeam.goals_per_game_per_team[team_id].max
   end
 
   def fewest_goals_scored(team_id)
     GameTeam.goals_per_game_per_team[team_id].min
   end
 
-  def average_win_percentage(team_id)
-    win_percentage_per_team[team_id]
-  end
-  
-  def worst_season(team_id)
-    win_percentage_per_team_per_season.min_by { |season, team_win_percent_hash| team_win_percent_hash[team_id]}[0]
-  end
-
   def favorite_opponent(team_id)
     find_team(opponents_and_opponent_win_percent_for_team(team_id).min_by {|opponent, win_percentage| win_percentage}[0]).name
   end
 
-  def best_season(team_id)
-    win_percentage_per_team_per_season.max_by { |season, team_win_percent_hash| team_win_percent_hash[team_id]}[0]
+  def rival(team_id)
+    find_team(opponents_and_opponent_win_percent_for_team(team_id).max_by {|opponent, win_percentage| win_percentage}[0]).name
   end
 end

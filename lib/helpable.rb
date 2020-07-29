@@ -1,21 +1,21 @@
 module Helpable
 
   def total_games_per_team(exclude_hoa = nil)
-    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+    GameTeam.all.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += 1 unless game_team.hoa == exclude_hoa
       result
     end
   end
 
   def total_goals_per_team(exclude_hoa = nil)
-    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+    GameTeam.all.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += game_team.goals unless game_team.hoa == exclude_hoa
       result
     end
   end
 
   def average_goals_per_game_per_team(exclude_hoa = nil)
-    @teams.reduce({}) do |result, team|
+    Team.all.reduce({}) do |result, team|
       average = (total_goals_per_team(exclude_hoa)[team.id] / total_games_per_team(exclude_hoa)[team.id].to_f).round(2)
       result[team] = average unless average.nan?
       result
@@ -23,11 +23,11 @@ module Helpable
   end
 
   def find_team(team_id)
-    teams.find { |team| team.id == team_id }
+    Team.all.find { |team| team.id == team_id }
   end
 
   def tackles_per_team_for(season_id)
-    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+    GameTeam.all.reduce(Hash.new(0)) do |result, game_team|
       result[find_team(game_team.team_id).name] += game_team.tackles if game_team.season == season_id
       result
     end
@@ -45,7 +45,7 @@ module Helpable
   end
 
   def games_won_per_team
-    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+    GameTeam.all.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += 0
       result[game_team.team_id] += 1 if game_team.result == "WIN"
       result
@@ -53,7 +53,7 @@ module Helpable
   end
 
   def game_result?(result, team_id, game_id)
-    game = @game_teams.find { |game_team| game_team.game_id == game_id && game_team.team_id == team_id }
+    game = GameTeam.all.find { |game_team| game_team.game_id == game_id && game_team.team_id == team_id }
     game.result == result
   end
 
@@ -66,7 +66,7 @@ module Helpable
   end
 
   def total_games_per_team_per_season(season_id)
-    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+    GameTeam.all.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += 1 if game_team.season == season_id
       result
     end
@@ -77,7 +77,7 @@ module Helpable
   end
 
   def games_won_per_team_for_season(season_id)
-    @game_teams.reduce(Hash.new(0)) do |result, game_team|
+    GameTeam.all.reduce(Hash.new(0)) do |result, game_team|
       result[game_team.team_id] += 1 if game_team.season == season_id &&  game_team.result == "WIN"
       result
     end
