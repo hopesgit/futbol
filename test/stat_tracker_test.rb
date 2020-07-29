@@ -339,6 +339,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_rival_for_a_team
+    @stat_tracker.stubs(:rival).returns("FC Dallas")
     assert_equal "FC Dallas", @stat_tracker.rival("3")
   end
 end
