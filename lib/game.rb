@@ -32,10 +32,6 @@ class Game < DataSet
     end
   end
 
-  def self.count
-    @@all_games.count
-  end
-
   def self.total_away_wins
     @@all_games.reduce(0) do |away_wins, game|
       away_wins += 1 if game.away_goals > game.home_goals

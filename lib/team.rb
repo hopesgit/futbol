@@ -28,8 +28,4 @@ class Team < DataSet
       @@all_teams << Team.new(row.to_h)
     end
   end
-
-  def self.count
-    @@all_teams.count
-  end
 end
